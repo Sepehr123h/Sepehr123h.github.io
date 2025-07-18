@@ -1,85 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Berlin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Roboto', sans-serif;
+      color: #fff;
       background: url('https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: #fff;
+      backdrop-filter: blur(2px);
+    }
+
+    header {
       text-align: center;
-    }
-
-    .overlay {
-      background-color: rgba(0, 0, 0, 0.75);
-      min-height: 100vh;
-      padding: 60px 20px 40px;
-    }
-
-    h1 {
-      font-size: 48px;
-      margin-bottom: 40px;
+      padding: 50px 20px 20px;
+      font-size: 3rem;
+      font-weight: bold;
       letter-spacing: 3px;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .container {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+      background-color: rgba(0, 0, 0, 0.55);
+      border-radius: 15px;
     }
 
     .box {
-      background-color: rgba(255, 255, 255, 0.08);
-      border: 2px solid #00bcd4;
-      border-radius: 12px;
+      background-color: rgba(40, 40, 40, 0.85);
+      margin: 20px 0;
       padding: 20px;
-      margin: 20px auto;
-      max-width: 400px;
-      transition: 0.3s;
+      border-left: 5px solid #00acee;
+      border-radius: 8px;
     }
 
-    .box:hover {
-      background-color: rgba(255, 255, 255, 0.18);
+    .box h2 {
+      margin: 0 0 10px;
+      font-size: 1.5rem;
+      text-transform: uppercase;
     }
 
-    .box-title {
-      font-size: 20px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
+    .bio {
+      background-color: rgba(30, 30, 30, 0.8);
+      margin-top: 30px;
+      padding: 25px;
+      border-radius: 10px;
     }
 
-    a {
-      color: #00e5ff;
-      text-decoration: none;
-      font-size: 20px;
+    .bio p {
+      line-height: 1.8;
+    }
+
+    .bio.fa {
+      direction: rtl;
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: rgba(20, 20, 20, 0.8);
+      margin-top: 15px;
     }
 
     .quote {
-      margin-top: 60px;
+      margin-top: 30px;
       font-style: italic;
-      font-size: 18px;
-      color: #ccc;
+      text-align: center;
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    a {
+      color: #00acee;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="overlay">
-    <h1>Berlin</h1>
+  <header>Berlin</header>
+  <div class="container">
+    <div class="box">
+      <h2>TELEGRAM</h2>
+      <a href="http://t.me/ejmok" target="_blank">http://t.me/ejmok</a>
+    </div>
 
     <div class="box">
-      <div class="box-title">TELEGRAM</div>
-      <a href="http://t.me/ejmok" target="_blank">@ejmok</a>
+      <h2>BOT</h2>
+      <a href="http://t.me/Berlin_opBot" target="_blank">http://t.me/Berlin_opBot</a>
     </div>
 
-    <div class="box">
-      <div class="box-title">BOT</div>
-      <a href="http://t.me/Berlin_opBot" target="_blank">@Berlin_opBot</a>
+    <div class="bio">
+      <p>
+        Arthur Morgan… a man hardened by a life of crime, yet cracked by moments of deep, haunting humanity.  
+        Raised by outlaws, molded by Dutch, and tested by the betrayal of the world he trusted.  
+        <br><br>
+        He wasn’t born a hero. He wasn’t born at all into kindness. His mother died young. His father was a petty criminal.  
+        And so Dutch gave him a new name, a new way, and a new reason to survive. But survival came at a cost — his soul.
+        <br><br>
+        Arthur lived fast, shot faster, and buried more than just bodies — he buried his own guilt, his broken heart, his dreams.  
+        Mary left, John disappointed, Dutch lost his mind... and Arthur, bit by bit, lost himself.
+        <br><br>
+        And when tuberculosis came, it didn’t just end him — it awakened him. Every cough was a reminder that time was bleeding away.  
+        But in that darkness, he found light. He helped. He gave. He changed.
+        <br><br>
+        He died not as an outlaw, but as a man trying to make peace with the past.
+        His body may have fallen to the dirt, but Arthur rides still — in wind, in memory, in hearts.
+      </p>
     </div>
 
-    <div class="quote">
-      “We're thieves in a world that don't want us no more.”  
-      <br>– Arthur Morgan
+    <div class="bio fa">
+      <p>
+        آرتور مورگان... مردی که در هیاهوی گلوله‌ها، خیانت‌ها و خون‌ریزی‌ها، به دنبال تکه‌ای از آرامش می‌گشت؛ آرامشی که هرگز نیافت.
+        <br><br>
+        او در دنیایی به دنیا آمد که بی‌رحم‌تر از آن بود که کودک یتیمی را در آغوش بگیرد. پدرش یک دزد بود، مادرش را زود از دست داد، و خیلی زود یاد گرفت که دنیا برای کسانی که مهربانند، رحم نمی‌کند. داچ او را به سرپرستی گرفت، به او یاد داد چطور زنده بماند... اما به بهای اینکه قلبش را آرام آرام سنگ کند.
+        <br><br>
+        آرتور خودش را یک مرد بد می‌دانست. کسی که کارهای کثیف باند را بی‌هیچ تردیدی انجام می‌داد. اما پشت آن نگاه سرد و بی‌احساس، قلبی دفن‌شده بود؛ قلبی که هنوز برای عشق، برای دوست‌داشتن، برای بخشیدن می‌تپید.
+        <br><br>
+        بیماری سل نه‌تنها بدنش را خورد، بلکه ذهنش را نیز باز کرد. هر سرفه، هر شب بیداری، تلنگری شد که او را از دنیای تاریک خود بیرون بکشد. شاید هنوز هم فرصتی برای رستگاری بود.
+        <br><br>
+        و او تلاش کرد... با درد، با خون، با نفس‌های آخرش. در نهایت، آرتور مُرد... اما نه مثل یک دزد. مثل یک مرد. مردی که در سکوت جان داد، اما صدایش در قلب میلیون‌ها نفر زنده ماند.
+      </p>
     </div>
+
+    <div class="quote">"I gave you all I had..." – Arthur Morgan</div>
   </div>
 </body>
 </html>
