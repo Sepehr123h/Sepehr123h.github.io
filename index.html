@@ -7,126 +7,126 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      color: #fff;
-      background-image: url('https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg');
+      color: white;
+      background: url('https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg') no-repeat center center fixed;
       background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
     }
-
     header {
-      background-color: rgba(0, 0, 0, 0.6);
       text-align: center;
-      padding: 40px 20px;
-      font-size: 36px;
+      padding: 40px 10px 10px;
+      font-size: 40px;
       font-weight: bold;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      background-color: rgba(0, 0, 0, 0.6);
     }
-
-    .quote {
-      text-align: center;
-      font-style: italic;
-      margin: 20px;
-      font-size: 20px;
-      background: rgba(0,0,0,0.5);
-      padding: 10px;
-      border-radius: 10px;
-    }
-
-    .bio-box {
-      width: 90%;
-      max-width: 800px;
-      margin: 40px auto;
-      background: rgba(0, 0, 0, 0.6);
-      border-radius: 12px;
-      padding: 25px;
-      line-height: 1.8;
-    }
-
-    .bio-box p {
-      margin-bottom: 20px;
-    }
-
-    .bio-box.en {
-      color: #d1ecff;
-    }
-
-    .bio-box.fa {
-      color: #ffe9e9;
-      direction: rtl;
-      text-align: right;
-    }
-
-    .container {
+    .button-container {
       display: flex;
       justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-      margin: 40px auto;
+      gap: 40px;
+      margin-top: 20px;
     }
-
-    .box {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 20px;
-      width: 200px;
+    .button-box {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px 30px;
+      border-radius: 15px;
       text-align: center;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      width: 200px;
     }
-
-    .box h2 {
+    .button-box h2 {
+      margin-bottom: 10px;
       font-size: 20px;
-      color: #fff;
-      margin-bottom: 15px;
-      text-transform: uppercase;
       letter-spacing: 1px;
     }
-
-    .btn {
+    .button-box a {
       display: inline-block;
-      padding: 10px 20px;
-      background-color: #00acee;
-      color: #fff;
+      margin-top: 10px;
+      padding: 10px 15px;
+      background-color: #ffffffaa;
+      color: black;
       text-decoration: none;
       font-weight: bold;
-      border-radius: 6px;
-      transition: background-color 0.3s ease;
+      border-radius: 8px;
     }
-
-    .btn:hover {
-      background-color: #0088bb;
+    .section {
+      margin: 50px auto;
+      padding: 30px;
+      max-width: 800px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 20px;
+    }
+    .section.en {
+      color: #f1f1f1;
+    }
+    .section.fa {
+      direction: rtl;
+      font-family: "Tahoma", sans-serif;
+      margin-top: 30px;
+      color: #ffe4b5;
+    }
+    .audio-player {
+      text-align: center;
+      margin: 30px auto 10px;
+    }
+    .audio-player button {
+      margin: 0 10px;
+      padding: 10px 15px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <header>Berlin</header>
 
-  <div class="quote">
-    “We're thieves in a world that don't want us no more.”
-  </div>
+<header>Berlin</header>
 
-  <div class="bio-box en">
-    <p>Arthur Morgan was not just a gunslinger; he was a broken man carrying a weight the world never saw. A man whose soul had been chipped away by every betrayal, every kill, every cold night under the stars. He rode not for glory, not for gold—but for a place he could never reach: peace.</p>
-    <p>He watched friends die, love fade, and time slip like sand between bloody hands. He was fierce, yet kind. Cruel, yet loyal. He was a contradiction in motion. A ghost chasing redemption he was told he didn’t deserve. But he tried... and in that trying, he became something greater than a cowboy. He became a tragedy the wind still whispers.</p>
+<div class="button-container">
+  <div class="button-box">
+    <h2>TELEGRAM</h2>
+    <a href="http://t.me/ejmok" target="_blank">Click Here</a>
   </div>
+  <div class="button-box">
+    <h2>BOT</h2>
+    <a href="http://t.me/Berlin_opBot" target="_blank">Click Here</a>
+  </div>
+</div>
 
-  <div class="bio-box fa">
-    <p>آرتور مورگان فقط یک هفت‌تیرکش نبود؛ او مردی شکسته بود که باری را به دوش می‌کشید که هیچ‌کس نمی‌دید. مردی که روحش با هر خیانت، هر قتل، و هر شب سرد زیر آسمان، تکه‌تکه شده بود. او برای افتخار نمی‌تاخت، نه برای طلا — بلکه برای آرامشی که هرگز به آن نمی‌رسید.</p>
-    <p>دوستانش را مرده دید، عشق را کم‌رنگ، و زمان را چون شنِ میان دست‌های خون‌آلودش. خشن بود، ولی مهربان. بی‌رحم، ولی وفادار. تضادی بود در حرکت. روحی سرگردان، در جستجوی رستگاری که به او گفته بودند لیاقتش را ندارد. اما تلاش کرد... و در همین تلاش بود که فراتر از یک کابوی شد. او به تراژدی‌ای تبدیل شد که هنوز باد، آن را زمزمه می‌کند.</p>
-  </div>
+<div class="audio-player">
+  <button onclick="document.getElementById('bgMusic').play()">▶ Play Music</button>
+  <button onclick="document.getElementById('bgMusic').pause()">⏸ Pause</button>
+  <audio id="bgMusic" loop>
+    <source src="https://uploadkon.ir/uploads/eaf818_25may-i-stand-unshaken-banda-sonora-subtitulada-red-dead-redemption.mp3" type="audio/mpeg">
+  </audio>
+</div>
 
-  <div class="container">
-    <div class="box">
-      <h2>TELEGRAM</h2>
-      <a href="http://t.me/ejmok" target="_blank" class="btn">Click Here</a>
-    </div>
-    <div class="box">
-      <h2>BOT</h2>
-      <a href="http://t.me/Berlin_opBot" target="_blank" class="btn">Click Here</a>
-    </div>
-  </div>
+<div class="section en">
+  <p>
+    Arthur Morgan... a man searching for peace in a world of bullets, betrayal, and blood — a peace he would never find.
+    <br><br>
+    Born into a ruthless world that refused to cradle a motherless child. A thief for a father, and a heart hardened by Dutch, who raised him to survive, not to feel.
+    <br><br>
+    Arthur believed himself to be a bad man — the one who did the gang’s dirty work without flinching. But behind those cold eyes lay a buried heart, one that still beat for love, forgiveness, and redemption.
+    <br><br>
+    Tuberculosis didn’t just destroy his body — it awakened his soul. Every cough, every sleepless night, was a whisper pulling him away from the darkness. Perhaps redemption was still within reach.
+    <br><br>
+    And he tried... through pain, through blood, with every last breath. In the end, Arthur died — not as a thief, but as a man. A man whose silence echoed forever in the hearts of millions.
+  </p>
+</div>
+
+<div class="section fa">
+  <p>
+    آرتور مورگان... مردی که در هیاهوی گلوله‌ها، خیانت‌ها و خون‌ریزی‌ها، به دنبال تکه‌ای از آرامش می‌گشت؛ آرامشی که هرگز نیافت.
+    <br><br>
+    او در دنیایی به دنیا آمد که بی‌رحم‌تر از آن بود که کودک یتیمی را در آغوش بگیرد. پدرش یک دزد بود، مادرش را زود از دست داد، و خیلی زود یاد گرفت که دنیا برای کسانی که مهربانند، رحم نمی‌کند. داچ او را به سرپرستی گرفت، به او یاد داد چطور زنده بماند... اما به بهای اینکه قلبش را آرام آرام سنگ کند.
+    <br><br>
+    آرتور خودش را یک مرد بد می‌دانست. کسی که کارهای کثیف باند را بی‌هیچ تردیدی انجام می‌داد. اما پشت آن نگاه سرد و بی‌احساس، قلبی دفن‌شده بود؛ قلبی که هنوز برای عشق، برای دوست‌داشتن، برای بخشیدن می‌تپید.
+    <br><br>
+    بیماری سل نه‌تنها بدنش را خورد، بلکه ذهنش را نیز باز کرد. هر سرفه، هر شب بیداری، تلنگری شد که او را از دنیای تاریک خود بیرون بکشد. شاید هنوز هم فرصتی برای رستگاری بود.
+    <br><br>
+    و او تلاش کرد... با درد، با خون، با نفس‌های آخرش. در نهایت، آرتور مُرد... اما نه مثل یک دزد. مثل یک مرد. مردی که در سکوت جان داد، اما صدایش در قلب میلیون‌ها نفر زنده ماند.
+  </p>
+</div>
+
 </body>
 </html>
