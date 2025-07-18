@@ -1,36 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Berlin</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Segoe UI', sans-serif;
+      color: #fff;
       background-image: url('https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
-      color: white;
-      text-align: center;
     }
 
     header {
       background-color: rgba(0, 0, 0, 0.6);
-      padding: 30px 10px;
+      text-align: center;
+      padding: 40px 20px;
       font-size: 36px;
       font-weight: bold;
-      letter-spacing: 4px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
 
-    .box-container {
+    .quote {
+      text-align: center;
+      font-style: italic;
+      margin: 20px;
+      font-size: 20px;
+      background: rgba(0,0,0,0.5);
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .bio-box {
+      width: 90%;
+      max-width: 800px;
+      margin: 40px auto;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
+      padding: 25px;
+      line-height: 1.8;
+    }
+
+    .bio-box p {
+      margin-bottom: 20px;
+    }
+
+    .bio-box.en {
+      color: #d1ecff;
+    }
+
+    .bio-box.fa {
+      color: #ffe9e9;
+      direction: rtl;
+      text-align: right;
+    }
+
+    .container {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 30px;
       flex-wrap: wrap;
-      margin: 30px auto;
+      margin: 40px auto;
     }
 
     .box {
@@ -39,6 +72,7 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 20px;
       width: 200px;
+      text-align: center;
       border-radius: 10px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
@@ -65,42 +99,26 @@
     .btn:hover {
       background-color: #0088bb;
     }
-
-    .quote {
-      margin: 40px auto 10px;
-      font-size: 20px;
-      font-style: italic;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: inline-block;
-      padding: 15px 25px;
-      border-radius: 10px;
-    }
-
-    .bio-container {
-      max-width: 800px;
-      margin: 30px auto;
-      text-align: justify;
-    }
-
-    .bio-box {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 25px;
-      line-height: 1.8;
-    }
-
-    .bio-box h3 {
-      margin-top: 0;
-      color: #00ffff;
-    }
   </style>
 </head>
 <body>
+  <header>Berlin</header>
 
-  <header>BERLIN</header>
+  <div class="quote">
+    “We're thieves in a world that don't want us no more.”
+  </div>
 
-  <div class="box-container">
+  <div class="bio-box en">
+    <p>Arthur Morgan was not just a gunslinger; he was a broken man carrying a weight the world never saw. A man whose soul had been chipped away by every betrayal, every kill, every cold night under the stars. He rode not for glory, not for gold—but for a place he could never reach: peace.</p>
+    <p>He watched friends die, love fade, and time slip like sand between bloody hands. He was fierce, yet kind. Cruel, yet loyal. He was a contradiction in motion. A ghost chasing redemption he was told he didn’t deserve. But he tried... and in that trying, he became something greater than a cowboy. He became a tragedy the wind still whispers.</p>
+  </div>
+
+  <div class="bio-box fa">
+    <p>آرتور مورگان فقط یک هفت‌تیرکش نبود؛ او مردی شکسته بود که باری را به دوش می‌کشید که هیچ‌کس نمی‌دید. مردی که روحش با هر خیانت، هر قتل، و هر شب سرد زیر آسمان، تکه‌تکه شده بود. او برای افتخار نمی‌تاخت، نه برای طلا — بلکه برای آرامشی که هرگز به آن نمی‌رسید.</p>
+    <p>دوستانش را مرده دید، عشق را کم‌رنگ، و زمان را چون شنِ میان دست‌های خون‌آلودش. خشن بود، ولی مهربان. بی‌رحم، ولی وفادار. تضادی بود در حرکت. روحی سرگردان، در جستجوی رستگاری که به او گفته بودند لیاقتش را ندارد. اما تلاش کرد... و در همین تلاش بود که فراتر از یک کابوی شد. او به تراژدی‌ای تبدیل شد که هنوز باد، آن را زمزمه می‌کند.</p>
+  </div>
+
+  <div class="container">
     <div class="box">
       <h2>TELEGRAM</h2>
       <a href="http://t.me/ejmok" target="_blank" class="btn">Click Here</a>
@@ -110,24 +128,5 @@
       <a href="http://t.me/Berlin_opBot" target="_blank" class="btn">Click Here</a>
     </div>
   </div>
-
-  <div class="quote">"I gave you all I had..." — Arthur Morgan</div>
-
-  <div class="bio-container">
-    <div class="bio-box">
-      <h3>Arthur Morgan Biography (English)</h3>
-      <p>
-        Arthur Morgan, a central character in Rockstar Games’ masterpiece *Red Dead Redemption 2*, is a complex outlaw raised by Dutch van der Linde in a gang that seeks freedom and rebellion against a corrupt society. As the story unfolds, Arthur transforms from a ruthless gunslinger into a man haunted by his choices. He witnesses the downfall of the gang, the betrayal of his companions, and the fading of the Wild West. After being diagnosed with tuberculosis, he begins a personal journey toward redemption, trying to make peace with his past and protect those he loves. Arthur’s story is one of tragic beauty — a tale of loyalty, regret, and the fleeting nature of freedom.
-      </p>
-    </div>
-
-    <div class="bio-box">
-      <h3>زندگی‌نامه آرتور مورگان (فارسی)</h3>
-      <p>
-        آرتور مورگان، شخصیت اصلی شاهکار استودیوی راک‌استار، Red Dead Redemption 2، یک یاغی پیچیده است که از کودکی در کنار داچ ون در لیند بزرگ شده. او عضوی از گروهی‌ست که علیه جامعه فاسد می‌جنگند، اما در طول داستان، آرتور از یک تفنگ‌دار خشن به مردی تبدیل می‌شود که اسیر گذشته و اشتباهاتش است. با فروپاشی گروه، خیانت دوستان، و زوال غرب وحشی، آرتور به بیماری سل مبتلا می‌شود و مسیری دردناک اما عمیق به‌سوی رستگاری را آغاز می‌کند. او تلاش می‌کند گذشته را جبران کند و از کسانی که دوستشان دارد محافظت نماید. داستان آرتور ترکیبی از وفاداری، پشیمانی، و آزادی‌ای‌ست که مثل غروب آفتاب، زیبا اما گذراست.
-      </p>
-    </div>
-  </div>
-
 </body>
 </html>
