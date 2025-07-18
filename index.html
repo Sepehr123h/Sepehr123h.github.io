@@ -1,161 +1,191 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Berlin</title>
+  <meta charset="UTF-8">
+  <title>Arthur Morgan</title>
   <style>
     body {
-      margin: 0;
+      background-color: #121212;
+      color: white;
       font-family: Arial, sans-serif;
-      background-image: url('https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg');
-      background-size: cover;
-      background-position: center;
-      color: white;
+      margin: 0;
+      padding: 0;
       text-align: center;
-      padding: 30px;
-      backdrop-filter: brightness(0.5);
+      overflow-x: hidden;
     }
 
-    h1 {
-      font-size: 48px;
+    video.background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .portrait img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .bio-box {
+      background-color: #1f1f1f;
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 30px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    }
+
+    .section-title {
+      font-size: 24px;
       margin-bottom: 10px;
-      letter-spacing: 2px;
+      color: #ffcc66;
     }
 
-    .button-container {
-      margin: 20px 0;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
+    .telegram-links {
+      margin-top: 40px;
     }
 
-    .btn {
-      background-color: rgba(0, 0, 0, 0.6);
+    .telegram-links a {
+      display: inline-block;
+      background-color: #0088cc;
       color: white;
-      border: 1px solid #ccc;
       padding: 12px 24px;
+      margin: 10px;
+      border-radius: 10px;
       text-decoration: none;
       font-weight: bold;
-      border-radius: 8px;
-      transition: background 0.3s;
+      transition: background-color 0.3s;
     }
 
-    .btn:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .section {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 12px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.8;
-      font-size: 16px;
-      text-align: justify;
+    .telegram-links a:hover {
+      background-color: #006699;
     }
 
     .audio-player {
       margin-top: 40px;
+      color: white;
     }
 
     .audio-player button {
       padding: 10px 20px;
-      border: none;
-      background-color: #444;
-      color: white;
-      font-size: 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-bottom: 10px;
+      font-weight: bold;
+      margin-top: 10px;
     }
 
-    .progress-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      color: #ddd;
-    }
-
-    .progress-bar {
-      width: 300px;
+    .audio-player input[type="range"] {
+      width: 80%;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <h1>BERLIN</h1>
+  <!-- ویدیوی پس‌زمینه -->
+  <video class="background-video" autoplay muted loop playsinline>
+    <source src="https://uploadkon.ir/uploads/89e818_25VID-20250718-212050-031.mp4" type="video/mp4">
+  </video>
 
-  <div class="button-container">
-    <a href="http://t.me/ejmok" target="_blank" class="btn">TELEGRAM<br>Click Here</a>
-    <a href="http://t.me/Berlin_opBot" target="_blank" class="btn">BOT<br>Click Here</a>
-  </div>
+  <div class="container">
+    <div class="portrait">
+      <img src="https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg" alt="Arthur Morgan">
+    </div>
 
-  <div class="section">
-    <p><strong>Arthur Morgan was a man born into chaos, raised by outlaws, and shaped by the cruel realities of the American frontier. He wasn’t just an outlaw—he was a soul buried under layers of regret, violence, and fading loyalty. He called himself a bad man, but behind the guns and gritted teeth was a heart still capable of redemption. Diagnosed with tuberculosis, he began to see life differently. Every cough reminded him of his mortality. He tried to right his wrongs—not with grand gestures, but with quiet acts of honor. And in the end, Arthur didn’t die as a criminal. He died as a man. A man whose story echoed far beyond his last breath.</strong></p>
-  </div>
+    <div class="bio-box">
+      <div class="section-title">Arthur Morgan's Story</div>
+      <p>
+        Arthur Morgan... a man who searched for a piece of peace in the chaos of bullets, betrayal, and bloodshed; peace he never found.
+        <br><br>
+        Born into a world too cruel to embrace an orphaned child. His father was a thief, his mother died young, and he quickly learned that kindness has no place in a merciless world. Dutch took him in, taught him to survive... at the cost of slowly hardening his heart.
+        <br><br>
+        Arthur saw himself as a bad man. One who carried out the gang's dirty work without hesitation. But behind that cold, emotionless gaze lay a buried heart—a heart still beating for love, for compassion, for forgiveness.
+        <br><br>
+        Tuberculosis not only consumed his body, but awakened his soul. Every cough, every sleepless night was a jolt pulling him out of his darkness. Maybe there was still a chance for redemption.
+        <br><br>
+        And he tried... with pain, with blood, with his final breaths. In the end, Arthur died... but not like a thief. Like a man. A man whose voice still echoes in the hearts of millions.
+      </p>
+    </div>
 
-  <div class="section">
-    <p><strong>
-      آرتور مورگان... مردی که در هیاهوی گلوله‌ها، خیانت‌ها و خون‌ریزی‌ها، به دنبال تکه‌ای از آرامش می‌گشت؛ آرامشی که هرگز نیافت.
-      <br><br>
-      او در دنیایی به دنیا آمد که بی‌رحم‌تر از آن بود که کودک یتیمی را در آغوش بگیرد. پدرش یک دزد بود، مادرش را زود از دست داد، و خیلی زود یاد گرفت که دنیا برای کسانی که مهربانند، رحم نمی‌کند. داچ او را به سرپرستی گرفت، به او یاد داد چطور زنده بماند... اما به بهای اینکه قلبش را آرام آرام سنگ کند.
-      <br><br>
-      آرتور خودش را یک مرد بد می‌دانست. کسی که کارهای کثیف باند را بی‌هیچ تردیدی انجام می‌داد. اما پشت آن نگاه سرد و بی‌احساس، قلبی دفن‌شده بود؛ قلبی که هنوز برای عشق، برای دوست‌داشتن، برای بخشیدن می‌تپید.
-      <br><br>
-      بیماری سل نه‌تنها بدنش را خورد، بلکه ذهنش را نیز باز کرد. هر سرفه، هر شب بیداری، تلنگری شد که او را از دنیای تاریک خود بیرون بکشد. شاید هنوز هم فرصتی برای رستگاری بود.
-      <br><br>
-      و او تلاش کرد... با درد، با خون، با نفس‌های آخرش. در نهایت، آرتور مُرد... اما نه مثل یک دزد. مثل یک مرد. مردی که در سکوت جان داد، اما صدایش در قلب میلیون‌ها نفر زنده ماند.
-    </strong></p>
-  </div>
+    <div class="bio-box">
+      <div class="section-title">زندگی آرتور مورگان</div>
+      <p>
+        آرتور مورگان... مردی که در هیاهوی گلوله‌ها، خیانت‌ها و خون‌ریزی‌ها، به دنبال تکه‌ای از آرامش می‌گشت؛ آرامشی که هرگز نیافت.
+        <br><br>
+        او در دنیایی به دنیا آمد که بی‌رحم‌تر از آن بود که کودک یتیمی را در آغوش بگیرد. پدرش یک دزد بود، مادرش را زود از دست داد، و خیلی زود یاد گرفت که دنیا برای کسانی که مهربانند، رحم نمی‌کند. داچ او را به سرپرستی گرفت، به او یاد داد چطور زنده بماند... اما به بهای اینکه قلبش را آرام آرام سنگ کند.
+        <br><br>
+        آرتور خودش را یک مرد بد می‌دانست. کسی که کارهای کثیف باند را بی‌هیچ تردیدی انجام می‌داد. اما پشت آن نگاه سرد و بی‌احساس، قلبی دفن‌شده بود؛ قلبی که هنوز برای عشق، برای دوست‌داشتن، برای بخشیدن می‌تپید.
+        <br><br>
+        بیماری سل نه‌تنها بدنش را خورد، بلکه ذهنش را نیز باز کرد. هر سرفه، هر شب بیداری، تلنگری شد که او را از دنیای تاریک خود بیرون بکشد. شاید هنوز هم فرصتی برای رستگاری بود.
+        <br><br>
+        و او تلاش کرد... با درد، با خون، با نفس‌های آخرش. در نهایت، آرتور مُرد... اما نه مثل یک دزد. مثل یک مرد. مردی که در سکوت جان داد، اما صدایش در قلب میلیون‌ها نفر زنده ماند.
+      </p>
+    </div>
 
-  <div class="audio-player">
-    <audio id="audio" src="https://uploadkon.ir/uploads/eaf818_25may-i-stand-unshaken-banda-sonora-subtitulada-red-dead-redemption.mp3"></audio>
-    <button onclick="togglePlay()">▶️ Play / ⏸ Pause</button>
-    <div class="progress-container">
-      <span id="current">0:00</span>
-      <input type="range" id="progress" class="progress-bar" value="0" max="100" step="1" onchange="seekAudio()" />
-      <span id="duration">0:00</span>
+    <div class="telegram-links">
+      <a href="http://t.me/ejmok" target="_blank">Click Here - Telegram</a>
+      <a href="http://t.me/Berlin_opBot" target="_blank">Click Here - Bot</a>
+    </div>
+
+    <div class="audio-player">
+      <audio id="bgMusic" loop>
+        <source src="https://uploadkon.ir/uploads/eaf818_25may-i-stand-unshaken-banda-sonora-subtitulada-red-dead-redemption.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+
+      <button onclick="togglePlay()">🎵 Play / Pause</button>
+      
+      <div style="margin-top: 10px;">
+        <span id="currentTime">00:00</span> / <span id="duration">00:00</span>
+      </div>
+
+      <input type="range" id="seekbar" value="0" max="100">
     </div>
   </div>
 
   <script>
-    const audio = document.getElementById('audio');
-    const progress = document.getElementById('progress');
-    const current = document.getElementById('current');
-    const duration = document.getElementById('duration');
+    const music = document.getElementById("bgMusic");
+    const seekbar = document.getElementById("seekbar");
+    const currentTime = document.getElementById("currentTime");
+    const duration = document.getElementById("duration");
 
     function togglePlay() {
-      if (audio.paused) {
-        audio.play();
+      if (music.paused) {
+        music.play();
       } else {
-        audio.pause();
+        music.pause();
       }
     }
 
-    audio.addEventListener('loadedmetadata', () => {
-      progress.max = Math.floor(audio.duration);
-      duration.textContent = formatTime(audio.duration);
-    });
-
-    audio.addEventListener('timeupdate', () => {
-      progress.value = Math.floor(audio.currentTime);
-      current.textContent = formatTime(audio.currentTime);
-    });
-
-    function seekAudio() {
-      audio.currentTime = progress.value;
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
-    function formatTime(sec) {
-      const minutes = Math.floor(sec / 60);
-      const seconds = Math.floor(sec % 60).toString().padStart(2, '0');
-      return `${minutes}:${seconds}`;
-    }
+    music.addEventListener("loadedmetadata", () => {
+      duration.textContent = formatTime(music.duration);
+      seekbar.max = Math.floor(music.duration);
+    });
+
+    music.addEventListener("timeupdate", () => {
+      currentTime.textContent = formatTime(music.currentTime);
+      seekbar.value = music.currentTime;
+    });
+
+    seekbar.addEventListener("input", () => {
+      music.currentTime = seekbar.value;
+    });
   </script>
-
 </body>
 </html>
