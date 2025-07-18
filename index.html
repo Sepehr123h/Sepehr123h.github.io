@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Berlin</title>
   <style>
     body {
@@ -15,22 +15,19 @@
       padding: 30px;
       backdrop-filter: brightness(0.5);
     }
-
     h1 {
       font-size: 48px;
       margin-bottom: 10px;
       letter-spacing: 2px;
     }
-
     .button-container {
       margin: 20px 0;
       display: flex;
       justify-content: center;
       gap: 20px;
     }
-
     .btn {
-      background-color: rgba(0, 0, 255, 0.6);
+      background-color: rgba(0, 0, 0, 0.6);
       color: white;
       border: 1px solid #ccc;
       padding: 12px 24px;
@@ -38,16 +35,10 @@
       font-weight: bold;
       border-radius: 8px;
       transition: background 0.3s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 120px;
     }
-
     .btn:hover {
       background-color: rgba(255, 255, 255, 0.2);
     }
-
     .section {
       background-color: rgba(0, 0, 0, 0.6);
       padding: 20px;
@@ -56,15 +47,15 @@
       max-width: 800px;
       margin-left: auto;
       margin-right: auto;
+    }
+    .section p {
+      text-align: justify;
       line-height: 1.8;
       font-size: 16px;
-      text-align: justify;
     }
-
     .audio-player {
       margin-top: 40px;
     }
-
     .audio-player button {
       padding: 10px 20px;
       border: none;
@@ -75,35 +66,8 @@
       cursor: pointer;
       margin-bottom: 10px;
     }
-
-    .progress-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      color: #ddd;
-    }
-
-    .progress-bar {
-      width: 300px;
-    }
-
-    .mti-box {
-      background-color: rgba(0, 0, 255, 0.6);
-      border: 1px solid #ccc;
-      padding: 12px 24px;
-      font-weight: bold;
-      border-radius: 8px;
-      width: 120px;
-    }
-
-    .mti-title {
-      font-size: 18px;
-    }
-
-    .mti-sub {
-      font-size: 14px;
-      margin-top: 4px;
+    .audio-player input[type="range"] {
+      width: 60%;
     }
   </style>
 </head>
@@ -113,12 +77,6 @@
 
   <div class="button-container">
     <a href="http://t.me/ejmok" target="_blank" class="btn">TELEGRAM<br>Click Here</a>
-    
-    <div class="mti-box">
-      <div class="mti-title">MTI</div>
-      <div class="mti-sub">Brother</div>
-    </div>
-
     <a href="http://t.me/Berlin_opBot" target="_blank" class="btn">BOT<br>Click Here</a>
   </div>
 
@@ -126,64 +84,6 @@
     <p><strong>Arthur Morgan was a man born into chaos, raised by outlaws, and shaped by the cruel realities of the American frontier. He wasn’t just an outlaw—he was a soul buried under layers of regret, violence, and fading loyalty. He called himself a bad man, but behind the guns and gritted teeth was a heart still capable of redemption. Diagnosed with tuberculosis, he began to see life differently. Every cough reminded him of his mortality. He tried to right his wrongs—not with grand gestures, but with quiet acts of honor. And in the end, Arthur didn’t die as a criminal. He died as a man. A man whose story echoed far beyond his last breath.</strong></p>
   </div>
 
-  <div class="section">
+  <div class="section" style="margin-top: 10px; background-color: rgba(0, 0, 0, 0.7);">
     <p><strong>
-      آرتور مورگان... مردی که در هیاهوی گلوله‌ها، خیانت‌ها و خون‌ریزی‌ها، به دنبال تکه‌ای از آرامش می‌گشت؛ آرامشی که هرگز نیافت.
-      <br><br>
-      او در دنیایی به دنیا آمد که بی‌رحم‌تر از آن بود که کودک یتیمی را در آغوش بگیرد. پدرش یک دزد بود، مادرش را زود از دست داد، و خیلی زود یاد گرفت که دنیا برای کسانی که مهربانند، رحم نمی‌کند. داچ او را به سرپرستی گرفت، به او یاد داد چطور زنده بماند... اما به بهای اینکه قلبش را آرام آرام سنگ کند.
-      <br><br>
-      آرتور خودش را یک مرد بد می‌دانست. کسی که کارهای کثیف باند را بی‌هیچ تردیدی انجام می‌داد. اما پشت آن نگاه سرد و بی‌احساس، قلبی دفن‌شده بود؛ قلبی که هنوز برای عشق، برای دوست‌داشتن، برای بخشیدن می‌تپید.
-      <br><br>
-      بیماری سل نه‌تنها بدنش را خورد، بلکه ذهنش را نیز باز کرد. هر سرفه، هر شب بیداری، تلنگری شد که او را از دنیای تاریک خود بیرون بکشد. شاید هنوز هم فرصتی برای رستگاری بود.
-      <br><br>
-      و او تلاش کرد... با درد، با خون، با نفس‌های آخرش. در نهایت، آرتور مُرد... اما نه مثل یک دزد. مثل یک مرد. مردی که در سکوت جان داد، اما صدایش در قلب میلیون‌ها نفر زنده ماند.
-    </strong></p>
-  </div>
-
-  <div class="audio-player">
-    <audio id="audio" src="https://uploadkon.ir/uploads/eaf818_25may-i-stand-unshaken-banda-sonora-subtitulada-red-dead-redemption.mp3"></audio>
-    <button onclick="togglePlay()">▶️ Play / ⏸ Pause</button>
-    <div class="progress-container">
-      <span id="current">0:00</span>
-      <input type="range" id="progress" class="progress-bar" value="0" max="100" step="1" onchange="seekAudio()" />
-      <span id="duration">0:00</span>
-    </div>
-  </div>
-
-  <script>
-    const audio = document.getElementById('audio');
-    const progress = document.getElementById('progress');
-    const current = document.getElementById('current');
-    const duration = document.getElementById('duration');
-
-    function togglePlay() {
-      if (audio.paused) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
-    }
-
-    audio.addEventListener('loadedmetadata', () => {
-      progress.max = Math.floor(audio.duration);
-      duration.textContent = formatTime(audio.duration);
-    });
-
-    audio.addEventListener('timeupdate', () => {
-      progress.value = Math.floor(audio.currentTime);
-      current.textContent = formatTime(audio.currentTime);
-    });
-
-    function seekAudio() {
-      audio.currentTime = progress.value;
-    }
-
-    function formatTime(sec) {
-      const minutes = Math.floor(sec / 60);
-      const seconds = Math.floor(sec % 60).toString().padStart(2, '0');
-      return `${minutes}:${seconds}`;
-    }
-  </script>
-
-</body>
-</html>
+      آرتور مورگان... مردی که در هیاهوی گل
