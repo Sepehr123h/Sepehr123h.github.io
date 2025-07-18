@@ -11,6 +11,19 @@
       margin: 0;
       padding: 0;
       text-align: center;
+      overflow-x: hidden;
+    }
+
+    video.background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.07;
+      pointer-events: none;
     }
 
     .container {
@@ -78,6 +91,12 @@
   </style>
 </head>
 <body>
+
+  <!-- ویدیوی پس‌زمینه -->
+  <video class="background-video" autoplay muted loop playsinline>
+    <source src="https://uploadkon.ir/uploads/89e818_25VID-20250718-212050-031.mp4" type="video/mp4">
+  </video>
+
   <div class="container">
     <div class="portrait">
       <img src="https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg" alt="Arthur Morgan">
