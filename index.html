@@ -5,131 +5,129 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Berlin</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
     body {
       margin: 0;
-      font-family: 'Roboto', sans-serif;
-      color: #fff;
-      background: url('https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg') no-repeat center center fixed;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg');
       background-size: cover;
-      backdrop-filter: blur(2px);
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      text-align: center;
     }
 
     header {
-      text-align: center;
-      padding: 50px 20px 20px;
-      font-size: 3rem;
-      font-weight: bold;
-      letter-spacing: 3px;
       background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px 10px;
+      font-size: 36px;
+      font-weight: bold;
+      letter-spacing: 4px;
     }
 
-    .container {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: auto;
-      background-color: rgba(0, 0, 0, 0.55);
-      border-radius: 15px;
+    .box-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 30px auto;
     }
 
     .box {
-      background-color: rgba(40, 40, 40, 0.85);
-      margin: 20px 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 20px;
-      border-left: 5px solid #00acee;
-      border-radius: 8px;
+      width: 200px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
 
     .box h2 {
-      margin: 0 0 10px;
-      font-size: 1.5rem;
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 15px;
       text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .bio {
-      background-color: rgba(30, 30, 30, 0.8);
-      margin-top: 30px;
-      padding: 25px;
-      border-radius: 10px;
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #00acee;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
     }
 
-    .bio p {
-      line-height: 1.8;
-    }
-
-    .bio.fa {
-      direction: rtl;
-      font-family: 'Vazirmatn', sans-serif;
-      background-color: rgba(20, 20, 20, 0.8);
-      margin-top: 15px;
+    .btn:hover {
+      background-color: #0088bb;
     }
 
     .quote {
-      margin-top: 30px;
+      margin: 40px auto 10px;
+      font-size: 20px;
       font-style: italic;
-      text-align: center;
-      font-size: 1.2rem;
-      opacity: 0.9;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: inline-block;
+      padding: 15px 25px;
+      border-radius: 10px;
     }
 
-    a {
-      color: #00acee;
-      text-decoration: none;
+    .bio-container {
+      max-width: 800px;
+      margin: 30px auto;
+      text-align: justify;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .bio-box {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      line-height: 1.8;
+    }
+
+    .bio-box h3 {
+      margin-top: 0;
+      color: #00ffff;
     }
   </style>
 </head>
 <body>
-  <header>Berlin</header>
-  <div class="container">
+
+  <header>BERLIN</header>
+
+  <div class="box-container">
     <div class="box">
       <h2>TELEGRAM</h2>
-      <a href="http://t.me/ejmok" target="_blank">http://t.me/ejmok</a>
+      <a href="http://t.me/ejmok" target="_blank" class="btn">Click Here</a>
     </div>
-
     <div class="box">
       <h2>BOT</h2>
-      <a href="http://t.me/Berlin_opBot" target="_blank">http://t.me/Berlin_opBot</a>
+      <a href="http://t.me/Berlin_opBot" target="_blank" class="btn">Click Here</a>
     </div>
-
-    <div class="bio">
-      <p>
-        Arthur Morgan… a man hardened by a life of crime, yet cracked by moments of deep, haunting humanity.  
-        Raised by outlaws, molded by Dutch, and tested by the betrayal of the world he trusted.  
-        <br><br>
-        He wasn’t born a hero. He wasn’t born at all into kindness. His mother died young. His father was a petty criminal.  
-        And so Dutch gave him a new name, a new way, and a new reason to survive. But survival came at a cost — his soul.
-        <br><br>
-        Arthur lived fast, shot faster, and buried more than just bodies — he buried his own guilt, his broken heart, his dreams.  
-        Mary left, John disappointed, Dutch lost his mind... and Arthur, bit by bit, lost himself.
-        <br><br>
-        And when tuberculosis came, it didn’t just end him — it awakened him. Every cough was a reminder that time was bleeding away.  
-        But in that darkness, he found light. He helped. He gave. He changed.
-        <br><br>
-        He died not as an outlaw, but as a man trying to make peace with the past.
-        His body may have fallen to the dirt, but Arthur rides still — in wind, in memory, in hearts.
-      </p>
-    </div>
-
-    <div class="bio fa">
-      <p>
-        آرتور مورگان... مردی که در هیاهوی گلوله‌ها، خیانت‌ها و خون‌ریزی‌ها، به دنبال تکه‌ای از آرامش می‌گشت؛ آرامشی که هرگز نیافت.
-        <br><br>
-        او در دنیایی به دنیا آمد که بی‌رحم‌تر از آن بود که کودک یتیمی را در آغوش بگیرد. پدرش یک دزد بود، مادرش را زود از دست داد، و خیلی زود یاد گرفت که دنیا برای کسانی که مهربانند، رحم نمی‌کند. داچ او را به سرپرستی گرفت، به او یاد داد چطور زنده بماند... اما به بهای اینکه قلبش را آرام آرام سنگ کند.
-        <br><br>
-        آرتور خودش را یک مرد بد می‌دانست. کسی که کارهای کثیف باند را بی‌هیچ تردیدی انجام می‌داد. اما پشت آن نگاه سرد و بی‌احساس، قلبی دفن‌شده بود؛ قلبی که هنوز برای عشق، برای دوست‌داشتن، برای بخشیدن می‌تپید.
-        <br><br>
-        بیماری سل نه‌تنها بدنش را خورد، بلکه ذهنش را نیز باز کرد. هر سرفه، هر شب بیداری، تلنگری شد که او را از دنیای تاریک خود بیرون بکشد. شاید هنوز هم فرصتی برای رستگاری بود.
-        <br><br>
-        و او تلاش کرد... با درد، با خون، با نفس‌های آخرش. در نهایت، آرتور مُرد... اما نه مثل یک دزد. مثل یک مرد. مردی که در سکوت جان داد، اما صدایش در قلب میلیون‌ها نفر زنده ماند.
-      </p>
-    </div>
-
-    <div class="quote">"I gave you all I had..." – Arthur Morgan</div>
   </div>
+
+  <div class="quote">"I gave you all I had..." — Arthur Morgan</div>
+
+  <div class="bio-container">
+    <div class="bio-box">
+      <h3>Arthur Morgan Biography (English)</h3>
+      <p>
+        Arthur Morgan, a central character in Rockstar Games’ masterpiece *Red Dead Redemption 2*, is a complex outlaw raised by Dutch van der Linde in a gang that seeks freedom and rebellion against a corrupt society. As the story unfolds, Arthur transforms from a ruthless gunslinger into a man haunted by his choices. He witnesses the downfall of the gang, the betrayal of his companions, and the fading of the Wild West. After being diagnosed with tuberculosis, he begins a personal journey toward redemption, trying to make peace with his past and protect those he loves. Arthur’s story is one of tragic beauty — a tale of loyalty, regret, and the fleeting nature of freedom.
+      </p>
+    </div>
+
+    <div class="bio-box">
+      <h3>زندگی‌نامه آرتور مورگان (فارسی)</h3>
+      <p>
+        آرتور مورگان، شخصیت اصلی شاهکار استودیوی راک‌استار، Red Dead Redemption 2، یک یاغی پیچیده است که از کودکی در کنار داچ ون در لیند بزرگ شده. او عضوی از گروهی‌ست که علیه جامعه فاسد می‌جنگند، اما در طول داستان، آرتور از یک تفنگ‌دار خشن به مردی تبدیل می‌شود که اسیر گذشته و اشتباهاتش است. با فروپاشی گروه، خیانت دوستان، و زوال غرب وحشی، آرتور به بیماری سل مبتلا می‌شود و مسیری دردناک اما عمیق به‌سوی رستگاری را آغاز می‌کند. او تلاش می‌کند گذشته را جبران کند و از کسانی که دوستشان دارد محافظت نماید. داستان آرتور ترکیبی از وفاداری، پشیمانی، و آزادی‌ای‌ست که مثل غروب آفتاب، زیبا اما گذراست.
+      </p>
+    </div>
+  </div>
+
 </body>
 </html>
