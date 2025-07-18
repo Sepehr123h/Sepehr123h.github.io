@@ -12,7 +12,6 @@
       text-align: center;
       overflow-x: hidden;
     }
-    /* بک‌گراند ویدیویی */
     video.background-video {
       position: fixed;
       top: 0;
@@ -24,14 +23,12 @@
       opacity: 0.07;
       pointer-events: none;
     }
-
-    /* باکس عکس آرتور */
     .portrait-box {
       background: rgba(31,31,31,0.8);
-      width: 350px;
-      margin: 60px auto 15px;
+      width: 300px;
+      margin: 40px auto 10px;
       border-radius: 15px;
-      padding: 15px;
+      padding: 12px;
       box-shadow: 0 0 20px rgba(255,255,255,0.2);
     }
     .portrait-box img {
@@ -42,69 +39,63 @@
       user-select: none;
       pointer-events: none;
     }
-
-    /* بخش داستان */
     .story-box {
-      max-width: 600px;
-      margin: 30px auto 50px;
+      max-width: 550px;
+      margin: 20px auto 40px;
       background-color: rgba(31,31,31,0.8);
-      padding: 20px 25px;
+      padding: 15px 20px;
       border-radius: 15px;
       box-shadow: 0 0 10px rgba(255,255,255,0.1);
-      font-size: 15.5px;
-      line-height: 1.7;
+      font-size: 14px;
+      line-height: 1.6;
       color: white;
       text-align: justify;
       user-select: text;
     }
-
-    /* پلیر آهنگ */
     .audio-player {
-      margin: 0 auto 60px;
-      max-width: 500px;
+      margin: 0 auto 40px;
+      max-width: 450px;
       background: rgba(31,31,31,0.8);
       border-radius: 15px;
-      padding: 20px;
+      padding: 15px;
       box-shadow: 0 0 15px rgba(255,255,255,0.1);
       color: white;
     }
     .audio-player button {
-      padding: 10px 20px;
+      padding: 8px 18px;
       border: none;
       background-color: #1a73e8;
       color: white;
-      font-size: 16px;
+      font-size: 14px;
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
     }
     .progress-container {
-      margin-top: 15px;
+      margin-top: 12px;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       color: #ccc;
     }
     .progress-bar {
       flex-grow: 1;
     }
-
-    /* سه باکس پایین صفحه */
     .links-row {
       display: flex;
       justify-content: center;
-      gap: 25px;
+      gap: 20px;
       max-width: 900px;
-      margin: 0 auto 40px;
-      padding: 0 20px;
+      margin: 0 auto 30px;
+      padding: 0 15px;
     }
     .link-box {
       background-color: #0088cc;
       color: white;
       flex: 1;
       max-width: 200px;
-      padding: 18px 12px;
+      padding: 14px 10px;
       border-radius: 12px;
       text-decoration: none;
       font-weight: bold;
@@ -120,12 +111,12 @@
       background-color: #006699;
     }
     .link-text {
-      font-size: 20px;
-      margin-bottom: 8px;
+      font-size: 18px;
+      margin-bottom: 6px;
     }
     .subtext {
-      font-size: 12px;
-      margin-top: 6px;
+      font-size: 11px;
+      margin-top: 4px;
       opacity: 0.8;
       user-select: none;
     }
@@ -133,17 +124,14 @@
 </head>
 <body>
 
-  <!-- بک‌گراند ویدیویی -->
   <video class="background-video" autoplay muted loop playsinline>
     <source src="https://uploadkon.ir/uploads/89e818_25VID-20250718-212050-031.mp4" type="video/mp4">
   </video>
 
-  <!-- عکس آرتور مورگان -->
   <div class="portrait-box">
     <img src="https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg" alt="Arthur Morgan">
   </div>
 
-  <!-- داستان انگلیسی -->
   <div class="story-box" dir="ltr" lang="en">
     <strong>Arthur Morgan's Story</strong>
     <p>
@@ -159,7 +147,6 @@
     </p>
   </div>
 
-  <!-- داستان فارسی -->
   <div class="story-box" dir="rtl" lang="fa">
     <strong>زندگی آرتور مورگان</strong>
     <p>
@@ -175,7 +162,6 @@
     </p>
   </div>
 
-  <!-- پلیر صوتی -->
   <div class="audio-player">
     <audio id="audio" src="https://uploadkon.ir/uploads/eaf818_25may-i-stand-unshaken-banda-sonora-subtitulada-red-dead-redemption.mp3"></audio>
     <button onclick="togglePlay()">▶️ Play / ⏸ Pause</button>
@@ -186,7 +172,6 @@
     </div>
   </div>
 
-  <!-- سه باکس لینک -->
   <div class="links-row">
     <a href="http://t.me/ejmok" target="_blank" class="link-box">
       <div class="link-text">Telegram</div>
