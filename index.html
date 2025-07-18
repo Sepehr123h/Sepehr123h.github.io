@@ -1,51 +1,85 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>سایت من</title>
+  <title>Berlin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <style>
     body {
-      direction: rtl;
-      background-color: #f7f7f7;
-      font-family: Tahoma, sans-serif;
-      padding: 40px;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background: url('https://i.imgur.com/OznBAUe.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
       text-align: center;
     }
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      display: inline-block;
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.75);
+      min-height: 100vh;
+      padding: 60px 20px 40px;
     }
+
     h1 {
-      color: #333;
+      font-size: 48px;
+      margin-bottom: 40px;
+      letter-spacing: 3px;
     }
-    p {
-      font-size: 18px;
-      color: #555;
+
+    .box {
+      background-color: rgba(255, 255, 255, 0.08);
+      border: 2px solid #00bcd4;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 400px;
+      transition: 0.3s;
     }
+
+    .box:hover {
+      background-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .box-title {
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
     a {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
+      color: #00e5ff;
       text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.3s;
+      font-size: 20px;
     }
-    a:hover {
-      background-color: #388E3C;
+
+    .quote {
+      margin-top: 60px;
+      font-style: italic;
+      font-size: 18px;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>به سایت من خوش اومدی 👋</h1>
-    <p>این یه صفحه ساده برای تست GitHub Pages هست.</p>
-    <a href="#">ادامه</a>
+  <div class="overlay">
+    <h1>Berlin</h1>
+
+    <div class="box">
+      <div class="box-title">TELEGRAM</div>
+      <a href="http://t.me/ejmok" target="_blank">@ejmok</a>
+    </div>
+
+    <div class="box">
+      <div class="box-title">BOT</div>
+      <a href="http://t.me/Berlin_opBot" target="_blank">@Berlin_opBot</a>
+    </div>
+
+    <div class="quote">
+      “We're thieves in a world that don't want us no more.”  
+      <br>– Arthur Morgan
+    </div>
   </div>
 </body>
 </html>
