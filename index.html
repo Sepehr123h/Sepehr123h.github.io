@@ -11,19 +11,6 @@
       margin: 0;
       padding: 0;
       text-align: center;
-      overflow-x: hidden;
-    }
-
-    video.background-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -1;
-      opacity: 0.07;
-      pointer-events: none;
     }
 
     .container {
@@ -55,14 +42,17 @@
 
     .telegram-links {
       margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
     }
 
     .telegram-links a {
-      display: inline-block;
       background-color: #0088cc;
       color: white;
       padding: 12px 24px;
-      margin: 10px;
       border-radius: 10px;
       text-decoration: none;
       font-weight: bold;
@@ -73,10 +63,17 @@
       background-color: #006699;
     }
 
-    .telegram-links .desc {
-      font-size: 14px;
-      margin-top: -5px;
+    .jafok-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       color: #cccccc;
+      font-size: 18px;
+    }
+
+    .jafok-box small {
+      font-size: 12px;
+      color: #888888;
     }
 
     .audio-player {
@@ -94,15 +91,17 @@
       width: 80%;
       margin-top: 10px;
     }
+
+    video {
+      width: 100%;
+      max-width: 600px;
+      margin-top: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
   </style>
 </head>
 <body>
-
-  <!-- ویدیوی پس‌زمینه -->
-  <video class="background-video" autoplay muted loop playsinline>
-    <source src="https://uploadkon.ir/uploads/89e818_25VID-20250718-212050-031.mp4" type="video/mp4">
-  </video>
-
   <div class="container">
     <div class="portrait">
       <img src="https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg" alt="Arthur Morgan">
@@ -139,12 +138,14 @@
     </div>
 
     <div class="telegram-links">
-      <a href="http://t.me/ejmok" target="_blank">Click Here - Telegram</a>
+      <a href="https://t.me/YOUR_TELEGRAM_ID" target="_blank">My Telegram</a>
 
-      <a href="http://t.me/Jafok" target="_blank">Click Here - Brother</a>
-      <div class="desc">brother</div>
+      <div class="jafok-box">
+        Jafok
+        <small>brother</small>
+      </div>
 
-      <a href="http://t.me/Berlin_opBot" target="_blank">Click Here - Bot</a>
+      <a href="https://t.me/YOUR_BOT_ID" target="_blank">Bot</a>
     </div>
 
     <div class="audio-player">
@@ -161,6 +162,11 @@
 
       <input type="range" id="seekbar" value="0" max="100">
     </div>
+
+    <video autoplay muted loop playsinline>
+      <source src="https://uploadkon.ir/uploads/89e818_25VID-20250718-212050-031.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </div>
 
   <script>
