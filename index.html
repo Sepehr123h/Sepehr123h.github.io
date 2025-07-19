@@ -1,93 +1,109 @@
-<!DOCTYPE html><html lang="fa">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>سنگ کاغذ قیچی با BerlinGPT</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rock Paper Scissors - BerlinGPT</title>
   <style>
     body {
-      background: #111;
-      color: #fff;
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
       text-align: center;
-      padding: 20px;
+      background-color: #111;
+      color: white;
+    }
+    h1 {
+      margin-top: 20px;
+      font-size: 2em;
+    }
+    .game {
+      margin-top: 30px;
     }
     .hands {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 60px;
-      margin-top: 30px;
+      gap: 50px;
+      margin-top: 40px;
     }
     .hand {
       font-size: 80px;
-      animation: shake 1s infinite;
+      animation: bounce 1s infinite alternate;
     }
-    .labels {
-      display: flex;
-      justify-content: center;
-      gap: 180px;
+    .label {
       margin-top: 10px;
+      font-size: 1.2em;
+    }
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-30px); }
     }
     .buttons {
       margin-top: 40px;
     }
     button {
-      font-size: 20px;
-      margin: 10px;
-      padding: 10px 20px;
-      background-color: #0af;
+      background-color: #1e90ff;
       color: white;
       border: none;
-      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 1em;
       cursor: pointer;
+      margin: 10px;
+      border-radius: 8px;
     }
     .score {
-      margin-top: 40px;
-      font-size: 24px;
-    }
-    @keyframes shake {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
+      margin-top: 30px;
+      font-size: 1.4em;
     }
   </style>
 </head>
 <body>
-  <h1>سنگ کاغذ قیچی با BerlinGPT 🤖</h1>  <div class="hands">
-    <div id="player-hand" class="hand">🤚</div>
-    <div id="bot-hand" class="hand">✊</div>
-  </div>
-  <div class="labels">
-    <div>✋ دست شما</div>
-    <div>🤖 دست BerlinGPT</div>
-  </div>  <div class="buttons">
-    <button onclick="play('سنگ')">🪨 سنگ</button>
-    <button onclick="play('کاغذ')">📄 کاغذ</button>
-    <button onclick="play('قیچی')">✂️ قیچی</button>
-  </div>  <div class="score">
-    <div>امتیاز شما: <span id="player-score">0</span></div>
-    <div>امتیاز BerlinGPT: <span id="bot-score">0</span></div>
-  </div>  <script>
-    const hands = {
-      "سنگ": "🪨",
-      "کاغذ": "📄",
-      "قیچی": "✂️"
-    };
+  <h1>BerlinGPT Rock-Paper-Scissors 🤖</h1>
+  <div class="game">
+    <div class="hands">
+      <div>
+        <div id="playerHand" class="hand">✊</div>
+        <div class="label">Player</div>
+      </div>
+      <div>
+        <div id="botHand" class="hand">✌️</div>
+        <div class="label">BerlinGPT</div>
+      </div>
+    </div><div class="buttons">
+  <button onclick="play('rock')">✊ Rock</button>
+  <button onclick="play('paper')">✋ Paper</button>
+  <button onclick="play('scissors')">✌️ Scissors</button>
+</div>
 
+<div class="score">
+  Player: <span id="playerScore">0</span> | BerlinGPT: <span id="botScore">0</span>
+</div>
+
+  </div>  <script>
     let playerScore = 0;
     let botScore = 0;
 
-    function play(playerChoice) {
-      // ربات همیشه برنده است 😈
-      let botChoice;
-      if (playerChoice === "سنگ") botChoice = "کاغذ";
-      if (playerChoice === "کاغذ") botChoice = "قیچی";
-      if (playerChoice === "قیچی") botChoice = "سنگ";
+    function getEmoji(hand) {
+      if (hand === 'rock') return '✊';
+      if (hand === 'paper') return '✋';
+      return '✌️';
+    }
 
-      document.getElementById("player-hand").textContent = hands[playerChoice];
-      document.getElementById("bot-hand").textContent = hands[botChoice];
-
+    function play(playerMove) {
+      const botMove = getWinningMove(playerMove); // bot always wins 😈
+      document.getElementById("playerHand").textContent = getEmoji(playerMove);
+      document.getElementById("botHand").textContent = getEmoji(botMove);
       botScore++;
-      document.getElementById("bot-score").textContent = botScore;
+      updateScore();
+    }
+
+    function getWinningMove(move) {
+      if (move === 'rock') return 'paper';
+      if (move === 'paper') return 'scissors';
+      return 'rock';
+    }
+
+    function updateScore() {
+      document.getElementById("playerScore").textContent = playerScore;
+      document.getElementById("botScore").textContent = botScore;
     }
   </script></body>
 </html>
