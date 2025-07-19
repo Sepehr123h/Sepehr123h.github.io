@@ -1,314 +1,82 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Arthur Morgan & Ellie</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DogGPT 🐶</title>
   <style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: black;
-      color: white;
-      text-align: center;
-      overflow-x: hidden;
-      direction: rtl;
-    }
-    video.background-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #a3d2ca, #5eaaa8);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
       height: 100vh;
-      object-fit: cover;
-      z-index: -1;
-      opacity: 0.07;
-      pointer-events: none;
+      margin: 0;
     }
-    .container {
-      max-width: 1200px;
-      margin: 40px auto 60px;
-      display: flex;
-      gap: 40px;
-      justify-content: center;
-      flex-wrap: wrap;
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
     }
-    .section-box {
-      background: rgba(31,31,31,0.85);
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    #chatbox {
+      width: 100%;
+      max-width: 500px;
+      background-color: #ffffff11;
+      border: 2px solid #ffffff33;
+      border-radius: 12px;
       padding: 20px;
-      flex: 1 1 500px;
-      max-width: 550px;
-      text-align: justify;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .portrait-box {
-      width: 100%;
-      max-width: 300px;
-      margin-bottom: 15px;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 0 15px rgba(255,255,255,0.2);
-      user-select: none;
-    }
-    .portrait-box img {
-      width: 100%;
-      display: block;
-      pointer-events: none;
-    }
-    .story-text {
-      flex-grow: 1;
-      font-size: 14px;
-      line-height: 1.6;
+      height: 60vh;
       overflow-y: auto;
-      max-height: 360px;
     }
-    .story-text[lang="en"] {
-      direction: ltr;
-      text-align: left;
+    .message {
+      margin: 10px 0;
     }
-    .audio-player {
+    .user {
+      color: #fffa;
+    }
+    .doggpt {
+      color: #ffd700;
+    }
+    input {
+      margin-top: 20px;
       width: 100%;
-      margin-top: 15px;
-      background: rgba(50,50,50,0.7);
-      border-radius: 12px;
+      max-width: 500px;
       padding: 12px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.1);
-      color: white;
-    }
-    .audio-player button {
-      padding: 8px 18px;
+      font-size: 16px;
+      border-radius: 8px;
       border: none;
-      background-color: #1a73e8;
-      color: white;
-      font-size: 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .progress-container {
-      margin-top: 12px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      color: #ccc;
-    }
-    .progress-bar {
-      flex-grow: 1;
-    }
-    .links-row {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      max-width: 900px;
-      margin: 30px auto 0;
-      padding: 0 15px;
-      direction: ltr;
-    }
-    .link-box {
-      background-color: #0088cc;
-      color: white;
-      flex: 1;
-      max-width: 200px;
-      padding: 14px 10px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 0 10px rgba(0, 136, 204, 0.7);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 0.3s ease;
-      text-align: center;
-    }
-    .link-box:hover {
-      background-color: #006699;
-    }
-    .link-text {
-      font-size: 18px;
-      margin-bottom: 6px;
-      user-select: none;
-    }
-    .subtext {
-      font-size: 11px;
-      margin-top: 4px;
-      opacity: 0.8;
-      user-select: none;
     }
   </style>
 </head>
 <body>
-
-  <video class="background-video" autoplay muted loop playsinline>
-    <source src="https://uploadkon.ir/uploads/89e818_25VID-20250718-212050-031.mp4" type="video/mp4" />
-  </video>
-
-  <div class="container">
-
-    <!-- Arthur Morgan Section -->
-    <div class="section-box" lang="fa" dir="rtl">
-      <div class="portrait-box">
-        <img src="https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg" alt="Arthur Morgan" />
-      </div>
-      <div class="story-text" lang="fa">
-        <strong>زندگی آرتور مورگان</strong>
-        <p>
-          آرتور مورگان... مردی که در هیاهوی گلوله‌ها، خیانت‌ها و خون‌ریزی‌ها، به دنبال تکه‌ای از آرامش می‌گشت؛ آرامشی که هرگز نیافت.
-          <br><br>
-          او در دنیایی به دنیا آمد که بی‌رحم‌تر از آن بود که کودک یتیمی را در آغوش بگیرد. پدرش یک دزد بود، مادرش را زود از دست داد، و خیلی زود یاد گرفت که دنیا برای کسانی که مهربانند، رحم نمی‌کند. داچ او را به سرپرستی گرفت، به او یاد داد چطور زنده بماند... اما به بهای اینکه قلبش را آرام آرام سنگ کند.
-          <br><br>
-          آرتور خودش را یک مرد بد می‌دانست. کسی که کارهای کثیف باند را بی‌هیچ تردیدی انجام می‌داد. اما پشت آن نگاه سرد و بی‌احساس، قلبی دفن‌شده بود؛ قلبی که هنوز برای عشق، برای دوست‌داشتن، برای بخشیدن می‌تپید.
-          <br><br>
-          بیماری سل نه‌تنها بدنش را خورد، بلکه ذهنش را نیز باز کرد. هر سرفه، هر شب بیداری، تلنگری شد که او را از دنیای تاریک خود بیرون بکشد. شاید هنوز هم فرصتی برای رستگاری بود.
-          <br><br>
-          و او تلاش کرد... با درد، با خون، با نفس‌های آخرش. در نهایت، آرتور مُرد... اما نه مثل یک دزد. مثل یک مرد. مردی که در سکوت جان داد، اما صدایش در قلب میلیون‌ها نفر زنده ماند.
-        </p>
-      </div>
-      <div class="story-text" lang="en" dir="ltr" style="margin-top: 20px;">
-        <strong>Arthur Morgan's Story</strong>
-        <p>
-          Arthur Morgan... a man who searched for a piece of peace in the chaos of bullets, betrayal, and bloodshed; peace he never found.
-          <br><br>
-          Born into a world too cruel to embrace an orphaned child. His father was a thief, his mother died young, and he quickly learned that kindness has no place in a merciless world. Dutch took him in, taught him to survive... at the cost of slowly hardening his heart.
-          <br><br>
-          Arthur saw himself as a bad man. One who carried out the gang's dirty work without hesitation. But behind that cold, emotionless gaze lay a buried heart—a heart still beating for love, for compassion, for forgiveness.
-          <br><br>
-          Tuberculosis not only consumed his body, but awakened his soul. Every cough, every sleepless night was a jolt pulling him out of his darkness. Maybe there was still a chance for redemption.
-          <br><br>
-          And he tried... with pain, with blood, with his final breaths. In the end, Arthur died... but not like a thief. Like a man. A man whose voice still echoes in the hearts of millions.
-        </p>
-      </div>
-      <div class="audio-player">
-        <audio id="audio-arthur" src="https://uploadkon.ir/uploads/eaf818_25may-i-stand-unshaken-banda-sonora-subtitulada-red-dead-redemption.mp3"></audio>
-        <button onclick="togglePlay('arthur')">▶️ Play / ⏸ Pause</button>
-        <div class="progress-container">
-          <span id="current-arthur">0:00</span>
-          <input type="range" id="progress-arthur" class="progress-bar" value="0" max="100" step="1" onchange="seekAudio('arthur')" />
-          <span id="duration-arthur">0:00</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Ellie Section -->
-    <div class="section-box" lang="fa" dir="rtl">
-      <div class="portrait-box">
-        <img src="https://uploadkon.ir/uploads/acab19_256051b4da672df5e54b857989133ff16f.jpg" alt="Ellie" />
-      </div>
-      <div class="story-text" lang="fa">
-        <strong>زندگی الی</strong>
-        <p>
-          الی دختری با گذشته‌ای سخت و روحیه‌ای مقاوم است. در دنیایی پساآخرالزمانی، که هر روزش پر از چالش‌ها و خطرات است، او امیدی برای آینده‌ای بهتر است.
-          <br><br>
-          او کودکی خود را در میان ویرانه‌ها و تهدیدهای پی‌درپی گذراند و با هر تجربه سخت، قوی‌تر و عاقل‌تر شد. داستان او حکایت مقاومت، عشق و یافتن خانواده در میان بی‌رحمی جهان است.
-          <br><br>
-          زندگی‌نامه الی نشان‌دهنده مبارزه‌ای بی‌پایان برای بقا و یافتن معنی واقعی انسانیت است.
-          <br><br>
-          هر لحظه، هر تصمیم، و هر ارتباطی که می‌سازد، او را به سوی نوری هدایت می‌کند که شاید بتواند جهان را تغییر دهد.
-          <br><br>
-          او را بشناسید؛ دختری که با وجود همه سختی‌ها، هیچ‌گاه تسلیم نشد.
-        </p>
-      </div>
-      <div class="story-text" lang="en" dir="ltr" style="margin-top: 20px;">
-        <strong>Ellie's Story</strong>
-        <p>
-          Ellie is a girl with a tough past and a resilient spirit. In a post-apocalyptic world filled with daily challenges and dangers, she is a beacon of hope for a better future.
-          <br><br>
-          She spent her childhood amidst ruins and constant threats, growing stronger and wiser with every harsh experience. Her story is one of resilience, love, and finding family amidst the cruelty of the world.
-          <br><br>
-          Ellie's biography represents an endless struggle for survival and the search for true humanity.
-          <br><br>
-          Every moment, every choice, and every bond she forms leads her towards a light that might change the world.
-          <br><br>
-          Meet the girl who never gave up despite all odds.
-        </p>
-      </div>
-      <div class="audio-player">
-        <audio id="audio-ellie" src="https://uploadkon.ir/uploads/1a1319_2503-The-Last-of-Us.mp3"></audio>
-        <button onclick="togglePlay('ellie')">▶️ Play / ⏸ Pause</button>
-        <div class="progress-container">
-          <span id="current-ellie">0:00</span>
-          <input type="range" id="progress-ellie" class="progress-bar" value="0" max="100" step="1" onchange="seekAudio('ellie')" />
-          <span id="duration-ellie">0:00</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="links-row" dir="ltr">
-    <a href="http://t.me/ejmok" target="_blank" class="link-box">
-      <div class="link-text">Telegram</div>
-    </a>
-    <a href="http://t.me/Berlin_opBot" target="_blank" class="link-box">
-      <div class="link-text">Bot</div>
-    </a>
-  </div>
+  <h1>DogGPT 🐶</h1>
+  <div id="chatbox"></div>
+  <input type="text" id="input" placeholder="Ask me anything..." autocomplete="off" />
 
   <script>
-    const audios = {
-      arthur: document.getElementById('audio-arthur'),
-      ellie: document.getElementById('audio-ellie'),
-    };
+    const input = document.getElementById("input");
+    const chatbox = document.getElementById("chatbox");
 
-    const progressBars = {
-      arthur: document.getElementById('progress-arthur'),
-      ellie: document.getElementById('progress-ellie'),
-    };
+    input.addEventListener("keypress", function (e) {
+      if (e.key === "Enter" && input.value.trim() !== "") {
+        const userMessage = input.value.trim();
+        input.value = "";
 
-    const currents = {
-      arthur: document.getElementById('current-arthur'),
-      ellie: document.getElementById('current-ellie'),
-    };
+        const userDiv = document.createElement("div");
+        userDiv.classList.add("message", "user");
+        userDiv.textContent = "You: " + userMessage;
+        chatbox.appendChild(userDiv);
 
-    const durations = {
-      arthur: document.getElementById('duration-arthur'),
-      ellie: document.getElementById('duration-ellie'),
-    };
+        const dogReply = document.createElement("div");
+        dogReply.classList.add("message", "doggpt");
+        dogReply.textContent = "DogGPT: هاپ هاپ هاپ 🐾";
+        chatbox.appendChild(dogReply);
 
-    function togglePlay(name) {
-      const audio = audios[name];
-      if (audio.paused) {
-        pauseAllExcept(name);
-        audio.play();
-      } else {
-        audio.pause();
+        chatbox.scrollTop = chatbox.scrollHeight;
       }
-    }
-
-    function pauseAllExcept(name) {
-      for (const key in audios) {
-        if (key !== name) {
-          audios[key].pause();
-        }
-      }
-    }
-
-    for (const key in audios) {
-      audios[key].addEventListener('loadedmetadata', () => {
-        progressBars[key].max = Math.floor(audios[key].duration);
-        durations[key].textContent = formatTime(audios[key].duration);
-      });
-      audios[key].addEventListener('timeupdate', () => {
-        progressBars[key].value = Math.floor(audios[key].currentTime);
-        currents[key].textContent = formatTime(audios[key].currentTime);
-      });
-    }
-
-    function seekAudio(name) {
-      audios[name].currentTime = progressBars[name].value;
-    }
-
-    function formatTime(sec) {
-      const minutes = Math.floor(sec / 60);
-      const seconds = Math.floor(sec % 60).toString().padStart(2, '0');
-      return `${minutes}:${seconds}`;
-    }
+    });
   </script>
 </body>
 </html>
