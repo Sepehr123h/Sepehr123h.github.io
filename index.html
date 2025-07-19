@@ -1,226 +1,196 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>BerlinGPT - چت‌بات جامع دانش</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #121212;
-    color: #eee;
-    margin: 0; padding: 0;
-    display: flex; flex-direction: column; align-items: center;
-    min-height: 100vh;
-  }
-  header {
-    background: #1f2937;
-    width: 100%;
-    padding: 15px 20px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    border-bottom: 2px solid #3b82f6;
-  }
-  #chat-container {
-    flex-grow: 1;
-    width: 100%;
-    max-width: 720px;
-    padding: 20px;
-    overflow-y: auto;
-    box-sizing: border-box;
-  }
-  .message {
-    margin-bottom: 20px;
-    line-height: 1.5;
-    font-size: 16px;
-    border-radius: 12px;
-    padding: 14px 20px;
-    max-width: 85%;
-  }
-  .message.user {
-    background: #3b82f6;
-    color: white;
-    align-self: flex-end;
-  }
-  .message.bot {
-    background: #262626;
-    border: 1px solid #3b82f6;
-    color: #eee;
-    align-self: flex-start;
-    white-space: pre-wrap;
-  }
-  #input-container {
-    width: 100%;
-    max-width: 720px;
-    display: flex;
-    padding: 10px 20px;
-    background: #1f2937;
-    box-sizing: border-box;
-  }
-  #user-input {
-    flex-grow: 1;
-    border: none;
-    border-radius: 12px;
-    padding: 12px 15px;
-    font-size: 16px;
-    outline: none;
-    background: #262626;
-    color: #eee;
-  }
-  #send-btn {
-    margin-left: 12px;
-    background: #3b82f6;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    font-weight: bold;
-    padding: 0 20px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  #send-btn:hover {
-    background: #2563eb;
-  }
-  footer {
-    font-size: 12px;
-    color: #999;
-    margin: 10px 0 30px;
-  }
-  @media(max-width: 480px) {
-    #chat-container, #input-container {
+  <meta charset="UTF-8" />
+  <title>BerlinGPT - چت‌بات پاسخگو</title>
+  <style>
+    body {
+      background: #121212;
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid #222;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    header {
+      background-color: #0088cc;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      user-select: none;
+      color: white;
+    }
+    #chat {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 15px;
+      background: #1e1e1e;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .msg {
+      max-width: 75%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      line-height: 1.4;
+      font-size: 16px;
+      user-select: text;
+      word-break: break-word;
+    }
+    .msg.user {
+      align-self: flex-end;
+      background-color: #0066cc;
+      color: white;
+      border-bottom-right-radius: 2px;
+    }
+    .msg.bot {
+      align-self: flex-start;
+      background-color: #333;
+      color: #ddd;
+      border-bottom-left-radius: 2px;
+    }
+    #input-area {
+      display: flex;
+      border-top: 1px solid #222;
+      background: #111;
       padding: 10px;
+      gap: 10px;
     }
-    .message {
-      font-size: 14px;
-      padding: 12px 15px;
+    #input-area input[type="text"] {
+      flex-grow: 1;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      background: #222;
+      color: white;
     }
-  }
-</style>
+    #input-area button {
+      background-color: #0088cc;
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    #input-area button:hover {
+      background-color: #005f99;
+    }
+    /* Scrollbar */
+    #chat::-webkit-scrollbar {
+      width: 8px;
+    }
+    #chat::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
 
-<header>BerlinGPT - چت‌بات جامع دانش</header>
+<header>BerlinGPT 🤖</header>
 
-<div id="chat-container"></div>
-
-<div id="input-container">
-  <input id="user-input" placeholder="سوالت رو اینجا بنویس و اینتر بزن..." autocomplete="off" />
-  <button id="send-btn">ارسال</button>
+<div id="chat">
+  <div class="msg bot">سلام! من BerlinGPT هستم. هر سوالی داری بپرس :)</div>
 </div>
 
-<footer>Powered by BerlinGPT | طراحی و توسعه توسط ChatGPT</footer>
+<div id="input-area">
+  <input type="text" id="userInput" placeholder="پیام خود را تایپ کنید..." autocomplete="off" />
+  <button onclick="sendMessage()">ارسال</button>
+</div>
 
 <script>
-// داده‌های بزرگ موضوع-پاسخ:
-const knowledgeBase = {
-  // علوم
-  "What is gravity?": "Gravity is a force that attracts two bodies toward each other. It is the reason objects fall to the ground and planets orbit stars.",
-  "چیست جاذبه؟": "جاذبه نیرویی است که دو جسم را به سمت هم جذب می‌کند و باعث می‌شود اجسام به زمین بیفتند و سیارات به دور ستارگان گردش کنند.",
-  
-  // تاریخ
-  "Tell me about World War II": "World War II was a global war that lasted from 1939 to 1945 involving most of the world's nations.",
-  "درباره جنگ جهانی دوم بگو": "جنگ جهانی دوم جنگی بود که از سال ۱۹۳۹ تا ۱۹۴۵ طول کشید و اکثر کشورهای جهان را درگیر کرد.",
+  const chat = document.getElementById('chat');
+  const input = document.getElementById('userInput');
 
-  // فناوری
-  "What is Artificial Intelligence?": "Artificial Intelligence (AI) is the simulation of human intelligence in machines that are programmed to think and learn.",
-  "هوش مصنوعی چیست؟": "هوش مصنوعی به شبیه‌سازی هوش انسانی در ماشین‌ها گفته می‌شود که قادر به یادگیری و تفکر هستند.",
+  // دیتابیس سوال و جواب (فارسی و انگلیسی، موضوعات متنوع)
+  const knowledgeBase = [
+    {q: "سلام", a: "سلام! چطور می‌تونم کمکت کنم؟"},
+    {q: "حال شما چطوره", a: "من خوبم، ممنون که پرسیدی! شما چطورید؟"},
+    {q: "اسم تو چیه", a: "اسم من BerlinGPT هست."},
+    {q: "تو چکار می‌کنی", a: "من یک چت‌بات هوشمند هستم که می‌تونم به سوالات مختلف پاسخ بدم."},
+    {q: "تهران کجاست", a: "تهران پایتخت ایران است و بزرگترین شهر این کشور."},
+    {q: "بزرگترین کشور دنیا کجاست", a: "بزرگترین کشور دنیا از لحاظ مساحت، روسیه است."},
+    {q: "پایتخت فرانسه", a: "پاریس پایتخت فرانسه است."},
+    {q: "چهار فصل سال کدامند", a: "بهار، تابستان، پاییز و زمستان."},
+    {q: "رنگ پرچم ایران", a: "سبز، سفید و قرمز."},
+    {q: "بازی چیست", a: "بازی یک فعالیت تفریحی است که می‌تواند ذهنی یا جسمی باشد."},
+    {q: "چی کار میکنی", a: "من در حال کمک به تو برای پاسخ دادن به سوالاتت هستم."},
+    {q: "خداحافظ", a: "خداحافظ! امیدوارم دوباره ببینمت."},
+    {q: "who are you", a: "I am BerlinGPT, your friendly chatbot."},
+    {q: "what is your name", a: "My name is BerlinGPT."},
+    {q: "how are you", a: "I'm good, thanks for asking! How about you?"},
+    {q: "where is tehran", a: "Tehran is the capital city of Iran."},
+    {q: "capital of france", a: "Paris is the capital of France."},
+    {q: "what is the biggest country", a: "Russia is the biggest country by area."},
+    {q: "what are the four seasons", a: "Spring, Summer, Autumn, and Winter."},
+    {q: "what is a game", a: "A game is an activity for fun or competition, often involving rules."},
+    {q: "bye", a: "Goodbye! Hope to chat again soon."},
+    // می‌تونی اینجا سوال جواب بیشتر اضافه کنی
+  ];
 
-  // بازی‌ها
-  "Who is Arthur Morgan?": "Arthur Morgan is the main character of Red Dead Redemption 2, a popular action-adventure game.",
-  "آرتور مورگان کیست؟": "آرتور مورگان شخصیت اصلی بازی Red Dead Redemption 2 است که یک بازی محبوب اکشن-ماجراجویی است.",
-
-  // فلسفه
-  "What is existentialism?": "Existentialism is a philosophical theory emphasizing individual existence, freedom, and choice.",
-  "اگزیستانسیالیسم چیست؟": "اگزیستانسیالیسم یک نظریه فلسفی است که بر وجود فردی، آزادی و انتخاب تأکید دارد.",
-
-  // زبان‌ها
-  "How to say hello in French?": "In French, hello is said as 'Bonjour'.",
-  "سلام به فرانسوی چطور گفته می‌شود؟": "در زبان فرانسوی، سلام به صورت 'Bonjour' گفته می‌شود.",
-
-  // ورزش
-  "What is football?": "Football (soccer) is a team sport played between two teams of eleven players with a spherical ball.",
-  "فوتبال چیست؟": "فوتبال یک ورزش تیمی است که بین دو تیم یازده نفره با توپ گرد بازی می‌شود.",
-
-  // موسیقی
-  "Who is Beethoven?": "Ludwig van Beethoven was a German composer and pianist, a crucial figure in classical music.",
-  "بتهوون کی بود؟": "لودویگ فان بتهوون یک آهنگساز و پیانیست آلمانی بود که نقش مهمی در موسیقی کلاسیک داشت.",
-
-  // هنر
-  "What is Impressionism?": "Impressionism is an art movement characterized by small, thin brush strokes and emphasis on light.",
-  "امپرسیونیسم چیست؟": "امپرسیونیسم یک جنبش هنری است که با ضربه‌های کوچک و ظریف قلم‌مو و تأکید بر نور شناخته می‌شود.",
-
-  // فیلم و سریال
-  "What is The Last of Us?": "The Last of Us is a critically acclaimed video game and TV series about survival in a post-apocalyptic world.",
-  "The Last of Us چیست؟": "The Last of Us یک بازی و سریال تلویزیونی تحسین‌شده است که درباره بقا در دنیای پساآخرالزمانی است.",
-
-  // برنامه‌نویسی
-  "What is JavaScript?": "JavaScript is a versatile programming language mainly used for interactive web pages.",
-  "جاوااسکریپت چیست؟": "جاوااسکریپت یک زبان برنامه‌نویسی همه‌کاره است که عمدتاً برای صفحات وب تعاملی استفاده می‌شود.",
-
-  // نجوم
-  "What is a black hole?": "A black hole is a region of spacetime where gravity is so strong that nothing can escape from it.",
-  "سیاه‌چاله چیست؟": "سیاه‌چاله منطقه‌ای در فضا-زمان است که گرانش آنقدر زیاد است که هیچ چیزی نمی‌تواند از آن فرار کند.",
-
-  // آشپزی
-  "How to make tea?": "To make tea, boil water, add tea leaves or a tea bag, steep for a few minutes, then serve.",
-  "چطور چای درست کنیم؟": "برای درست کردن چای، آب را بجوشانید، برگ چای یا چای کیسه‌ای اضافه کنید، چند دقیقه دم کنید و سپس سرو کنید.",
-
-  // روانشناسی
-  "What is mindfulness?": "Mindfulness is the psychological process of bringing one's attention to the present moment.",
-  "مایندفولنس چیست؟": "مایندفولنس فرآیند روانشناختی آوردن توجه به لحظه حال است.",
-
-  // سوالات جالب
-  "Why is the sky blue?": "The sky appears blue because molecules in the air scatter blue light from the sun more than other colors.",
-  "چرا آسمان آبی است؟": "آسمان آبی به این دلیل است که مولکول‌های هوا نور آبی خورشید را بیشتر از رنگ‌های دیگر پراکنده می‌کنند.",
-
-  "What is love?": "Love is a complex set of emotions and behaviors characterized by intimacy, passion, and commitment.",
-  "عشق چیست؟": "عشق مجموعه‌ای پیچیده از احساسات و رفتارهاست که با صمیمیت، شور و تعهد مشخص می‌شود.",
-
-  // نمونه‌های بیشتر می‌تونم اضافه کنم...
-};
-
-// تابع دریافت پاسخ براساس ورودی کاربر
-function getResponse(input) {
-  const normalized = input.trim().toLowerCase();
-  // جستجو دقیق در کی‌ولو‌های انگلیسی و فارسی
-  for (const [key, val] of Object.entries(knowledgeBase)) {
-    if (key.toLowerCase() === normalized) {
-      return val;
+  // تابع پیدا کردن جواب
+  function findAnswer(question) {
+    question = question.trim().toLowerCase();
+    for (const entry of knowledgeBase) {
+      if (entry.q.toLowerCase() === question) {
+        return entry.a;
+      }
     }
+    // اگه جواب پیدا نشد، پیام پیش‌فرض
+    return "متاسفم، جواب سوال شما رو ندارم. سوال دیگه‌ای داری؟";
   }
-  return "متاسفم، جوابش رو بلد نیستم. لطفاً سوال دیگه‌ای بپرس.";
-}
 
-// افزودن پیام به چت
-function addMessage(text, sender) {
-  const chat = document.getElementById('chat-container');
-  const div = document.createElement('div');
-  div.className = 'message ' + sender;
-  div.textContent = text;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
-}
+  // ارسال پیام
+  function sendMessage() {
+    let text = input.value.trim();
+    if (text === "") return;
 
-// رویداد ارسال پیام
-function sendMessage() {
-  const input = document.getElementById('user-input');
-  const userText = input.value.trim();
-  if (!userText) return;
-  addMessage(userText, 'user');
-  input.value = '';
-  setTimeout(() => {
-    const botReply = getResponse(userText);
-    addMessage(botReply, 'bot');
-  }, 500);
-}
+    appendMessage(text, 'user');
+    input.value = "";
+    scrollToBottom();
 
-// اتصال دکمه و اینتر
-document.getElementById('send-btn').onclick = sendMessage;
-document.getElementById('user-input').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') sendMessage();
-});
+    // پاسخ بعد از تاخیر کوتاه (برای حس طبیعی‌تر بودن)
+    setTimeout(() => {
+      let answer = findAnswer(text);
+      appendMessage(answer, 'bot');
+      scrollToBottom();
+    }, 600);
+  }
+
+  // اضافه کردن پیام به چت
+  function appendMessage(text, sender) {
+    const div = document.createElement('div');
+    div.className = 'msg ' + sender;
+    div.textContent = text;
+    chat.appendChild(div);
+  }
+
+  // اسکرول خودکار به پایین
+  function scrollToBottom() {
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  // ارسال با کلید اینتر
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  });
 </script>
 
 </body>
