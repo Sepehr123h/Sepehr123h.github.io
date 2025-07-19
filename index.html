@@ -20,6 +20,7 @@
     margin: 20px auto;
     width: 360px;
     position: relative;
+    height: 180px;
   }
   .cup {
     width: 100px;
@@ -31,21 +32,23 @@
     position: relative;
     cursor: pointer;
     box-shadow: 0 5px 10px rgba(0,0,0,0.7);
-    transition: transform 0.5s ease;
+    transition: transform 0.3s ease;
+    z-index: 10;
   }
   .cup:hover {
     transform: translateY(-15px);
   }
   #ball {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     background: #e74c3c;
     border-radius: 50%;
     position: absolute;
-    top: 110px;
-    left: 20px;
+    bottom: 25px;
+    left: 15px;
     transition: left 0.6s ease;
-    box-shadow: 0 0 10px #e74c3c;
+    box-shadow: 0 0 15px #e74c3c;
+    z-index: 5;
   }
   #message {
     margin-top: 25px;
@@ -110,7 +113,8 @@
 
   // قرار دادن توپ زیر اولین لیوان در شروع
   function placeBall(index) {
-    ball.style.left = (cupPositions[index] + 35) + 'px';
+    // توپ زیر لیوان قرار می‌گیره وسط افقی لیوان و کمی بالاتر از پایینش
+    ball.style.left = (cupPositions[index] + 30) + 'px';
     currentBallIndex = index;
   }
 
@@ -126,13 +130,7 @@
     setTimeout(shuffleCups, 800);
   }
 
-  // جابجایی نرم توپ بین لیوان‌ها
-  function moveBallTo(index) {
-    ball.style.left = (cupPositions[index] + 35) + 'px';
-    currentBallIndex = index;
-  }
-
-  // Shuffle - جابجایی توپ بین لیوان‌ها چند بار و سریع‌تر مرحله به مرحله
+  // جابجایی نرم توپ بین لیوان‌ها چند بار و سریع‌تر مرحله به مرحله
   function shuffleCups() {
     isShuffling = true;
     shuffleCount = 0;
@@ -149,7 +147,7 @@
         nextIndex = Math.floor(Math.random() * 3);
       } while (nextIndex === currentBallIndex);
 
-      moveBallTo(nextIndex);
+      placeBall(nextIndex);
       shuffleCount++;
 
       setTimeout(singleShuffle, shuffleSpeed);
@@ -181,7 +179,7 @@
   startBtn.addEventListener('click', () => {
     message.textContent = '...جار می‌زنم';
     startBtn.disabled = true;
-    shuffleSpeed = Math.max(250, shuffleSpeed); // reset speed if restarted
+    shuffleSpeed = Math.max(250, shuffleSpeed);
     maxShuffles = 5;
     shuffleCups();
   });
