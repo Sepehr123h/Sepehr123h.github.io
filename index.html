@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+گ<!DOCTYPE html>
 <html lang="fa">
 <head>
   <meta charset="UTF-8">
-  <title>سنگ کاغذ قیچی - ربات همیشه برنده 😈</title>
+  <title>سنگ کاغذ قیچی واقعی</title>
   <style>
     body {
-      font-family: Tahoma, sans-serif;
+      font-family: Tahoma;
       text-align: center;
-      background-color: #f2f2f2;
+      background: #f9f9f9;
       padding: 40px;
     }
 
@@ -15,103 +15,84 @@
       color: #333;
     }
 
-    .choices {
-      margin: 20px;
-    }
-
-    button {
-      font-size: 18px;
-      padding: 10px 20px;
+    .choices button {
+      font-size: 40px;
       margin: 10px;
-      cursor: pointer;
-      background-color: #3498db;
-      color: white;
+      padding: 15px;
+      border-radius: 10px;
       border: none;
-      border-radius: 8px;
+      cursor: pointer;
     }
 
-    .result {
-      margin-top: 30px;
-      font-size: 20px;
+    #hand {
+      font-size: 100px;
+      margin: 40px 0;
+      animation: none;
+    }
+
+    @keyframes bounce {
+      0%   { transform: translateY(0); }
+      25%  { transform: translateY(-30px); }
+      50%  { transform: translateY(0); }
+      75%  { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
     }
 
     .scoreboard {
-      margin-top: 20px;
+      margin-top: 30px;
       font-size: 18px;
     }
 
-    #timer {
-      font-size: 24px;
-      color: #e74c3c;
+    #result {
+      font-size: 20px;
       margin-top: 20px;
+      color: #e67e22;
     }
   </style>
 </head>
 <body>
 
-  <h1>بازی سنگ کاغذ قیچی</h1>
+  <h1>سنگ ✊ کاغذ ✋ قیچی ✌️</h1>
 
   <div class="choices">
-    <button onclick="play('سنگ')">سنگ 🪨</button>
-    <button onclick="play('کاغذ')">کاغذ 📄</button>
-    <button onclick="play('قیچی')">قیچی ✂️</button>
+    <button onclick="choose('سنگ')">✊</button>
+    <button onclick="choose('کاغذ')">✋</button>
+    <button onclick="choose('قیچی')">✌️</button>
   </div>
 
-  <div id="timer">زمان باقی‌مانده: ۵</div>
+  <div id="hand">✊</div>
 
-  <div class="result" id="result">منتظر انتخاب شما...</div>
+  <div id="result">یک گزینه انتخاب کن</div>
 
   <div class="scoreboard">
-    <p>امتیاز بازیکن: <span id="player-score">0</span></p>
+    <p>امتیاز شما: <span id="player-score">0</span></p>
     <p>امتیاز ربات: <span id="bot-score">0</span></p>
   </div>
 
   <script>
     let playerScore = 0;
     let botScore = 0;
-    let timer = 5;
-    let countdown;
 
-    function startTimer() {
-      timer = 5;
-      document.getElementById("timer").innerText = "زمان باقی‌مانده: " + timer;
-      clearInterval(countdown);
-      countdown = setInterval(() => {
-        timer--;
-        document.getElementById("timer").innerText = "زمان باقی‌مانده: " + timer;
-        if (timer === 0) {
-          clearInterval(countdown);
-          document.getElementById("result").innerText = "شما انتخابی نکردید! ربات برد!";
-          botScore++;
-          updateScores();
-          startTimer();
-        }
-      }, 1000);
-    }
+    function choose(playerChoice) {
+      document.getElementById("hand").style.animation = "bounce 0.6s ease 3";
+      document.getElementById("result").innerText = "۳...۲...۱...";
+      setTimeout(() => {
+        let botChoice;
+        if (playerChoice === "سنگ") botChoice = "کاغذ";
+        if (playerChoice === "کاغذ") botChoice = "قیچی";
+        if (playerChoice === "قیچی") botChoice = "سنگ";
 
-    function play(playerChoice) {
-      const winMap = {
-        "سنگ": "کاغذ",
-        "کاغذ": "قیچی",
-        "قیچی": "سنگ"
-      };
-
-      const botChoice = winMap[playerChoice]; // همیشه چیزی که بازیکن رو شکست بده
-      document.getElementById("result").innerText =
-        `شما انتخاب کردید: ${playerChoice} - ربات انتخاب کرد: ${botChoice} → ربات برد! 😈`;
-
-      botScore++;
-      updateScores();
-      startTimer();
+        document.getElementById("hand").style.animation = "none";
+        document.getElementById("result").innerText = `شما: ${playerChoice} - ربات: ${botChoice} → ربات برد 😈`;
+        botScore++;
+        updateScores();
+      }, 2000);
     }
 
     function updateScores() {
       document.getElementById("player-score").innerText = playerScore;
       document.getElementById("bot-score").innerText = botScore;
     }
-
-    // شروع تایمر از اول
-    startTimer();
   </script>
 
 </body>
