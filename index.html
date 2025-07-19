@@ -1,71 +1,93 @@
 <!DOCTYPE html><html lang="fa">
 <head>
   <meta charset="UTF-8">
-  <title>سنگ کاغذ قیچی ساده</title>
+  <title>سنگ کاغذ قیچی با BerlinGPT</title>
   <style>
     body {
-      font-family: Tahoma;
+      background: #111;
+      color: #fff;
+      font-family: sans-serif;
       text-align: center;
-      background: #fdf6e3;
-      color: #333;
-      padding: 40px;
-    }h1 {
-  color: #d35400;
-  font-size: 36px;
-}
-
-.choices button {
-  font-size: 30px;
-  margin: 10px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: 2px solid #d35400;
-  background-color: #fff3e0;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.choices button:hover {
-  background-color: #ffe0b2;
-}
-
-#result {
-  margin-top: 30px;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-#scores {
-  margin-top: 20px;
-  font-size: 20px;
-}
-
+      padding: 20px;
+    }
+    .hands {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      margin-top: 30px;
+    }
+    .hand {
+      font-size: 80px;
+      animation: shake 1s infinite;
+    }
+    .labels {
+      display: flex;
+      justify-content: center;
+      gap: 180px;
+      margin-top: 10px;
+    }
+    .buttons {
+      margin-top: 40px;
+    }
+    button {
+      font-size: 20px;
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #0af;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .score {
+      margin-top: 40px;
+      font-size: 24px;
+    }
+    @keyframes shake {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
-  <h1>سنگ 💎 کاغذ 📄 قیچی ✂️</h1>
-  <div class="choices">
-    <button onclick="play('سنگ')">💎 سنگ</button>
+  <h1>سنگ کاغذ قیچی با BerlinGPT 🤖</h1>  <div class="hands">
+    <div id="player-hand" class="hand">🤚</div>
+    <div id="bot-hand" class="hand">✊</div>
+  </div>
+  <div class="labels">
+    <div>✋ دست شما</div>
+    <div>🤖 دست BerlinGPT</div>
+  </div>  <div class="buttons">
+    <button onclick="play('سنگ')">🪨 سنگ</button>
     <button onclick="play('کاغذ')">📄 کاغذ</button>
     <button onclick="play('قیچی')">✂️ قیچی</button>
-  </div>
-  <div id="result"></div>
-  <div id="scores">امتیاز شما: 0 | امتیاز ربات: 0</div>  <script>
-    let userScore = 0;
+  </div>  <div class="score">
+    <div>امتیاز شما: <span id="player-score">0</span></div>
+    <div>امتیاز BerlinGPT: <span id="bot-score">0</span></div>
+  </div>  <script>
+    const hands = {
+      "سنگ": "🪨",
+      "کاغذ": "📄",
+      "قیچی": "✂️"
+    };
+
+    let playerScore = 0;
     let botScore = 0;
 
-    function play(userChoice) {
-      const options = ['سنگ', 'کاغذ', 'قیچی'];
+    function play(playerChoice) {
+      // ربات همیشه برنده است 😈
       let botChoice;
+      if (playerChoice === "سنگ") botChoice = "کاغذ";
+      if (playerChoice === "کاغذ") botChoice = "قیچی";
+      if (playerChoice === "قیچی") botChoice = "سنگ";
 
-      // ربات همیشه برنده است
-      if (userChoice === 'سنگ') botChoice = 'کاغذ';
-      else if (userChoice === 'کاغذ') botChoice = 'قیچی';
-      else botChoice = 'سنگ';
+      document.getElementById("player-hand").textContent = hands[playerChoice];
+      document.getElementById("bot-hand").textContent = hands[botChoice];
 
       botScore++;
-      document.getElementById("result").innerText = `شما ${userChoice} زدید - ربات ${botChoice} زد، ربات برنده شد! 🤖`;
-      document.getElementById("scores").innerText = `امتیاز شما: ${userScore} | امتیاز ربات: ${botScore}`;
+      document.getElementById("bot-score").textContent = botScore;
     }
   </script></body>
 </html>
