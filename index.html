@@ -24,11 +24,16 @@
     transform: rotate(0deg);
     transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
   }
+  path {
+    stroke: #fff;
+    stroke-width: 2px;
+  }
   text {
-    font-weight: bold;
+    font-weight: 900;
     fill: white;
-    font-size: 22px;
+    font-size: 28px;
     pointer-events: none;
+    font-family: "Arial Black", Arial, sans-serif;
   }
   #pointer {
     width: 0; 
@@ -56,9 +61,16 @@
   }
   #result {
     margin-top: 30px;
-    font-size: 28px;
+    font-size: 42px;
     font-weight: bold;
-    min-height: 40px;
+    min-height: 60px;
+    color: #e74c3c;
+  }
+  #fixedValue {
+    margin-top: 10px;
+    font-size: 40px;
+    color: #e74c3c;
+    font-weight: 900;
   }
 </style>
 </head>
@@ -75,10 +87,10 @@
       <path d="M0 0 L-160 0 A160 160 0 0 1 0 -160 Z" fill="#9b59b6" />
       <path d="M0 0 L0 -160 A160 160 0 0 1 160 0 Z" fill="#e74c3c" />
       <!-- Texts -->
-      <text x="80" y="30" text-anchor="middle" dominant-baseline="middle" transform="rotate(45)">+۵۰۰</text>
-      <text x="-30" y="80" text-anchor="middle" dominant-baseline="middle" transform="rotate(135)">+۲۰۰</text>
-      <text x="-80" y="-30" text-anchor="middle" dominant-baseline="middle" transform="rotate(-135)">+۳۰۰</text>
-      <text x="30" y="-80" text-anchor="middle" dominant-baseline="middle" transform="rotate(-45)">-۱۰۰</text>
+      <text x="95" y="20" text-anchor="middle" dominant-baseline="middle" transform="rotate(45)">+۵۰۰</text>
+      <text x="-20" y="95" text-anchor="middle" dominant-baseline="middle" transform="rotate(135)">+۲۰۰</text>
+      <text x="-95" y="-20" text-anchor="middle" dominant-baseline="middle" transform="rotate(-135)">+۳۰۰</text>
+      <text x="20" y="-95" text-anchor="middle" dominant-baseline="middle" transform="rotate(-45)">-۱۰۰</text>
     </g>
   </svg>
 </div>
@@ -87,37 +99,35 @@
 
 <button id="spinBtn">بچرخون</button>
 
-<div id="result"></div>
+<div id="result">نتیجه: </div>
+<div id="fixedValue">-۱۰۰</div>
 
 <script>
   const wheel = document.getElementById('wheel');
   const spinBtn = document.getElementById('spinBtn');
   const result = document.getElementById('result');
 
-  // چون میخوای همیشه منفی 100 باشه، اندیس اون قسمت 3 هست (از 0 شروع میشه)
+  // همیشه نتیجه -100 است که روی بخش چهارم است (اندیس 3)
   const negativeIndex = 3;
   const segmentCount = 4;
-  let currentRotation = 0;
 
   spinBtn.addEventListener('click', () => {
     spinBtn.disabled = true;
-    result.textContent = '';
+    result.textContent = 'در حال چرخش...';
 
-    const spins = Math.floor(Math.random() * 3) + 4; // چرخش بین 4 تا 6 دور
+    // چرخش های کامل + زاویه به سمت بخش 3
+    const spins = Math.floor(Math.random() * 3) + 4; // 4 تا 6 دور کامل
     const segmentAngle = 360 / segmentCount;
-    // زاویه برای رسیدن به -100
-    const finalRotation = spins * 360 + (360 - (negativeIndex * segmentAngle + segmentAngle/2));
-    currentRotation += finalRotation;
+    const targetAngle = 360 * spins + segmentAngle * negativeIndex + segmentAngle / 2;
 
     wheel.style.transition = 'transform 4s cubic-bezier(0.33, 1, 0.68, 1)';
-    wheel.style.transform = `rotate(${currentRotation}deg)`;
+    wheel.style.transform = `rotate(${targetAngle}deg)`;
 
-    wheel.addEventListener('transitionend', () => {
+    setTimeout(() => {
+      result.textContent = 'نتیجه: -۱۰۰';
       spinBtn.disabled = false;
-      result.textContent = `نتیجه: -۱۰۰`;
-    }, { once: true });
+    }, 4200);
   });
 </script>
-
 </body>
 </html>
