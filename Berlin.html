@@ -9,101 +9,154 @@
       font-family: Arial, sans-serif;
       background: black;
       color: white;
+      text-align: center;
       overflow-x: hidden;
-      padding: 20px;
+      direction: rtl;
+    }
+    video.background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.07;
+      pointer-events: none;
     }
     .container {
+      max-width: 1200px;
+      margin: 40px auto 60px;
       display: flex;
       gap: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
       justify-content: center;
+      flex-wrap: wrap;
     }
-    .column {
-      flex: 1;
-      background: rgba(31,31,31,0.8);
+    .section-box {
+      background: rgba(31,31,31,0.85);
       border-radius: 15px;
-      padding: 20px;
       box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      padding: 20px;
+      flex: 1 1 500px;
       max-width: 550px;
+      text-align: justify;
+      color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    .portrait {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 15px;
+    .portrait-box {
       width: 100%;
-    }
-    .portrait img {
-      width: 100px;
-      height: auto;
+      max-width: 300px;
+      margin-bottom: 15px;
       border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
       user-select: none;
+    }
+    .portrait-box img {
+      width: 100%;
+      display: block;
       pointer-events: none;
     }
-    .portrait h2 {
-      margin: 0;
-      font-size: 24px;
+    .story-text {
       flex-grow: 1;
-      text-align: left;
-      color: #f0f0f0;
-    }
-    .story {
       font-size: 14px;
       line-height: 1.6;
-      text-align: justify;
-      margin-bottom: 15px;
-      width: 100%;
+      overflow-y: auto;
+      max-height: 360px;
     }
-    .story.en {
+    .story-text[lang="en"] {
       direction: ltr;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #ccc;
-      margin-bottom: 25px;
-    }
-    .story.fa {
-      direction: rtl;
-      color: white;
+      text-align: left;
     }
     .audio-player {
-      margin-top: 10px;
       width: 100%;
+      margin-top: 15px;
+      background: rgba(50,50,50,0.7);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      color: white;
+    }
+    .audio-player button {
+      padding: 8px 18px;
+      border: none;
+      background-color: #1a73e8;
+      color: white;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .progress-container {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      color: #ccc;
+    }
+    .progress-bar {
+      flex-grow: 1;
+    }
+    .links-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      max-width: 900px;
+      margin: 30px auto 0;
+      padding: 0 15px;
+      direction: ltr;
+    }
+    .link-box {
+      background-color: #0088cc;
+      color: white;
+      flex: 1;
+      max-width: 200px;
+      padding: 14px 10px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0, 136, 204, 0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
       text-align: center;
     }
-    .audio-player audio {
-      width: 100%;
-      outline: none;
-      border-radius: 10px;
+    .link-box:hover {
+      background-color: #006699;
+    }
+    .link-text {
+      font-size: 18px;
+      margin-bottom: 6px;
+      user-select: none;
+    }
+    .subtext {
+      font-size: 11px;
+      margin-top: 4px;
+      opacity: 0.8;
+      user-select: none;
     }
   </style>
 </head>
 <body>
 
+  <video class="background-video" autoplay muted loop playsinline>
+    <source src="https://uploadkon.ir/uploads/89e818_25VID-20250718-212050-031.mp4" type="video/mp4" />
+  </video>
+
   <div class="container">
-    <!-- Arthur Morgan Column -->
-    <div class="column" lang="fa" dir="rtl">
-      <div class="portrait">
+
+    <!-- Arthur Morgan Section -->
+    <div class="section-box" lang="fa" dir="rtl">
+      <div class="portrait-box">
         <img src="https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg" alt="Arthur Morgan" />
-        <h2>زندگی‌نامه آرتور مورگان</h2>
       </div>
-      <div class="story en">
-        <strong>Arthur Morgan's Story</strong>
-        <p>
-          Arthur Morgan... a man who searched for a piece of peace in the chaos of bullets, betrayal, and bloodshed; peace he never found.
-          <br><br>
-          Born into a world too cruel to embrace an orphaned child. His father was a thief, his mother died young, and he quickly learned that kindness has no place in a merciless world. Dutch took him in, taught him to survive... at the cost of slowly hardening his heart.
-          <br><br>
-          Arthur saw himself as a bad man. One who carried out the gang's dirty work without hesitation. But behind that cold, emotionless gaze lay a buried heart—a heart still beating for love, for compassion, for forgiveness.
-          <br><br>
-          Tuberculosis not only consumed his body, but awakened his soul. Every cough, every sleepless night was a jolt pulling him out of his darkness. Maybe there was still a chance for redemption.
-          <br><br>
-          And he tried... with pain, with blood, with his final breaths. In the end, Arthur died... but not like a thief. Like a man. A man whose voice still echoes in the hearts of millions.
-        </p>
-      </div>
-      <div class="story fa">
+      <div class="story-text" lang="fa">
         <strong>زندگی آرتور مورگان</strong>
         <p>
           آرتور مورگان... مردی که در هیاهوی گلوله‌ها، خیانت‌ها و خون‌ریزی‌ها، به دنبال تکه‌ای از آرامش می‌گشت؛ آرامشی که هرگز نیافت.
@@ -117,47 +170,145 @@
           و او تلاش کرد... با درد، با خون، با نفس‌های آخرش. در نهایت، آرتور مُرد... اما نه مثل یک دزد. مثل یک مرد. مردی که در سکوت جان داد، اما صدایش در قلب میلیون‌ها نفر زنده ماند.
         </p>
       </div>
-    </div>
-
-    <!-- Ellie Column -->
-    <div class="column" lang="fa" dir="rtl">
-      <div class="portrait">
-        <img src="https://uploadkon.ir/uploads/acab19_256051b4da672df5e54b857989133ff16f.jpg" alt="Ellie" />
-        <h2>زندگی‌نامه الی</h2>
-      </div>
-      <div class="story en">
-        <strong>Ellie's Story</strong>
+      <div class="story-text" lang="en" dir="ltr" style="margin-top: 20px;">
+        <strong>Arthur Morgan's Story</strong>
         <p>
-          Ellie... a girl who looked at life with pain and hope in a devastated world. She was someone who resisted hardships and tried to rebuild a broken world.
+          Arthur Morgan... a man who searched for a piece of peace in the chaos of bullets, betrayal, and bloodshed; peace he never found.
           <br><br>
-          Ellie's life was full of hard and complex challenges; but she never let her hope for the future fade. Love, friendship, and fighting for justice lived in her heart.
+          Born into a world too cruel to embrace an orphaned child. His father was a thief, his mother died young, and he quickly learned that kindness has no place in a merciless world. Dutch took him in, taught him to survive... at the cost of slowly hardening his heart.
           <br><br>
-          With unmatched courage and strength, she searched for meaning in life and freedom from her past nightmares.
+          Arthur saw himself as a bad man. One who carried out the gang's dirty work without hesitation. But behind that cold, emotionless gaze lay a buried heart—a heart still beating for love, for compassion, for forgiveness.
           <br><br>
-          The music she lived with was a melody of pain and beauty; a voice that touched the hearts of listeners and took them to another world.
+          Tuberculosis not only consumed his body, but awakened his soul. Every cough, every sleepless night was a jolt pulling him out of his darkness. Maybe there was still a chance for redemption.
           <br><br>
-          This is Ellie’s story; a girl who stood against all hardships and still stands strong.
-        </p>
-      </div>
-      <div class="story fa">
-        <strong>زندگی الی</strong>
-        <p>
-          الی... دختری که در جهانی ویران شده، با درد و امیدی به زندگی می‌نگریست. او کسی بود که در برابر سختی‌ها مقاومت کرد و تلاش نمود برای بازسازی دنیایی که به ویرانی کشیده شده بود.
-          <br><br>
-          زندگی الی پر از چالش‌های سخت و پیچیده بود؛ اما هرگز اجازه نداد که امیدش به آینده کم رنگ شود. عشق، دوستی، و مبارزه برای عدالت در قلب او زنده بود.
-          <br><br>
-          او با شجاعت و قدرتی بی‌همتا، به دنبال یافتن معنای زندگی و رهایی از کابوس‌های گذشته‌اش بود.
-          <br><br>
-          موسیقی‌ای که با آن زندگی می‌کرد، نغمه‌ای از درد و زیبایی بود؛ صدایی که به قلب شنونده‌ها می‌نشست و آنها را به دنیایی دیگر می‌برد.
-          <br><br>
-          این داستان الی است؛ دختری که در برابر همه سختی‌ها ایستاد و همچنان می‌ایستد.
+          And he tried... with pain, with blood, with his final breaths. In the end, Arthur died... but not like a thief. Like a man. A man whose voice still echoes in the hearts of millions.
         </p>
       </div>
       <div class="audio-player">
-        <audio controls src="https://uploadkon.ir/uploads/1a1319_2503-The-Last-of-Us.mp3"></audio>
+        <audio id="audio-arthur" src="https://uploadkon.ir/uploads/eaf818_25may-i-stand-unshaken-banda-sonora-subtitulada-red-dead-redemption.mp3"></audio>
+        <button onclick="togglePlay('arthur')">▶️ Play / ⏸ Pause</button>
+        <div class="progress-container">
+          <span id="current-arthur">0:00</span>
+          <input type="range" id="progress-arthur" class="progress-bar" value="0" max="100" step="1" onchange="seekAudio('arthur')" />
+          <span id="duration-arthur">0:00</span>
+        </div>
       </div>
     </div>
+
+    <!-- Ellie Section -->
+    <div class="section-box" lang="fa" dir="rtl">
+      <div class="portrait-box">
+        <img src="https://uploadkon.ir/uploads/acab19_256051b4da672df5e54b857989133ff16f.jpg" alt="Ellie" />
+      </div>
+      <div class="story-text" lang="fa">
+        <strong>زندگی الی</strong>
+        <p>
+          الی دختری با گذشته‌ای سخت و روحیه‌ای مقاوم است. در دنیایی پساآخرالزمانی، که هر روزش پر از چالش‌ها و خطرات است، او امیدی برای آینده‌ای بهتر است.
+          <br><br>
+          او کودکی خود را در میان ویرانه‌ها و تهدیدهای پی‌درپی گذراند و با هر تجربه سخت، قوی‌تر و عاقل‌تر شد. داستان او حکایت مقاومت، عشق و یافتن خانواده در میان بی‌رحمی جهان است.
+          <br><br>
+          زندگی‌نامه الی نشان‌دهنده مبارزه‌ای بی‌پایان برای بقا و یافتن معنی واقعی انسانیت است.
+          <br><br>
+          هر لحظه، هر تصمیم، و هر ارتباطی که می‌سازد، او را به سوی نوری هدایت می‌کند که شاید بتواند جهان را تغییر دهد.
+          <br><br>
+          او را بشناسید؛ دختری که با وجود همه سختی‌ها، هیچ‌گاه تسلیم نشد.
+        </p>
+      </div>
+      <div class="story-text" lang="en" dir="ltr" style="margin-top: 20px;">
+        <strong>Ellie's Story</strong>
+        <p>
+          Ellie is a girl with a tough past and a resilient spirit. In a post-apocalyptic world filled with daily challenges and dangers, she is a beacon of hope for a better future.
+          <br><br>
+          She spent her childhood amidst ruins and constant threats, growing stronger and wiser with every harsh experience. Her story is one of resilience, love, and finding family amidst the cruelty of the world.
+          <br><br>
+          Ellie's biography represents an endless struggle for survival and the search for true humanity.
+          <br><br>
+          Every moment, every choice, and every bond she forms leads her towards a light that might change the world.
+          <br><br>
+          Meet the girl who never gave up despite all odds.
+        </p>
+      </div>
+      <div class="audio-player">
+        <audio id="audio-ellie" src="https://uploadkon.ir/uploads/1a1319_2503-The-Last-of-Us.mp3"></audio>
+        <button onclick="togglePlay('ellie')">▶️ Play / ⏸ Pause</button>
+        <div class="progress-container">
+          <span id="current-ellie">0:00</span>
+          <input type="range" id="progress-ellie" class="progress-bar" value="0" max="100" step="1" onchange="seekAudio('ellie')" />
+          <span id="duration-ellie">0:00</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 
+  <div class="links-row" dir="ltr">
+    <a href="http://t.me/ejmok" target="_blank" class="link-box">
+      <div class="link-text">Telegram</div>
+    </a>
+    <a href="http://t.me/Berlin_opBot" target="_blank" class="link-box">
+      <div class="link-text">Bot</div>
+    </a>
+  </div>
+
+  <script>
+    const audios = {
+      arthur: document.getElementById('audio-arthur'),
+      ellie: document.getElementById('audio-ellie'),
+    };
+
+    const progressBars = {
+      arthur: document.getElementById('progress-arthur'),
+      ellie: document.getElementById('progress-ellie'),
+    };
+
+    const currents = {
+      arthur: document.getElementById('current-arthur'),
+      ellie: document.getElementById('current-ellie'),
+    };
+
+    const durations = {
+      arthur: document.getElementById('duration-arthur'),
+      ellie: document.getElementById('duration-ellie'),
+    };
+
+    function togglePlay(name) {
+      const audio = audios[name];
+      if (audio.paused) {
+        pauseAllExcept(name);
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+
+    function pauseAllExcept(name) {
+      for (const key in audios) {
+        if (key !== name) {
+          audios[key].pause();
+        }
+      }
+    }
+
+    for (const key in audios) {
+      audios[key].addEventListener('loadedmetadata', () => {
+        progressBars[key].max = Math.floor(audios[key].duration);
+        durations[key].textContent = formatTime(audios[key].duration);
+      });
+      audios[key].addEventListener('timeupdate', () => {
+        progressBars[key].value = Math.floor(audios[key].currentTime);
+        currents[key].textContent = formatTime(audios[key].currentTime);
+      });
+    }
+
+    function seekAudio(name) {
+      audios[name].currentTime = progressBars[name].value;
+    }
+
+    function formatTime(sec) {
+      const minutes = Math.floor(sec / 60);
+      const seconds = Math.floor(sec % 60).toString().padStart(2, '0');
+      return `${minutes}:${seconds}`;
+    }
+  </script>
 </body>
 </html>
