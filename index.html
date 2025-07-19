@@ -77,6 +77,20 @@
     background-color: #555;
     cursor: not-allowed;
   }
+
+  /* انیمیشن تکان خوردن */
+  @keyframes shake {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-5px, 0); }
+    40% { transform: translate(5px, 0); }
+    60% { transform: translate(-5px, 0); }
+    80% { transform: translate(5px, 0); }
+    100% { transform: translate(0, 0); }
+  }
+
+  .shake {
+    animation: shake 0.5s ease;
+  }
 </style>
 </head>
 <body>
@@ -101,24 +115,20 @@
   const levelDisplay = document.getElementById('level');
   const startBtn = document.getElementById('startBtn');
 
-  // موقعیت‌های لیوان‌ها (px نسبت به والد)
   const cupPositions = [15, 130, 245];
   let currentBallIndex = 0;
   let level = 1;
-  let shuffleSpeed = 800; // سرعت شروع
+  let shuffleSpeed = 800;
   let shuffleCount = 0;
   let maxShuffles = 5;
 
   let isShuffling = false;
 
-  // قرار دادن توپ زیر اولین لیوان در شروع
   function placeBall(index) {
-    // توپ زیر لیوان قرار می‌گیره وسط افقی لیوان و کمی بالاتر از پایینش
     ball.style.left = (cupPositions[index] + 30) + 'px';
     currentBallIndex = index;
   }
 
-  // شروع بازی
   function startGame() {
     level = 1;
     shuffleSpeed = 800;
@@ -130,7 +140,6 @@
     setTimeout(shuffleCups, 800);
   }
 
-  // جابجایی نرم توپ بین لیوان‌ها چند بار و سریع‌تر مرحله به مرحله
   function shuffleCups() {
     isShuffling = true;
     shuffleCount = 0;
@@ -141,7 +150,6 @@
         message.textContent = 'حالا حدس بزن توپ کجاست!';
         return;
       }
-      // انتخاب جای جدید توپ، متفاوت از قبلی
       let nextIndex;
       do {
         nextIndex = Math.floor(Math.random() * 3);
@@ -156,21 +164,27 @@
     singleShuffle();
   }
 
-  // کاربر کلیک روی لیوان
   cups.forEach(cup => {
     cup.addEventListener('click', () => {
-      if (isShuffling) return; // اگه داره جابجا میشه اجازه نده حدس بزنه
+      if (isShuffling) return;
       const guess = parseInt(cup.dataset.index);
+
+      // حذف کلاس shake از همه لیوان‌ها اول
+      cups.forEach(c => c.classList.remove('shake'));
 
       if (guess === currentBallIndex) {
         message.textContent = 'تبریک! درست حدس زدی!';
+        // اضافه کردن انیمیشن تکان خوردن به لیوان درست
+        cup.classList.add('shake');
         level++;
         levelDisplay.textContent = 'مرحله: ' + level;
-        shuffleSpeed = Math.max(250, shuffleSpeed - 120); // افزایش سرعت
-        maxShuffles = Math.min(15, maxShuffles + 2); // افزایش دفعات جابجایی
+        shuffleSpeed = Math.max(250, shuffleSpeed - 120);
+        maxShuffles = Math.min(15, maxShuffles + 2);
         startBtn.disabled = false;
       } else {
         message.textContent = 'اشتباه! توپ زیر لیوان شماره ' + (currentBallIndex + 1) + ' بود.';
+        // تکان خوردن لیوان درست که توپ زیرشه
+        cups[currentBallIndex].classList.add('shake');
         startBtn.disabled = false;
       }
     });
@@ -184,7 +198,6 @@
     shuffleCups();
   });
 
-  // جایگذاری اولیه توپ
   placeBall(0);
 </script>
 
