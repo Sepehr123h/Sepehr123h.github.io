@@ -1,30 +1,158 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Berlin Button</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Berlin & MTI</title>
   <style>
-    body {
-      display: flex;
-      height: 100vh;
-      justify-content: center;
-      align-items: center;
-      background-color: #eee;
+    * {
       margin: 0;
-      font-family: sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
-    #btn {
-      padding: 20px 40px;
-      font-size: 32px;
-      cursor: pointer;
-      background-color: #4CAF50;
+    body, html {
+      height: 100%;
+      overflow: hidden;
+    }
+    .nav {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 10px 0;
+      z-index: 10;
+    }
+    .nav button {
+      background: none;
       color: white;
       border: none;
+      font-size: 20px;
+      margin: 0 15px;
+      cursor: pointer;
+    }
+    section {
+      width: 100%;
+      height: 100vh;
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    section.active {
+      display: block;
+    }
+    .berlin {
+      background: url('https://uploadkon.ir/uploads/6de919_25VID-20250719-124645-544.mp4') no-repeat center center/cover;
+    }
+    .berlin video {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .mti video {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: white;
+      padding: 20px;
+    }
+    .photo {
+      width: 300px;
+      border-radius: 20px;
+      margin: 20px auto;
+    }
+    .audio-player {
+      margin: 20px auto;
+    }
+    .box-links {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      gap: 15px;
+    }
+    .box {
+      background: #007BFF;
+      color: white;
+      padding: 15px 25px;
       border-radius: 10px;
+      font-size: 18px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .box small {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+    .bio-box {
+      background: rgba(0, 0, 0, 0.6);
+      margin: 20px auto;
+      padding: 15px;
+      max-width: 500px;
+      border-radius: 15px;
     }
   </style>
 </head>
 <body>
-  <button id="btn" onclick="this.innerText='berlin'">Click me!</button>
-</body>
+  <div class="nav">
+    <button onclick="showSection('berlin')">Berlin</button>
+    <button onclick="showSection('mti')">MTI</button>
+  </div>  <section id="berlin" class="active">
+    <video autoplay muted loop>
+      <source src="https://uploadkon.ir/uploads/6de919_25VID-20250719-124645-544.mp4" type="video/mp4" />
+    </video>
+    <div class="content">
+      <img class="photo" src="https://uploadkon.ir/uploads/04a019_256051b4da672df5e54b857989133ff16f.jpg" alt="Arthur Morgan" />
+      <div class="audio-player">
+        <audio controls>
+          <source src="https://uploadkon.ir/uploads/eaf818_25may-i-stand-unshaken-banda-sonora-subtitulada-red-dead-redemption.mp3" type="audio/mp3">
+        </audio>
+      </div>
+      <div class="bio-box">
+        <p style="font-weight: bold;">He was a man who lived in the shadows of his past, wandering through a world that never truly welcomed him. A heart burdened with regret, but still beating for a chance at redemption.</p>
+        <p>او مردی بود که در سایه‌های گذشته‌اش زندگی می‌کرد، سرگردان در دنیایی که هرگز واقعاً او را نپذیرفت. قلبی آکنده از پشیمانی، اما هنوز تپنده برای فرصتی دوباره برای رستگاری.</p>
+      </div>
+      <div class="box-links">
+        <a href="http://t.me/ejmok" class="box" target="_blank">Telegram</a>
+        <a href="http://t.me/Berlin_opBot" class="box" target="_blank">Bot</a>
+        <a href="http://t.me/Jafok" class="box" target="_blank">MTI <small>Brother</small></a>
+      </div>
+    </div>
+  </section>  <section id="mti">
+    <video autoplay muted loop>
+      <source src="https://uploadkon.ir/uploads/6de919_25VID-20250719-124645-544.mp4" type="video/mp4" />
+    </video>
+    <div class="content">
+      <img class="photo" src="https://uploadkon.ir/uploads/acab19_256051b4da672df5e54b857989133ff16f.jpg" alt="Ellie" />
+      <div class="audio-player">
+        <audio controls>
+          <source src="https://uploadkon.ir/uploads/9d9519_2503-The-Last-of-Us.mp3" type="audio/mp3">
+        </audio>
+      </div>
+      <div class="bio-box">
+        <p style="font-weight: bold;">She was a child forced to become a warrior. Her innocence lost in a world where survival meant sacrifice, and every step forward meant leaving someone behind.</p>
+        <p>او کودکی بود که مجبور شد جنگجو شود. معصومیتش را در جهانی از دست داد که بقا به معنای فداکاری بود و هر قدم به جلو یعنی پشت سر گذاشتن کسی.</p>
+      </div>
+      <div class="box-links">
+        <a href="http://t.me/Jafok" class="box" target="_blank">Telegram</a>
+      </div>
+    </div>
+  </section>  <script>
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script></body>
 </html>
