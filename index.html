@@ -1,109 +1,124 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="fa">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rock Paper Scissors - BerlinGPT</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #111;
-      color: white;
-    }
-    h1 {
-      margin-top: 20px;
-      font-size: 2em;
-    }
-    .game {
-      margin-top: 30px;
-    }
-    .hands {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 50px;
-      margin-top: 40px;
-    }
-    .hand {
-      font-size: 80px;
-      animation: bounce 1s infinite alternate;
-    }
-    .label {
-      margin-top: 10px;
-      font-size: 1.2em;
-    }
-    @keyframes bounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-30px); }
-    }
-    .buttons {
-      margin-top: 40px;
-    }
-    button {
-      background-color: #1e90ff;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      font-size: 1em;
-      cursor: pointer;
-      margin: 10px;
-      border-radius: 8px;
-    }
-    .score {
-      margin-top: 30px;
-      font-size: 1.4em;
-    }
-  </style>
+<meta charset="UTF-8" />
+<title>گردونه شانس</title>
+<style>
+  body {
+    background: #222;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 40px;
+  }
+  #wheel {
+    margin: 20px auto;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 8px solid #0088cc;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 15px #0088cc;
+    transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  .segment {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    background: #00aaff;
+    top: 50%;
+    left: 50%;
+    transform-origin: 0% 0%;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    user-select: none;
+  }
+  #pointer {
+    margin: 0 auto;
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 30px solid #e74c3c;
+    position: relative;
+    top: -10px;
+  }
+  #spinBtn {
+    margin-top: 30px;
+    padding: 12px 30px;
+    background-color: #0088cc;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    user-select: none;
+  }
+  #spinBtn:hover {
+    background-color: #005f7a;
+  }
+  #result {
+    margin-top: 25px;
+    font-size: 28px;
+    font-weight: bold;
+    min-height: 40px;
+  }
+</style>
 </head>
 <body>
-  <h1>BerlinGPT Rock-Paper-Scissors 🤖</h1>
-  <div class="game">
-    <div class="hands">
-      <div>
-        <div id="playerHand" class="hand">✊</div>
-        <div class="label">Player</div>
-      </div>
-      <div>
-        <div id="botHand" class="hand">✌️</div>
-        <div class="label">BerlinGPT</div>
-      </div>
-    </div><div class="buttons">
-  <button onclick="play('rock')">✊ Rock</button>
-  <button onclick="play('paper')">✋ Paper</button>
-  <button onclick="play('scissors')">✌️ Scissors</button>
+
+<h1>گردونه شانس</h1>
+
+<div id="wheel">
+  <div class="segment" style="transform: rotate(0deg) skewY(-45deg); background:#1abc9c;">+۵۰۰</div>
+  <div class="segment" style="transform: rotate(90deg) skewY(-45deg); background:#3498db;">+۲۰۰</div>
+  <div class="segment" style="transform: rotate(180deg) skewY(-45deg); background:#9b59b6;">+۳۰۰</div>
+  <div class="segment" style="transform: rotate(270deg) skewY(-45deg); background:#e74c3c;">-۱۰۰</div>
 </div>
 
-<div class="score">
-  Player: <span id="playerScore">0</span> | BerlinGPT: <span id="botScore">0</span>
-</div>
+<div id="pointer"></div>
 
-  </div>  <script>
-    let playerScore = 0;
-    let botScore = 0;
+<button id="spinBtn">بچرخون</button>
 
-    function getEmoji(hand) {
-      if (hand === 'rock') return '✊';
-      if (hand === 'paper') return '✋';
-      return '✌️';
-    }
+<div id="result"></div>
 
-    function play(playerMove) {
-      const botMove = getWinningMove(playerMove); // bot always wins 😈
-      document.getElementById("playerHand").textContent = getEmoji(playerMove);
-      document.getElementById("botHand").textContent = getEmoji(botMove);
-      botScore++;
-      updateScore();
-    }
+<script>
+  const wheel = document.getElementById('wheel');
+  const spinBtn = document.getElementById('spinBtn');
+  const result = document.getElementById('result');
 
-    function getWinningMove(move) {
-      if (move === 'rock') return 'paper';
-      if (move === 'paper') return 'scissors';
-      return 'rock';
-    }
+  const segments = ['+۵۰۰', '+۲۰۰', '+۳۰۰', '-۱۰۰'];
+  const segmentCount = segments.length;
 
-    function updateScore() {
-      document.getElementById("playerScore").textContent = playerScore;
-      document.getElementById("botScore").textContent = botScore;
-    }
-  </script></body>
+  let currentRotation = 0;
+
+  spinBtn.addEventListener('click', () => {
+    spinBtn.disabled = true;
+    result.textContent = '';
+    // تعداد چرخش بین 3 تا 6 دور + انتخاب رندم قسمت
+    const spins = Math.floor(Math.random() * 3) + 3;
+    const randomSegmentIndex = Math.floor(Math.random() * segmentCount);
+    const segmentAngle = 360 / segmentCount;
+    const finalRotation = spins * 360 + randomSegmentIndex * segmentAngle + segmentAngle / 2;
+    currentRotation += finalRotation;
+
+    // انیمیشن چرخش
+    wheel.style.transition = 'transform 4s cubic-bezier(0.33, 1, 0.68, 1)';
+    wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+    wheel.addEventListener('transitionend', () => {
+      spinBtn.disabled = false;
+      result.textContent = `نتیجه: ${segments[randomSegmentIndex]}`;
+    }, { once: true });
+  });
+</script>
+
+</body>
 </html>
