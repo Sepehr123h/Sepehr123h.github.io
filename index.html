@@ -2,7 +2,7 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8" />
-<title>گردونه شانس</title>
+<title>گردونه شانس همیشه منفی 100</title>
 <style>
   body {
     background: #222;
@@ -10,62 +10,52 @@
     font-family: Arial, sans-serif;
     text-align: center;
     padding: 40px;
-  }
-  #wheel {
-    margin: 20px auto;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    border: 8px solid #0088cc;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 0 15px #0088cc;
-    transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
-  }
-  .segment {
-    position: absolute;
-    width: 50%;
-    height: 50%;
-    background: #00aaff;
-    top: 50%;
-    left: 50%;
-    transform-origin: 0% 0%;
-    color: white;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
     user-select: none;
   }
+  #wheel-container {
+    margin: 20px auto;
+    position: relative;
+    width: 320px;
+    height: 320px;
+  }
+  svg {
+    width: 320px;
+    height: 320px;
+    transform: rotate(0deg);
+    transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  text {
+    font-weight: bold;
+    fill: white;
+    font-size: 22px;
+    pointer-events: none;
+  }
   #pointer {
-    margin: 0 auto;
     width: 0; 
     height: 0; 
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-bottom: 30px solid #e74c3c;
-    position: relative;
-    top: -10px;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 40px solid #e74c3c;
+    margin: 0 auto;
+    margin-top: -20px;
   }
   #spinBtn {
     margin-top: 30px;
-    padding: 12px 30px;
+    padding: 14px 40px;
     background-color: #0088cc;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     color: white;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
-    user-select: none;
   }
   #spinBtn:hover {
     background-color: #005f7a;
   }
   #result {
-    margin-top: 25px;
+    margin-top: 30px;
     font-size: 28px;
     font-weight: bold;
     min-height: 40px;
@@ -76,11 +66,21 @@
 
 <h1>گردونه شانس</h1>
 
-<div id="wheel">
-  <div class="segment" style="transform: rotate(0deg) skewY(-45deg); background:#1abc9c;">+۵۰۰</div>
-  <div class="segment" style="transform: rotate(90deg) skewY(-45deg); background:#3498db;">+۲۰۰</div>
-  <div class="segment" style="transform: rotate(180deg) skewY(-45deg); background:#9b59b6;">+۳۰۰</div>
-  <div class="segment" style="transform: rotate(270deg) skewY(-45deg); background:#e74c3c;">-۱۰۰</div>
+<div id="wheel-container">
+  <svg id="wheel" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" >
+    <g transform="translate(160,160)">
+      <!-- 4 slices, each 90deg -->
+      <path d="M0 0 L160 0 A160 160 0 0 1 0 160 Z" fill="#1abc9c" />
+      <path d="M0 0 L0 160 A160 160 0 0 1 -160 0 Z" fill="#3498db" />
+      <path d="M0 0 L-160 0 A160 160 0 0 1 0 -160 Z" fill="#9b59b6" />
+      <path d="M0 0 L0 -160 A160 160 0 0 1 160 0 Z" fill="#e74c3c" />
+      <!-- Texts -->
+      <text x="80" y="30" text-anchor="middle" dominant-baseline="middle" transform="rotate(45)">+۵۰۰</text>
+      <text x="-30" y="80" text-anchor="middle" dominant-baseline="middle" transform="rotate(135)">+۲۰۰</text>
+      <text x="-80" y="-30" text-anchor="middle" dominant-baseline="middle" transform="rotate(-135)">+۳۰۰</text>
+      <text x="30" y="-80" text-anchor="middle" dominant-baseline="middle" transform="rotate(-45)">-۱۰۰</text>
+    </g>
+  </svg>
 </div>
 
 <div id="pointer"></div>
@@ -94,28 +94,27 @@
   const spinBtn = document.getElementById('spinBtn');
   const result = document.getElementById('result');
 
-  const segments = ['+۵۰۰', '+۲۰۰', '+۳۰۰', '-۱۰۰'];
-  const segmentCount = segments.length;
-
+  // چون میخوای همیشه منفی 100 باشه، اندیس اون قسمت 3 هست (از 0 شروع میشه)
+  const negativeIndex = 3;
+  const segmentCount = 4;
   let currentRotation = 0;
 
   spinBtn.addEventListener('click', () => {
     spinBtn.disabled = true;
     result.textContent = '';
-    // تعداد چرخش بین 3 تا 6 دور + انتخاب رندم قسمت
-    const spins = Math.floor(Math.random() * 3) + 3;
-    const randomSegmentIndex = Math.floor(Math.random() * segmentCount);
+
+    const spins = Math.floor(Math.random() * 3) + 4; // چرخش بین 4 تا 6 دور
     const segmentAngle = 360 / segmentCount;
-    const finalRotation = spins * 360 + randomSegmentIndex * segmentAngle + segmentAngle / 2;
+    // زاویه برای رسیدن به -100
+    const finalRotation = spins * 360 + (360 - (negativeIndex * segmentAngle + segmentAngle/2));
     currentRotation += finalRotation;
 
-    // انیمیشن چرخش
     wheel.style.transition = 'transform 4s cubic-bezier(0.33, 1, 0.68, 1)';
     wheel.style.transform = `rotate(${currentRotation}deg)`;
 
     wheel.addEventListener('transitionend', () => {
       spinBtn.disabled = false;
-      result.textContent = `نتیجه: ${segments[randomSegmentIndex]}`;
+      result.textContent = `نتیجه: -۱۰۰`;
     }, { once: true });
   });
 </script>
