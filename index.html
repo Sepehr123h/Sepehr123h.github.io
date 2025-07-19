@@ -1,314 +1,227 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="UTF-8" />
-  <title>Arthur Morgan & Ellie</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: black;
-      color: white;
-      text-align: center;
-      overflow-x: hidden;
-      direction: rtl;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BerlinGPT - چت‌بات جامع دانش</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    color: #eee;
+    margin: 0; padding: 0;
+    display: flex; flex-direction: column; align-items: center;
+    min-height: 100vh;
+  }
+  header {
+    background: #1f2937;
+    width: 100%;
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #3b82f6;
+  }
+  #chat-container {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 720px;
+    padding: 20px;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+  .message {
+    margin-bottom: 20px;
+    line-height: 1.5;
+    font-size: 16px;
+    border-radius: 12px;
+    padding: 14px 20px;
+    max-width: 85%;
+  }
+  .message.user {
+    background: #3b82f6;
+    color: white;
+    align-self: flex-end;
+  }
+  .message.bot {
+    background: #262626;
+    border: 1px solid #3b82f6;
+    color: #eee;
+    align-self: flex-start;
+    white-space: pre-wrap;
+  }
+  #input-container {
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    padding: 10px 20px;
+    background: #1f2937;
+    box-sizing: border-box;
+  }
+  #user-input {
+    flex-grow: 1;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-size: 16px;
+    outline: none;
+    background: #262626;
+    color: #eee;
+  }
+  #send-btn {
+    margin-left: 12px;
+    background: #3b82f6;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  #send-btn:hover {
+    background: #2563eb;
+  }
+  footer {
+    font-size: 12px;
+    color: #999;
+    margin: 10px 0 30px;
+  }
+  @media(max-width: 480px) {
+    #chat-container, #input-container {
+      padding: 10px;
     }
-    video.background-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -1;
-      opacity: 0.07;
-      pointer-events: none;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 40px auto 60px;
-      display: flex;
-      gap: 40px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .section-box {
-      background: rgba(31,31,31,0.85);
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
-      padding: 20px;
-      flex: 1 1 500px;
-      max-width: 550px;
-      text-align: justify;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .portrait-box {
-      width: 100%;
-      max-width: 300px;
-      margin-bottom: 15px;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 0 15px rgba(255,255,255,0.2);
-      user-select: none;
-    }
-    .portrait-box img {
-      width: 100%;
-      display: block;
-      pointer-events: none;
-    }
-    .story-text {
-      flex-grow: 1;
+    .message {
       font-size: 14px;
-      line-height: 1.6;
-      overflow-y: auto;
-      max-height: 360px;
+      padding: 12px 15px;
     }
-    .story-text[lang="en"] {
-      direction: ltr;
-      text-align: left;
-    }
-    .audio-player {
-      width: 100%;
-      margin-top: 15px;
-      background: rgba(50,50,50,0.7);
-      border-radius: 12px;
-      padding: 12px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.1);
-      color: white;
-    }
-    .audio-player button {
-      padding: 8px 18px;
-      border: none;
-      background-color: #1a73e8;
-      color: white;
-      font-size: 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .progress-container {
-      margin-top: 12px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      color: #ccc;
-    }
-    .progress-bar {
-      flex-grow: 1;
-    }
-    .links-row {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      max-width: 900px;
-      margin: 30px auto 0;
-      padding: 0 15px;
-      direction: ltr;
-    }
-    .link-box {
-      background-color: #0088cc;
-      color: white;
-      flex: 1;
-      max-width: 200px;
-      padding: 14px 10px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 0 10px rgba(0, 136, 204, 0.7);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 0.3s ease;
-      text-align: center;
-    }
-    .link-box:hover {
-      background-color: #006699;
-    }
-    .link-text {
-      font-size: 18px;
-      margin-bottom: 6px;
-      user-select: none;
-    }
-    .subtext {
-      font-size: 11px;
-      margin-top: 4px;
-      opacity: 0.8;
-      user-select: none;
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
-  <video class="background-video" autoplay muted loop playsinline>
-    <source src="https://uploadkon.ir/uploads/89e818_25VID-20250718-212050-031.mp4" type="video/mp4" />
-  </video>
+<header>BerlinGPT - چت‌بات جامع دانش</header>
 
-  <div class="container">
+<div id="chat-container"></div>
 
-    <!-- Arthur Morgan Section -->
-    <div class="section-box" lang="fa" dir="rtl">
-      <div class="portrait-box">
-        <img src="https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg" alt="Arthur Morgan" />
-      </div>
-      <div class="story-text" lang="fa">
-        <strong>زندگی آرتور مورگان</strong>
-        <p>
-          آرتور مورگان... مردی که در هیاهوی گلوله‌ها، خیانت‌ها و خون‌ریزی‌ها، به دنبال تکه‌ای از آرامش می‌گشت؛ آرامشی که هرگز نیافت.
-          <br><br>
-          او در دنیایی به دنیا آمد که بی‌رحم‌تر از آن بود که کودک یتیمی را در آغوش بگیرد. پدرش یک دزد بود، مادرش را زود از دست داد، و خیلی زود یاد گرفت که دنیا برای کسانی که مهربانند، رحم نمی‌کند. داچ او را به سرپرستی گرفت، به او یاد داد چطور زنده بماند... اما به بهای اینکه قلبش را آرام آرام سنگ کند.
-          <br><br>
-          آرتور خودش را یک مرد بد می‌دانست. کسی که کارهای کثیف باند را بی‌هیچ تردیدی انجام می‌داد. اما پشت آن نگاه سرد و بی‌احساس، قلبی دفن‌شده بود؛ قلبی که هنوز برای عشق، برای دوست‌داشتن، برای بخشیدن می‌تپید.
-          <br><br>
-          بیماری سل نه‌تنها بدنش را خورد، بلکه ذهنش را نیز باز کرد. هر سرفه، هر شب بیداری، تلنگری شد که او را از دنیای تاریک خود بیرون بکشد. شاید هنوز هم فرصتی برای رستگاری بود.
-          <br><br>
-          و او تلاش کرد... با درد، با خون، با نفس‌های آخرش. در نهایت، آرتور مُرد... اما نه مثل یک دزد. مثل یک مرد. مردی که در سکوت جان داد، اما صدایش در قلب میلیون‌ها نفر زنده ماند.
-        </p>
-      </div>
-      <div class="story-text" lang="en" dir="ltr" style="margin-top: 20px;">
-        <strong>Arthur Morgan's Story</strong>
-        <p>
-          Arthur Morgan... a man who searched for a piece of peace in the chaos of bullets, betrayal, and bloodshed; peace he never found.
-          <br><br>
-          Born into a world too cruel to embrace an orphaned child. His father was a thief, his mother died young, and he quickly learned that kindness has no place in a merciless world. Dutch took him in, taught him to survive... at the cost of slowly hardening his heart.
-          <br><br>
-          Arthur saw himself as a bad man. One who carried out the gang's dirty work without hesitation. But behind that cold, emotionless gaze lay a buried heart—a heart still beating for love, for compassion, for forgiveness.
-          <br><br>
-          Tuberculosis not only consumed his body, but awakened his soul. Every cough, every sleepless night was a jolt pulling him out of his darkness. Maybe there was still a chance for redemption.
-          <br><br>
-          And he tried... with pain, with blood, with his final breaths. In the end, Arthur died... but not like a thief. Like a man. A man whose voice still echoes in the hearts of millions.
-        </p>
-      </div>
-      <div class="audio-player">
-        <audio id="audio-arthur" src="https://uploadkon.ir/uploads/eaf818_25may-i-stand-unshaken-banda-sonora-subtitulada-red-dead-redemption.mp3"></audio>
-        <button onclick="togglePlay('arthur')">▶️ Play / ⏸ Pause</button>
-        <div class="progress-container">
-          <span id="current-arthur">0:00</span>
-          <input type="range" id="progress-arthur" class="progress-bar" value="0" max="100" step="1" onchange="seekAudio('arthur')" />
-          <span id="duration-arthur">0:00</span>
-        </div>
-      </div>
-    </div>
+<div id="input-container">
+  <input id="user-input" placeholder="سوالت رو اینجا بنویس و اینتر بزن..." autocomplete="off" />
+  <button id="send-btn">ارسال</button>
+</div>
 
-    <!-- Ellie Section -->
-    <div class="section-box" lang="fa" dir="rtl">
-      <div class="portrait-box">
-        <img src="https://uploadkon.ir/uploads/acab19_256051b4da672df5e54b857989133ff16f.jpg" alt="Ellie" />
-      </div>
-      <div class="story-text" lang="fa">
-        <strong>زندگی الی</strong>
-        <p>
-          الی دختری با گذشته‌ای سخت و روحیه‌ای مقاوم است. در دنیایی پساآخرالزمانی، که هر روزش پر از چالش‌ها و خطرات است، او امیدی برای آینده‌ای بهتر است.
-          <br><br>
-          او کودکی خود را در میان ویرانه‌ها و تهدیدهای پی‌درپی گذراند و با هر تجربه سخت، قوی‌تر و عاقل‌تر شد. داستان او حکایت مقاومت، عشق و یافتن خانواده در میان بی‌رحمی جهان است.
-          <br><br>
-          زندگی‌نامه الی نشان‌دهنده مبارزه‌ای بی‌پایان برای بقا و یافتن معنی واقعی انسانیت است.
-          <br><br>
-          هر لحظه، هر تصمیم، و هر ارتباطی که می‌سازد، او را به سوی نوری هدایت می‌کند که شاید بتواند جهان را تغییر دهد.
-          <br><br>
-          او را بشناسید؛ دختری که با وجود همه سختی‌ها، هیچ‌گاه تسلیم نشد.
-        </p>
-      </div>
-      <div class="story-text" lang="en" dir="ltr" style="margin-top: 20px;">
-        <strong>Ellie's Story</strong>
-        <p>
-          Ellie is a girl with a tough past and a resilient spirit. In a post-apocalyptic world filled with daily challenges and dangers, she is a beacon of hope for a better future.
-          <br><br>
-          She spent her childhood amidst ruins and constant threats, growing stronger and wiser with every harsh experience. Her story is one of resilience, love, and finding family amidst the cruelty of the world.
-          <br><br>
-          Ellie's biography represents an endless struggle for survival and the search for true humanity.
-          <br><br>
-          Every moment, every choice, and every bond she forms leads her towards a light that might change the world.
-          <br><br>
-          Meet the girl who never gave up despite all odds.
-        </p>
-      </div>
-      <div class="audio-player">
-        <audio id="audio-ellie" src="https://uploadkon.ir/uploads/1a1319_2503-The-Last-of-Us.mp3"></audio>
-        <button onclick="togglePlay('ellie')">▶️ Play / ⏸ Pause</button>
-        <div class="progress-container">
-          <span id="current-ellie">0:00</span>
-          <input type="range" id="progress-ellie" class="progress-bar" value="0" max="100" step="1" onchange="seekAudio('ellie')" />
-          <span id="duration-ellie">0:00</span>
-        </div>
-      </div>
-    </div>
+<footer>Powered by BerlinGPT | طراحی و توسعه توسط ChatGPT</footer>
 
-  </div>
+<script>
+// داده‌های بزرگ موضوع-پاسخ:
+const knowledgeBase = {
+  // علوم
+  "What is gravity?": "Gravity is a force that attracts two bodies toward each other. It is the reason objects fall to the ground and planets orbit stars.",
+  "چیست جاذبه؟": "جاذبه نیرویی است که دو جسم را به سمت هم جذب می‌کند و باعث می‌شود اجسام به زمین بیفتند و سیارات به دور ستارگان گردش کنند.",
+  
+  // تاریخ
+  "Tell me about World War II": "World War II was a global war that lasted from 1939 to 1945 involving most of the world's nations.",
+  "درباره جنگ جهانی دوم بگو": "جنگ جهانی دوم جنگی بود که از سال ۱۹۳۹ تا ۱۹۴۵ طول کشید و اکثر کشورهای جهان را درگیر کرد.",
 
-  <div class="links-row" dir="ltr">
-    <a href="http://t.me/ejmok" target="_blank" class="link-box">
-      <div class="link-text">Telegram</div>
-    </a>
-    <a href="http://t.me/Berlin_opBot" target="_blank" class="link-box">
-      <div class="link-text">Bot</div>
-    </a>
-  </div>
+  // فناوری
+  "What is Artificial Intelligence?": "Artificial Intelligence (AI) is the simulation of human intelligence in machines that are programmed to think and learn.",
+  "هوش مصنوعی چیست؟": "هوش مصنوعی به شبیه‌سازی هوش انسانی در ماشین‌ها گفته می‌شود که قادر به یادگیری و تفکر هستند.",
 
-  <script>
-    const audios = {
-      arthur: document.getElementById('audio-arthur'),
-      ellie: document.getElementById('audio-ellie'),
-    };
+  // بازی‌ها
+  "Who is Arthur Morgan?": "Arthur Morgan is the main character of Red Dead Redemption 2, a popular action-adventure game.",
+  "آرتور مورگان کیست؟": "آرتور مورگان شخصیت اصلی بازی Red Dead Redemption 2 است که یک بازی محبوب اکشن-ماجراجویی است.",
 
-    const progressBars = {
-      arthur: document.getElementById('progress-arthur'),
-      ellie: document.getElementById('progress-ellie'),
-    };
+  // فلسفه
+  "What is existentialism?": "Existentialism is a philosophical theory emphasizing individual existence, freedom, and choice.",
+  "اگزیستانسیالیسم چیست؟": "اگزیستانسیالیسم یک نظریه فلسفی است که بر وجود فردی، آزادی و انتخاب تأکید دارد.",
 
-    const currents = {
-      arthur: document.getElementById('current-arthur'),
-      ellie: document.getElementById('current-ellie'),
-    };
+  // زبان‌ها
+  "How to say hello in French?": "In French, hello is said as 'Bonjour'.",
+  "سلام به فرانسوی چطور گفته می‌شود؟": "در زبان فرانسوی، سلام به صورت 'Bonjour' گفته می‌شود.",
 
-    const durations = {
-      arthur: document.getElementById('duration-arthur'),
-      ellie: document.getElementById('duration-ellie'),
-    };
+  // ورزش
+  "What is football?": "Football (soccer) is a team sport played between two teams of eleven players with a spherical ball.",
+  "فوتبال چیست؟": "فوتبال یک ورزش تیمی است که بین دو تیم یازده نفره با توپ گرد بازی می‌شود.",
 
-    function togglePlay(name) {
-      const audio = audios[name];
-      if (audio.paused) {
-        pauseAllExcept(name);
-        audio.play();
-      } else {
-        audio.pause();
-      }
+  // موسیقی
+  "Who is Beethoven?": "Ludwig van Beethoven was a German composer and pianist, a crucial figure in classical music.",
+  "بتهوون کی بود؟": "لودویگ فان بتهوون یک آهنگساز و پیانیست آلمانی بود که نقش مهمی در موسیقی کلاسیک داشت.",
+
+  // هنر
+  "What is Impressionism?": "Impressionism is an art movement characterized by small, thin brush strokes and emphasis on light.",
+  "امپرسیونیسم چیست؟": "امپرسیونیسم یک جنبش هنری است که با ضربه‌های کوچک و ظریف قلم‌مو و تأکید بر نور شناخته می‌شود.",
+
+  // فیلم و سریال
+  "What is The Last of Us?": "The Last of Us is a critically acclaimed video game and TV series about survival in a post-apocalyptic world.",
+  "The Last of Us چیست؟": "The Last of Us یک بازی و سریال تلویزیونی تحسین‌شده است که درباره بقا در دنیای پساآخرالزمانی است.",
+
+  // برنامه‌نویسی
+  "What is JavaScript?": "JavaScript is a versatile programming language mainly used for interactive web pages.",
+  "جاوااسکریپت چیست؟": "جاوااسکریپت یک زبان برنامه‌نویسی همه‌کاره است که عمدتاً برای صفحات وب تعاملی استفاده می‌شود.",
+
+  // نجوم
+  "What is a black hole?": "A black hole is a region of spacetime where gravity is so strong that nothing can escape from it.",
+  "سیاه‌چاله چیست؟": "سیاه‌چاله منطقه‌ای در فضا-زمان است که گرانش آنقدر زیاد است که هیچ چیزی نمی‌تواند از آن فرار کند.",
+
+  // آشپزی
+  "How to make tea?": "To make tea, boil water, add tea leaves or a tea bag, steep for a few minutes, then serve.",
+  "چطور چای درست کنیم؟": "برای درست کردن چای، آب را بجوشانید، برگ چای یا چای کیسه‌ای اضافه کنید، چند دقیقه دم کنید و سپس سرو کنید.",
+
+  // روانشناسی
+  "What is mindfulness?": "Mindfulness is the psychological process of bringing one's attention to the present moment.",
+  "مایندفولنس چیست؟": "مایندفولنس فرآیند روانشناختی آوردن توجه به لحظه حال است.",
+
+  // سوالات جالب
+  "Why is the sky blue?": "The sky appears blue because molecules in the air scatter blue light from the sun more than other colors.",
+  "چرا آسمان آبی است؟": "آسمان آبی به این دلیل است که مولکول‌های هوا نور آبی خورشید را بیشتر از رنگ‌های دیگر پراکنده می‌کنند.",
+
+  "What is love?": "Love is a complex set of emotions and behaviors characterized by intimacy, passion, and commitment.",
+  "عشق چیست؟": "عشق مجموعه‌ای پیچیده از احساسات و رفتارهاست که با صمیمیت، شور و تعهد مشخص می‌شود.",
+
+  // نمونه‌های بیشتر می‌تونم اضافه کنم...
+};
+
+// تابع دریافت پاسخ براساس ورودی کاربر
+function getResponse(input) {
+  const normalized = input.trim().toLowerCase();
+  // جستجو دقیق در کی‌ولو‌های انگلیسی و فارسی
+  for (const [key, val] of Object.entries(knowledgeBase)) {
+    if (key.toLowerCase() === normalized) {
+      return val;
     }
+  }
+  return "متاسفم، جوابش رو بلد نیستم. لطفاً سوال دیگه‌ای بپرس.";
+}
 
-    function pauseAllExcept(name) {
-      for (const key in audios) {
-        if (key !== name) {
-          audios[key].pause();
-        }
-      }
-    }
+// افزودن پیام به چت
+function addMessage(text, sender) {
+  const chat = document.getElementById('chat-container');
+  const div = document.createElement('div');
+  div.className = 'message ' + sender;
+  div.textContent = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
 
-    for (const key in audios) {
-      audios[key].addEventListener('loadedmetadata', () => {
-        progressBars[key].max = Math.floor(audios[key].duration);
-        durations[key].textContent = formatTime(audios[key].duration);
-      });
-      audios[key].addEventListener('timeupdate', () => {
-        progressBars[key].value = Math.floor(audios[key].currentTime);
-        currents[key].textContent = formatTime(audios[key].currentTime);
-      });
-    }
+// رویداد ارسال پیام
+function sendMessage() {
+  const input = document.getElementById('user-input');
+  const userText = input.value.trim();
+  if (!userText) return;
+  addMessage(userText, 'user');
+  input.value = '';
+  setTimeout(() => {
+    const botReply = getResponse(userText);
+    addMessage(botReply, 'bot');
+  }, 500);
+}
 
-    function seekAudio(name) {
-      audios[name].currentTime = progressBars[name].value;
-    }
+// اتصال دکمه و اینتر
+document.getElementById('send-btn').onclick = sendMessage;
+document.getElementById('user-input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') sendMessage();
+});
+</script>
 
-    function formatTime(sec) {
-      const minutes = Math.floor(sec / 60);
-      const seconds = Math.floor(sec % 60).toString().padStart(2, '0');
-      return `${minutes}:${seconds}`;
-    }
-  </script>
 </body>
 </html>
