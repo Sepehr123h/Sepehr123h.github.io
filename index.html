@@ -2,203 +2,151 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8" />
-<title>بازی تو و سه لیوان</title>
+<title>گردونه شانس</title>
 <style>
   body {
     background: #222;
     color: white;
     font-family: Arial, sans-serif;
     text-align: center;
-    margin: 0;
-    padding: 20px;
+    padding: 30px;
     user-select: none;
   }
-  h1 {
-    margin-bottom: 10px;
-  }
-  #game {
-    margin: 20px auto;
-    width: 360px;
+  #wheel-container {
+    margin: 0 auto 20px;
     position: relative;
-    height: 180px;
+    width: 300px;
+    height: 300px;
   }
-  .cup {
-    width: 100px;
-    height: 140px;
-    background: #555;
-    border-radius: 0 0 50px 50px;
-    display: inline-block;
-    margin: 0 15px;
+  #wheel {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 8px solid #eee;
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
     position: relative;
+    transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
     cursor: pointer;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.7);
-    transition: transform 0.3s ease;
+  }
+  /* 4 قسمت مساوی با رنگ و متن */
+  .segment {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    transform-origin: 0% 0%;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+  }
+  .segment1 { background: #e74c3c; transform: rotate(0deg) skewY(-45deg); }
+  .segment2 { background: #27ae60; transform: rotate(90deg) skewY(-45deg); }
+  .segment3 { background: #e74c3c; transform: rotate(180deg) skewY(-45deg); }
+  .segment4 { background: #27ae60; transform: rotate(270deg) skewY(-45deg); }
+
+  #pointer {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    margin-left: -10px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 25px solid #f1c40f;
+    filter: drop-shadow(0 0 3px #f1c40f);
     z-index: 10;
   }
-  .cup:hover {
-    transform: translateY(-15px);
-  }
-  #ball {
-    width: 40px;
-    height: 40px;
-    background: #e74c3c;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 25px;
-    left: 15px;
-    transition: left 0.6s ease;
-    box-shadow: 0 0 15px #e74c3c;
-    z-index: 5;
-  }
-  #message {
-    margin-top: 25px;
-    font-size: 22px;
-    min-height: 40px;
-  }
-  #level {
-    margin-top: 15px;
-    font-size: 18px;
-  }
-  #startBtn {
-    margin-top: 25px;
-    padding: 12px 30px;
-    font-size: 20px;
+
+  #spinBtn {
     background-color: #1abc9c;
     border: none;
+    padding: 12px 28px;
+    font-size: 20px;
     border-radius: 12px;
     color: white;
     cursor: pointer;
+    user-select: none;
     transition: background-color 0.3s ease;
   }
-  #startBtn:hover:not(:disabled) {
+  #spinBtn:hover:not(:disabled) {
     background-color: #16a085;
   }
-  #startBtn:disabled {
+  #spinBtn:disabled {
     background-color: #555;
     cursor: not-allowed;
   }
 
-  /* انیمیشن تکان خوردن */
-  @keyframes shake {
-    0% { transform: translate(0, 0); }
-    20% { transform: translate(-5px, 0); }
-    40% { transform: translate(5px, 0); }
-    60% { transform: translate(-5px, 0); }
-    80% { transform: translate(5px, 0); }
-    100% { transform: translate(0, 0); }
-  }
-
-  .shake {
-    animation: shake 0.5s ease;
+  #result {
+    margin-top: 20px;
+    font-size: 22px;
+    min-height: 30px;
   }
 </style>
 </head>
 <body>
 
-<h1>بازی تو و سه لیوان</h1>
-<div id="level">مرحله: 1</div>
-
-<div id="game">
-  <div class="cup" data-index="0"></div>
-  <div class="cup" data-index="1"></div>
-  <div class="cup" data-index="2"></div>
-  <div id="ball"></div>
+<h1>گردونه شانس</h1>
+<div id="wheel-container">
+  <div id="wheel" title="برای چرخاندن کلیک کن">
+    <div class="segment segment1">+۵۰۰</div>
+    <div class="segment segment2">+۲۰۰</div>
+    <div class="segment segment3">-۱۰۰</div>
+    <div class="segment segment4">+۳۰۰</div>
+  </div>
+  <div id="pointer"></div>
 </div>
+<button id="spinBtn">بچرخون</button>
 
-<div id="message"></div>
-<button id="startBtn">شروع بازی</button>
+<div id="result"></div>
+<div id="positionText" style="margin-top:8px; font-size:18px; opacity:0.85;"></div>
 
 <script>
-  const cups = document.querySelectorAll('.cup');
-  const ball = document.getElementById('ball');
-  const message = document.getElementById('message');
-  const levelDisplay = document.getElementById('level');
-  const startBtn = document.getElementById('startBtn');
+  const wheel = document.getElementById('wheel');
+  const spinBtn = document.getElementById('spinBtn');
+  const result = document.getElementById('result');
+  const positionText = document.getElementById('positionText');
 
-  const cupPositions = [15, 130, 245];
-  let currentBallIndex = 0;
-  let level = 1;
-  let shuffleSpeed = 800;
-  let shuffleCount = 0;
-  let maxShuffles = 5;
+  // اطلاعات خونه‌ها (رنگ و عدد)
+  const segments = [
+    { name: '+۵۰۰', color: 'قرمز ۱' },
+    { name: '+۲۰۰', color: 'سبز ۱' },
+    { name: '-۱۰۰', color: 'قرمز ۲' },
+    { name: '+۳۰۰', color: 'سبز ۲' }
+  ];
 
-  let isShuffling = false;
+  let currentRotation = 0;
 
-  function placeBall(index) {
-    ball.style.left = (cupPositions[index] + 30) + 'px';
-    currentBallIndex = index;
+  function spinWheel() {
+    spinBtn.disabled = true;
+    result.textContent = 'در حال چرخش...';
+    positionText.textContent = '';
+
+    // چرخش تصادفی بین 4 خونه، هر خونه 90 درجه
+    const randomSegment = Math.floor(Math.random() * 4);
+    // می‌خوایم حداقل 3 دور کامل بزنه + بچرخه روی خونه انتخاب شده
+    const spins = 3;
+    const degreesPerSegment = 360 / 4;
+    const targetRotation = 360 * spins + (360 - randomSegment * degreesPerSegment) - (degreesPerSegment / 2);
+
+    currentRotation += targetRotation;
+
+    wheel.style.transition = 'transform 4s cubic-bezier(0.33, 1, 0.68, 1)';
+    wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+    wheel.addEventListener('transitionend', () => {
+      spinBtn.disabled = false;
+      result.textContent = 'جواب: ' + segments[randomSegment].name;
+      positionText.textContent = `روی خونه ${segments[randomSegment].color} وایستاده`;
+    }, { once: true });
   }
 
-  function startGame() {
-    level = 1;
-    shuffleSpeed = 800;
-    maxShuffles = 5;
-    levelDisplay.textContent = 'مرحله: ' + level;
-    message.textContent = '';
-    startBtn.disabled = true;
-    placeBall(0);
-    setTimeout(shuffleCups, 800);
-  }
-
-  function shuffleCups() {
-    isShuffling = true;
-    shuffleCount = 0;
-
-    function singleShuffle() {
-      if (shuffleCount >= maxShuffles) {
-        isShuffling = false;
-        message.textContent = 'حالا حدس بزن توپ کجاست!';
-        return;
-      }
-      let nextIndex;
-      do {
-        nextIndex = Math.floor(Math.random() * 3);
-      } while (nextIndex === currentBallIndex);
-
-      placeBall(nextIndex);
-      shuffleCount++;
-
-      setTimeout(singleShuffle, shuffleSpeed);
-    }
-
-    singleShuffle();
-  }
-
-  cups.forEach(cup => {
-    cup.addEventListener('click', () => {
-      if (isShuffling) return;
-      const guess = parseInt(cup.dataset.index);
-
-      // حذف کلاس shake از همه لیوان‌ها اول
-      cups.forEach(c => c.classList.remove('shake'));
-
-      if (guess === currentBallIndex) {
-        message.textContent = 'تبریک! درست حدس زدی!';
-        // اضافه کردن انیمیشن تکان خوردن به لیوان درست
-        cup.classList.add('shake');
-        level++;
-        levelDisplay.textContent = 'مرحله: ' + level;
-        shuffleSpeed = Math.max(250, shuffleSpeed - 120);
-        maxShuffles = Math.min(15, maxShuffles + 2);
-        startBtn.disabled = false;
-      } else {
-        message.textContent = 'اشتباه! توپ زیر لیوان شماره ' + (currentBallIndex + 1) + ' بود.';
-        // تکان خوردن لیوان درست که توپ زیرشه
-        cups[currentBallIndex].classList.add('shake');
-        startBtn.disabled = false;
-      }
-    });
-  });
-
-  startBtn.addEventListener('click', () => {
-    message.textContent = '...جار می‌زنم';
-    startBtn.disabled = true;
-    shuffleSpeed = Math.max(250, shuffleSpeed);
-    maxShuffles = 5;
-    shuffleCups();
-  });
-
-  placeBall(0);
+  spinBtn.addEventListener('click', spinWheel);
 </script>
 
 </body>
