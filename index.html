@@ -2,196 +2,222 @@
 <html lang="fa">
 <head>
   <meta charset="UTF-8" />
-  <title>BerlinGPT - چت‌بات پاسخگو</title>
+  <title>Arthur Morgan</title>
   <style>
     body {
-      background: #121212;
-      color: #eee;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      border: 1px solid #222;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    header {
-      background-color: #0088cc;
-      padding: 15px;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
       text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 2px;
+      overflow-x: hidden;
+    }
+    video.background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+    .portrait-box {
+      background: rgba(31,31,31,0.8);
+      width: 300px;
+      margin: 40px auto 10px;
+      border-radius: 15px;
+      padding: 12px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+    .portrait-box img {
+      width: 100%;
+      border-radius: 15px;
+      display: block;
+      margin: auto;
       user-select: none;
+      pointer-events: none;
+    }
+    .story-box {
+      max-width: 550px;
+      margin: 20px auto 40px;
+      background-color: rgba(31,31,31,0.8);
+      padding: 15px 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      font-size: 14px;
+      line-height: 1.6;
       color: white;
-    }
-    #chat {
-      flex-grow: 1;
-      overflow-y: auto;
-      padding: 15px;
-      background: #1e1e1e;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .msg {
-      max-width: 75%;
-      padding: 12px 16px;
-      border-radius: 12px;
-      line-height: 1.4;
-      font-size: 16px;
+      text-align: justify;
       user-select: text;
-      word-break: break-word;
     }
-    .msg.user {
-      align-self: flex-end;
-      background-color: #0066cc;
+    .audio-player {
+      margin: 0 auto 40px;
+      max-width: 450px;
+      background: rgba(31,31,31,0.8);
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.1);
       color: white;
-      border-bottom-right-radius: 2px;
     }
-    .msg.bot {
-      align-self: flex-start;
-      background-color: #333;
-      color: #ddd;
-      border-bottom-left-radius: 2px;
-    }
-    #input-area {
-      display: flex;
-      border-top: 1px solid #222;
-      background: #111;
-      padding: 10px;
-      gap: 10px;
-    }
-    #input-area input[type="text"] {
-      flex-grow: 1;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 6px;
+    .audio-player button {
+      padding: 8px 18px;
       border: none;
-      outline: none;
-      background: #222;
+      background-color: #1a73e8;
       color: white;
-    }
-    #input-area button {
-      background-color: #0088cc;
-      border: none;
-      color: white;
-      font-weight: bold;
-      padding: 10px 18px;
+      font-size: 14px;
       border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      font-weight: bold;
+    }
+    .progress-container {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      color: #ccc;
+    }
+    .progress-bar {
+      flex-grow: 1;
+    }
+    .links-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto 30px;
+      padding: 0 15px;
+    }
+    .link-box {
+      background-color: #0088cc;
+      color: white;
+      flex: 1;
+      max-width: 200px;
+      padding: 14px 10px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0, 136, 204, 0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
       user-select: none;
+      transition: background-color 0.3s ease;
     }
-    #input-area button:hover {
-      background-color: #005f99;
+    .link-box:hover {
+      background-color: #006699;
     }
-    /* Scrollbar */
-    #chat::-webkit-scrollbar {
-      width: 8px;
+    .link-text {
+      font-size: 18px;
+      margin-bottom: 6px;
     }
-    #chat::-webkit-scrollbar-thumb {
-      background: #555;
-      border-radius: 4px;
+    .subtext {
+      font-size: 11px;
+      margin-top: 4px;
+      opacity: 0.8;
+      user-select: none;
     }
   </style>
 </head>
 <body>
 
-<header>BerlinGPT 🤖</header>
+  <video class="background-video" autoplay muted loop playsinline>
+    <source src="https://uploadkon.ir/uploads/89e818_25VID-20250718-212050-031.mp4" type="video/mp4">
+  </video>
 
-<div id="chat">
-  <div class="msg bot">سلام! من BerlinGPT هستم. هر سوالی داری بپرس :)</div>
-</div>
+  <div class="portrait-box">
+    <img src="https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg" alt="Arthur Morgan">
+  </div>
 
-<div id="input-area">
-  <input type="text" id="userInput" placeholder="پیام خود را تایپ کنید..." autocomplete="off" />
-  <button onclick="sendMessage()">ارسال</button>
-</div>
+  <div class="story-box" dir="ltr" lang="en">
+    <strong>Arthur Morgan's Story</strong>
+    <p>
+      Arthur Morgan... a man who searched for a piece of peace in the chaos of bullets, betrayal, and bloodshed; peace he never found.
+      <br><br>
+      Born into a world too cruel to embrace an orphaned child. His father was a thief, his mother died young, and he quickly learned that kindness has no place in a merciless world. Dutch took him in, taught him to survive... at the cost of slowly hardening his heart.
+      <br><br>
+      Arthur saw himself as a bad man. One who carried out the gang's dirty work without hesitation. But behind that cold, emotionless gaze lay a buried heart—a heart still beating for love, for compassion, for forgiveness.
+      <br><br>
+      Tuberculosis not only consumed his body, but awakened his soul. Every cough, every sleepless night was a jolt pulling him out of his darkness. Maybe there was still a chance for redemption.
+      <br><br>
+      And he tried... with pain, with blood, with his final breaths. In the end, Arthur died... but not like a thief. Like a man. A man whose voice still echoes in the hearts of millions.
+    </p>
+  </div>
 
-<script>
-  const chat = document.getElementById('chat');
-  const input = document.getElementById('userInput');
+  <div class="story-box" dir="rtl" lang="fa">
+    <strong>زندگی آرتور مورگان</strong>
+    <p>
+      آرتور مورگان... مردی که در هیاهوی گلوله‌ها، خیانت‌ها و خون‌ریزی‌ها، به دنبال تکه‌ای از آرامش می‌گشت؛ آرامشی که هرگز نیافت.
+      <br><br>
+      او در دنیایی به دنیا آمد که بی‌رحم‌تر از آن بود که کودک یتیمی را در آغوش بگیرد. پدرش یک دزد بود، مادرش را زود از دست داد، و خیلی زود یاد گرفت که دنیا برای کسانی که مهربانند، رحم نمی‌کند. داچ او را به سرپرستی گرفت، به او یاد داد چطور زنده بماند... اما به بهای اینکه قلبش را آرام آرام سنگ کند.
+      <br><br>
+      آرتور خودش را یک مرد بد می‌دانست. کسی که کارهای کثیف باند را بی‌هیچ تردیدی انجام می‌داد. اما پشت آن نگاه سرد و بی‌احساس، قلبی دفن‌شده بود؛ قلبی که هنوز برای عشق، برای دوست‌داشتن، برای بخشیدن می‌تپید.
+      <br><br>
+      بیماری سل نه‌تنها بدنش را خورد، بلکه ذهنش را نیز باز کرد. هر سرفه، هر شب بیداری، تلنگری شد که او را از دنیای تاریک خود بیرون بکشد. شاید هنوز هم فرصتی برای رستگاری بود.
+      <br><br>
+      و او تلاش کرد... با درد، با خون، با نفس‌های آخرش. در نهایت، آرتور مُرد... اما نه مثل یک دزد. مثل یک مرد. مردی که در سکوت جان داد، اما صدایش در قلب میلیون‌ها نفر زنده ماند.
+    </p>
+  </div>
 
-  // دیتابیس سوال و جواب (فارسی و انگلیسی، موضوعات متنوع)
-  const knowledgeBase = [
-    {q: "سلام", a: "سلام! چطور می‌تونم کمکت کنم؟"},
-    {q: "حال شما چطوره", a: "من خوبم، ممنون که پرسیدی! شما چطورید؟"},
-    {q: "اسم تو چیه", a: "اسم من BerlinGPT هست."},
-    {q: "تو چکار می‌کنی", a: "من یک چت‌بات هوشمند هستم که می‌تونم به سوالات مختلف پاسخ بدم."},
-    {q: "تهران کجاست", a: "تهران پایتخت ایران است و بزرگترین شهر این کشور."},
-    {q: "بزرگترین کشور دنیا کجاست", a: "بزرگترین کشور دنیا از لحاظ مساحت، روسیه است."},
-    {q: "پایتخت فرانسه", a: "پاریس پایتخت فرانسه است."},
-    {q: "چهار فصل سال کدامند", a: "بهار، تابستان، پاییز و زمستان."},
-    {q: "رنگ پرچم ایران", a: "سبز، سفید و قرمز."},
-    {q: "بازی چیست", a: "بازی یک فعالیت تفریحی است که می‌تواند ذهنی یا جسمی باشد."},
-    {q: "چی کار میکنی", a: "من در حال کمک به تو برای پاسخ دادن به سوالاتت هستم."},
-    {q: "خداحافظ", a: "خداحافظ! امیدوارم دوباره ببینمت."},
-    {q: "who are you", a: "I am BerlinGPT, your friendly chatbot."},
-    {q: "what is your name", a: "My name is BerlinGPT."},
-    {q: "how are you", a: "I'm good, thanks for asking! How about you?"},
-    {q: "where is tehran", a: "Tehran is the capital city of Iran."},
-    {q: "capital of france", a: "Paris is the capital of France."},
-    {q: "what is the biggest country", a: "Russia is the biggest country by area."},
-    {q: "what are the four seasons", a: "Spring, Summer, Autumn, and Winter."},
-    {q: "what is a game", a: "A game is an activity for fun or competition, often involving rules."},
-    {q: "bye", a: "Goodbye! Hope to chat again soon."},
-    // می‌تونی اینجا سوال جواب بیشتر اضافه کنی
-  ];
+  <div class="audio-player">
+    <audio id="audio" src="https://uploadkon.ir/uploads/eaf818_25may-i-stand-unshaken-banda-sonora-subtitulada-red-dead-redemption.mp3"></audio>
+    <button onclick="togglePlay()">▶️ Play / ⏸ Pause</button>
+    <div class="progress-container">
+      <span id="current">0:00</span>
+      <input type="range" id="progress" class="progress-bar" value="0" max="100" step="1" onchange="seekAudio()" />
+      <span id="duration">0:00</span>
+    </div>
+  </div>
 
-  // تابع پیدا کردن جواب
-  function findAnswer(question) {
-    question = question.trim().toLowerCase();
-    for (const entry of knowledgeBase) {
-      if (entry.q.toLowerCase() === question) {
-        return entry.a;
+  <div class="links-row">
+    <a href="http://t.me/ejmok" target="_blank" class="link-box">
+      <div class="link-text">Telegram</div>
+    </a>
+    <a href="http://t.me/Jafok" target="_blank" class="link-box">
+      <div class="link-text">MTI</div>
+      <div class="subtext">Brother</div>
+    </a>
+    <a href="http://t.me/Berlin_opBot" target="_blank" class="link-box">
+      <div class="link-text">Bot</div>
+    </a>
+  </div>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const progress = document.getElementById('progress');
+    const current = document.getElementById('current');
+    const duration = document.getElementById('duration');
+
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
       }
     }
-    // اگه جواب پیدا نشد، پیام پیش‌فرض
-    return "متاسفم، جواب سوال شما رو ندارم. سوال دیگه‌ای داری؟";
-  }
 
-  // ارسال پیام
-  function sendMessage() {
-    let text = input.value.trim();
-    if (text === "") return;
+    audio.addEventListener('loadedmetadata', () => {
+      progress.max = Math.floor(audio.duration);
+      duration.textContent = formatTime(audio.duration);
+    });
 
-    appendMessage(text, 'user');
-    input.value = "";
-    scrollToBottom();
+    audio.addEventListener('timeupdate', () => {
+      progress.value = Math.floor(audio.currentTime);
+      current.textContent = formatTime(audio.currentTime);
+    });
 
-    // پاسخ بعد از تاخیر کوتاه (برای حس طبیعی‌تر بودن)
-    setTimeout(() => {
-      let answer = findAnswer(text);
-      appendMessage(answer, 'bot');
-      scrollToBottom();
-    }, 600);
-  }
-
-  // اضافه کردن پیام به چت
-  function appendMessage(text, sender) {
-    const div = document.createElement('div');
-    div.className = 'msg ' + sender;
-    div.textContent = text;
-    chat.appendChild(div);
-  }
-
-  // اسکرول خودکار به پایین
-  function scrollToBottom() {
-    chat.scrollTop = chat.scrollHeight;
-  }
-
-  // ارسال با کلید اینتر
-  input.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      sendMessage();
+    function seekAudio() {
+      audio.currentTime = progress.value;
     }
-  });
-</script>
 
+    function formatTime(sec) {
+      const minutes = Math.floor(sec / 60);
+      const seconds = Math.floor(sec % 60).toString().padStart(2, '0');
+      return `${minutes}:${seconds}`;
+    }
+  </script>
 </body>
 </html>
