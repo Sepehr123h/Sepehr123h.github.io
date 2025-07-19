@@ -1,153 +1,223 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-<meta charset="UTF-8" />
-<title>گردونه شانس</title>
-<style>
-  body {
-    background: #222;
-    color: white;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 30px;
-    user-select: none;
-  }
-  #wheel-container {
-    margin: 0 auto 20px;
-    position: relative;
-    width: 300px;
-    height: 300px;
-  }
-  #wheel {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 8px solid #eee;
-    box-shadow: 0 0 20px rgba(255,255,255,0.3);
-    position: relative;
-    transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
-    cursor: pointer;
-  }
-  /* 4 قسمت مساوی با رنگ و متن */
-  .segment {
-    position: absolute;
-    width: 50%;
-    height: 50%;
-    top: 50%;
-    left: 50%;
-    transform-origin: 0% 0%;
-    font-weight: bold;
-    font-size: 18px;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-  }
-  .segment1 { background: #e74c3c; transform: rotate(0deg) skewY(-45deg); }
-  .segment2 { background: #27ae60; transform: rotate(90deg) skewY(-45deg); }
-  .segment3 { background: #e74c3c; transform: rotate(180deg) skewY(-45deg); }
-  .segment4 { background: #27ae60; transform: rotate(270deg) skewY(-45deg); }
-
-  #pointer {
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    margin-left: -10px;
-    width: 0;
-    height: 0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-bottom: 25px solid #f1c40f;
-    filter: drop-shadow(0 0 3px #f1c40f);
-    z-index: 10;
-  }
-
-  #spinBtn {
-    background-color: #1abc9c;
-    border: none;
-    padding: 12px 28px;
-    font-size: 20px;
-    border-radius: 12px;
-    color: white;
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.3s ease;
-  }
-  #spinBtn:hover:not(:disabled) {
-    background-color: #16a085;
-  }
-  #spinBtn:disabled {
-    background-color: #555;
-    cursor: not-allowed;
-  }
-
-  #result {
-    margin-top: 20px;
-    font-size: 22px;
-    min-height: 30px;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <title>Arthur Morgan</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    video.background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+    .portrait-box {
+      background: rgba(31,31,31,0.8);
+      width: 300px;
+      margin: 40px auto 10px;
+      border-radius: 15px;
+      padding: 12px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+    .portrait-box img {
+      width: 100%;
+      border-radius: 15px;
+      display: block;
+      margin: auto;
+      user-select: none;
+      pointer-events: none;
+    }
+    .story-box {
+      max-width: 550px;
+      margin: 20px auto 40px;
+      background-color: rgba(31,31,31,0.8);
+      padding: 15px 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      font-size: 14px;
+      line-height: 1.6;
+      color: white;
+      text-align: justify;
+      user-select: text;
+    }
+    .audio-player {
+      margin: 0 auto 40px;
+      max-width: 450px;
+      background: rgba(31,31,31,0.8);
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.1);
+      color: white;
+    }
+    .audio-player button {
+      padding: 8px 18px;
+      border: none;
+      background-color: #1a73e8;
+      color: white;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .progress-container {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      color: #ccc;
+    }
+    .progress-bar {
+      flex-grow: 1;
+    }
+    .links-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto 30px;
+      padding: 0 15px;
+    }
+    .link-box {
+      background-color: #0088cc;
+      color: white;
+      flex: 1;
+      max-width: 200px;
+      padding: 14px 10px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0, 136, 204, 0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .link-box:hover {
+      background-color: #006699;
+    }
+    .link-text {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+    .subtext {
+      font-size: 11px;
+      margin-top: 4px;
+      opacity: 0.8;
+      user-select: none;
+    }
+  </style>
 </head>
 <body>
 
-<h1>گردونه شانس</h1>
-<div id="wheel-container">
-  <div id="wheel" title="برای چرخاندن کلیک کن">
-    <div class="segment segment1">+۵۰۰</div>
-    <div class="segment segment2">+۲۰۰</div>
-    <div class="segment segment3">-۱۰۰</div>
-    <div class="segment segment4">+۳۰۰</div>
+  <video class="background-video" autoplay muted loop playsinline>
+    <source src="https://uploadkon.ir/uploads/89e818_25VID-20250718-212050-031.mp4" type="video/mp4">
+  </video>
+
+  <div class="portrait-box">
+    <img src="https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg" alt="Arthur Morgan">
   </div>
-  <div id="pointer"></div>
-</div>
-<button id="spinBtn">بچرخون</button>
 
-<div id="result"></div>
-<div id="positionText" style="margin-top:8px; font-size:18px; opacity:0.85;"></div>
+  <div class="story-box" dir="ltr" lang="en">
+    <strong>Arthur Morgan's Story</strong>
+    <p>
+      Arthur Morgan... a man who searched for a piece of peace in the chaos of bullets, betrayal, and bloodshed; peace he never found.
+      <br><br>
+      Born into a world too cruel to embrace an orphaned child. His father was a thief, his mother died young, and he quickly learned that kindness has no place in a merciless world. Dutch took him in, taught him to survive... at the cost of slowly hardening his heart.
+      <br><br>
+      Arthur saw himself as a bad man. One who carried out the gang's dirty work without hesitation. But behind that cold, emotionless gaze lay a buried heart—a heart still beating for love, for compassion, for forgiveness.
+      <br><br>
+      Tuberculosis not only consumed his body, but awakened his soul. Every cough, every sleepless night was a jolt pulling him out of his darkness. Maybe there was still a chance for redemption.
+      <br><br>
+      And he tried... with pain, with blood, with his final breaths. In the end, Arthur died... but not like a thief. Like a man. A man whose voice still echoes in the hearts of millions.
+    </p>
+  </div>
 
-<script>
-  const wheel = document.getElementById('wheel');
-  const spinBtn = document.getElementById('spinBtn');
-  const result = document.getElementById('result');
-  const positionText = document.getElementById('positionText');
+  <div class="story-box" dir="rtl" lang="fa">
+    <strong>زندگی آرتور مورگان</strong>
+    <p>
+      آرتور مورگان... مردی که در هیاهوی گلوله‌ها، خیانت‌ها و خون‌ریزی‌ها، به دنبال تکه‌ای از آرامش می‌گشت؛ آرامشی که هرگز نیافت.
+      <br><br>
+      او در دنیایی به دنیا آمد که بی‌رحم‌تر از آن بود که کودک یتیمی را در آغوش بگیرد. پدرش یک دزد بود، مادرش را زود از دست داد، و خیلی زود یاد گرفت که دنیا برای کسانی که مهربانند، رحم نمی‌کند. داچ او را به سرپرستی گرفت، به او یاد داد چطور زنده بماند... اما به بهای اینکه قلبش را آرام آرام سنگ کند.
+      <br><br>
+      آرتور خودش را یک مرد بد می‌دانست. کسی که کارهای کثیف باند را بی‌هیچ تردیدی انجام می‌داد. اما پشت آن نگاه سرد و بی‌احساس، قلبی دفن‌شده بود؛ قلبی که هنوز برای عشق، برای دوست‌داشتن، برای بخشیدن می‌تپید.
+      <br><br>
+      بیماری سل نه‌تنها بدنش را خورد، بلکه ذهنش را نیز باز کرد. هر سرفه، هر شب بیداری، تلنگری شد که او را از دنیای تاریک خود بیرون بکشد. شاید هنوز هم فرصتی برای رستگاری بود.
+      <br><br>
+      و او تلاش کرد... با درد، با خون، با نفس‌های آخرش. در نهایت، آرتور مُرد... اما نه مثل یک دزد. مثل یک مرد. مردی که در سکوت جان داد، اما صدایش در قلب میلیون‌ها نفر زنده ماند.
+    </p>
+  </div>
 
-  // اطلاعات خونه‌ها (رنگ و عدد)
-  const segments = [
-    { name: '+۵۰۰', color: 'قرمز ۱' },
-    { name: '+۲۰۰', color: 'سبز ۱' },
-    { name: '-۱۰۰', color: 'قرمز ۲' },
-    { name: '+۳۰۰', color: 'سبز ۲' }
-  ];
+  <div class="audio-player">
+    <audio id="audio" src="https://uploadkon.ir/uploads/eaf818_25may-i-stand-unshaken-banda-sonora-subtitulada-red-dead-redemption.mp3"></audio>
+    <button onclick="togglePlay()">▶️ Play / ⏸ Pause</button>
+    <div class="progress-container">
+      <span id="current">0:00</span>
+      <input type="range" id="progress" class="progress-bar" value="0" max="100" step="1" onchange="seekAudio()" />
+      <span id="duration">0:00</span>
+    </div>
+  </div>
 
-  let currentRotation = 0;
+  <div class="links-row">
+    <a href="http://t.me/ejmok" target="_blank" class="link-box">
+      <div class="link-text">Telegram</div>
+    </a>
+    <a href="http://t.me/Jafok" target="_blank" class="link-box">
+      <div class="link-text">MTI</div>
+      <div class="subtext">Brother</div>
+    </a>
+    <a href="http://t.me/Berlin_opBot" target="_blank" class="link-box">
+      <div class="link-text">Bot</div>
+    </a>
+  </div>
 
-  function spinWheel() {
-    spinBtn.disabled = true;
-    result.textContent = 'در حال چرخش...';
-    positionText.textContent = '';
+  <script>
+    const audio = document.getElementById('audio');
+    const progress = document.getElementById('progress');
+    const current = document.getElementById('current');
+    const duration = document.getElementById('duration');
 
-    // چرخش تصادفی بین 4 خونه، هر خونه 90 درجه
-    const randomSegment = Math.floor(Math.random() * 4);
-    // می‌خوایم حداقل 3 دور کامل بزنه + بچرخه روی خونه انتخاب شده
-    const spins = 3;
-    const degreesPerSegment = 360 / 4;
-    const targetRotation = 360 * spins + (360 - randomSegment * degreesPerSegment) - (degreesPerSegment / 2);
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
 
-    currentRotation += targetRotation;
+    audio.addEventListener('loadedmetadata', () => {
+      progress.max = Math.floor(audio.duration);
+      duration.textContent = formatTime(audio.duration);
+    });
 
-    wheel.style.transition = 'transform 4s cubic-bezier(0.33, 1, 0.68, 1)';
-    wheel.style.transform = `rotate(${currentRotation}deg)`;
+    audio.addEventListener('timeupdate', () => {
+      progress.value = Math.floor(audio.currentTime);
+      current.textContent = formatTime(audio.currentTime);
+    });
 
-    wheel.addEventListener('transitionend', () => {
-      spinBtn.disabled = false;
-      result.textContent = 'جواب: ' + segments[randomSegment].name;
-      positionText.textContent = `روی خونه ${segments[randomSegment].color} وایستاده`;
-    }, { once: true });
-  }
+    function seekAudio() {
+      audio.currentTime = progress.value;
+    }
 
-  spinBtn.addEventListener('click', spinWheel);
-</script>
-
+    function formatTime(sec) {
+      const minutes = Math.floor(sec / 60);
+      const seconds = Math.floor(sec % 60).toString().padStart(2, '0');
+      return `${minutes}:${seconds}`;
+    }
+  </script>
 </body>
 </html>
