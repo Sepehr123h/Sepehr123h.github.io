@@ -1,99 +1,71 @@
-گ<!DOCTYPE html>
-<html lang="fa">
+<!DOCTYPE html><html lang="fa">
 <head>
   <meta charset="UTF-8">
-  <title>سنگ کاغذ قیچی واقعی</title>
+  <title>سنگ کاغذ قیچی ساده</title>
   <style>
     body {
       font-family: Tahoma;
       text-align: center;
-      background: #f9f9f9;
-      padding: 40px;
-    }
-
-    h1 {
+      background: #fdf6e3;
       color: #333;
-    }
+      padding: 40px;
+    }h1 {
+  color: #d35400;
+  font-size: 36px;
+}
 
-    .choices button {
-      font-size: 40px;
-      margin: 10px;
-      padding: 15px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-    }
+.choices button {
+  font-size: 30px;
+  margin: 10px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 2px solid #d35400;
+  background-color: #fff3e0;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    #hand {
-      font-size: 100px;
-      margin: 40px 0;
-      animation: none;
-    }
+.choices button:hover {
+  background-color: #ffe0b2;
+}
 
-    @keyframes bounce {
-      0%   { transform: translateY(0); }
-      25%  { transform: translateY(-30px); }
-      50%  { transform: translateY(0); }
-      75%  { transform: translateY(-20px); }
-      100% { transform: translateY(0); }
-    }
+#result {
+  margin-top: 30px;
+  font-size: 24px;
+  font-weight: bold;
+}
 
-    .scoreboard {
-      margin-top: 30px;
-      font-size: 18px;
-    }
+#scores {
+  margin-top: 20px;
+  font-size: 20px;
+}
 
-    #result {
-      font-size: 20px;
-      margin-top: 20px;
-      color: #e67e22;
-    }
   </style>
 </head>
 <body>
-
-  <h1>سنگ ✊ کاغذ ✋ قیچی ✌️</h1>
-
+  <h1>سنگ 💎 کاغذ 📄 قیچی ✂️</h1>
   <div class="choices">
-    <button onclick="choose('سنگ')">✊</button>
-    <button onclick="choose('کاغذ')">✋</button>
-    <button onclick="choose('قیچی')">✌️</button>
+    <button onclick="play('سنگ')">💎 سنگ</button>
+    <button onclick="play('کاغذ')">📄 کاغذ</button>
+    <button onclick="play('قیچی')">✂️ قیچی</button>
   </div>
-
-  <div id="hand">✊</div>
-
-  <div id="result">یک گزینه انتخاب کن</div>
-
-  <div class="scoreboard">
-    <p>امتیاز شما: <span id="player-score">0</span></p>
-    <p>امتیاز ربات: <span id="bot-score">0</span></p>
-  </div>
-
-  <script>
-    let playerScore = 0;
+  <div id="result"></div>
+  <div id="scores">امتیاز شما: 0 | امتیاز ربات: 0</div>  <script>
+    let userScore = 0;
     let botScore = 0;
 
-    function choose(playerChoice) {
-      document.getElementById("hand").style.animation = "bounce 0.6s ease 3";
-      document.getElementById("result").innerText = "۳...۲...۱...";
-      setTimeout(() => {
-        let botChoice;
-        if (playerChoice === "سنگ") botChoice = "کاغذ";
-        if (playerChoice === "کاغذ") botChoice = "قیچی";
-        if (playerChoice === "قیچی") botChoice = "سنگ";
+    function play(userChoice) {
+      const options = ['سنگ', 'کاغذ', 'قیچی'];
+      let botChoice;
 
-        document.getElementById("hand").style.animation = "none";
-        document.getElementById("result").innerText = `شما: ${playerChoice} - ربات: ${botChoice} → ربات برد 😈`;
-        botScore++;
-        updateScores();
-      }, 2000);
+      // ربات همیشه برنده است
+      if (userChoice === 'سنگ') botChoice = 'کاغذ';
+      else if (userChoice === 'کاغذ') botChoice = 'قیچی';
+      else botChoice = 'سنگ';
+
+      botScore++;
+      document.getElementById("result").innerText = `شما ${userChoice} زدید - ربات ${botChoice} زد، ربات برنده شد! 🤖`;
+      document.getElementById("scores").innerText = `امتیاز شما: ${userScore} | امتیاز ربات: ${botScore}`;
     }
-
-    function updateScores() {
-      document.getElementById("player-score").innerText = playerScore;
-      document.getElementById("bot-score").innerText = botScore;
-    }
-  </script>
-
-</body>
+  </script></body>
 </html>
