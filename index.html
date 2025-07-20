@@ -1,223 +1,51 @@
-<!DOCTYPE html>
-<html lang="fa">
+<!DOCTYPE html><html lang="fa">
 <head>
-  <meta charset="UTF-8" />
-  <title>Arthur Morgan</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BerlinGPT - چت فارسی</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: black;
-      color: white;
-      text-align: center;
-      overflow-x: hidden;
+      direction: rtl;
+      background: linear-gradient(to bottom, #0f172a, #1e293b);
+      font-family: 'Vazir', sans-serif;
     }
-    video.background-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -1;
-      opacity: 0.07;
-      pointer-events: none;
-    }
-    .portrait-box {
-      background: rgba(31,31,31,0.8);
-      width: 300px;
-      margin: 40px auto 10px;
-      border-radius: 15px;
-      padding: 12px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
-    }
-    .portrait-box img {
-      width: 100%;
-      border-radius: 15px;
-      display: block;
-      margin: auto;
-      user-select: none;
-      pointer-events: none;
-    }
-    .story-box {
-      max-width: 550px;
-      margin: 20px auto 40px;
-      background-color: rgba(31,31,31,0.8);
-      padding: 15px 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.1);
-      font-size: 14px;
-      line-height: 1.6;
-      color: white;
-      text-align: justify;
-      user-select: text;
-    }
-    .audio-player {
-      margin: 0 auto 40px;
-      max-width: 450px;
-      background: rgba(31,31,31,0.8);
-      border-radius: 15px;
-      padding: 15px;
-      box-shadow: 0 0 15px rgba(255,255,255,0.1);
-      color: white;
-    }
-    .audio-player button {
-      padding: 8px 18px;
-      border: none;
-      background-color: #1a73e8;
-      color: white;
-      font-size: 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .progress-container {
-      margin-top: 12px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      color: #ccc;
-    }
-    .progress-bar {
-      flex-grow: 1;
-    }
-    .links-row {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      max-width: 900px;
-      margin: 0 auto 30px;
-      padding: 0 15px;
-    }
-    .link-box {
-      background-color: #0088cc;
-      color: white;
-      flex: 1;
-      max-width: 200px;
-      padding: 14px 10px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 0 10px rgba(0, 136, 204, 0.7);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 0.3s ease;
-    }
-    .link-box:hover {
-      background-color: #006699;
-    }
-    .link-text {
-      font-size: 18px;
-      margin-bottom: 6px;
-    }
-    .subtext {
-      font-size: 11px;
-      margin-top: 4px;
-      opacity: 0.8;
-      user-select: none;
+    ::placeholder {
+      text-align: right;
     }
   </style>
 </head>
-<body>
-
-  <video class="background-video" autoplay muted loop playsinline>
-    <source src="https://uploadkon.ir/uploads/89e818_25VID-20250718-212050-031.mp4" type="video/mp4">
-  </video>
-
-  <div class="portrait-box">
-    <img src="https://uploadkon.ir/uploads/30bc18_253f0eae2b92ca589534c39a0b4b4104d2.jpg" alt="Arthur Morgan">
-  </div>
-
-  <div class="story-box" dir="ltr" lang="en">
-    <strong>Arthur Morgan's Story</strong>
-    <p>
-      Arthur Morgan... a man who searched for a piece of peace in the chaos of bullets, betrayal, and bloodshed; peace he never found.
-      <br><br>
-      Born into a world too cruel to embrace an orphaned child. His father was a thief, his mother died young, and he quickly learned that kindness has no place in a merciless world. Dutch took him in, taught him to survive... at the cost of slowly hardening his heart.
-      <br><br>
-      Arthur saw himself as a bad man. One who carried out the gang's dirty work without hesitation. But behind that cold, emotionless gaze lay a buried heart—a heart still beating for love, for compassion, for forgiveness.
-      <br><br>
-      Tuberculosis not only consumed his body, but awakened his soul. Every cough, every sleepless night was a jolt pulling him out of his darkness. Maybe there was still a chance for redemption.
-      <br><br>
-      And he tried... with pain, with blood, with his final breaths. In the end, Arthur died... but not like a thief. Like a man. A man whose voice still echoes in the hearts of millions.
-    </p>
-  </div>
-
-  <div class="story-box" dir="rtl" lang="fa">
-    <strong>زندگی آرتور مورگان</strong>
-    <p>
-      آرتور مورگان... مردی که در هیاهوی گلوله‌ها، خیانت‌ها و خون‌ریزی‌ها، به دنبال تکه‌ای از آرامش می‌گشت؛ آرامشی که هرگز نیافت.
-      <br><br>
-      او در دنیایی به دنیا آمد که بی‌رحم‌تر از آن بود که کودک یتیمی را در آغوش بگیرد. پدرش یک دزد بود، مادرش را زود از دست داد، و خیلی زود یاد گرفت که دنیا برای کسانی که مهربانند، رحم نمی‌کند. داچ او را به سرپرستی گرفت، به او یاد داد چطور زنده بماند... اما به بهای اینکه قلبش را آرام آرام سنگ کند.
-      <br><br>
-      آرتور خودش را یک مرد بد می‌دانست. کسی که کارهای کثیف باند را بی‌هیچ تردیدی انجام می‌داد. اما پشت آن نگاه سرد و بی‌احساس، قلبی دفن‌شده بود؛ قلبی که هنوز برای عشق، برای دوست‌داشتن، برای بخشیدن می‌تپید.
-      <br><br>
-      بیماری سل نه‌تنها بدنش را خورد، بلکه ذهنش را نیز باز کرد. هر سرفه، هر شب بیداری، تلنگری شد که او را از دنیای تاریک خود بیرون بکشد. شاید هنوز هم فرصتی برای رستگاری بود.
-      <br><br>
-      و او تلاش کرد... با درد، با خون، با نفس‌های آخرش. در نهایت، آرتور مُرد... اما نه مثل یک دزد. مثل یک مرد. مردی که در سکوت جان داد، اما صدایش در قلب میلیون‌ها نفر زنده ماند.
-    </p>
-  </div>
-
-  <div class="audio-player">
-    <audio id="audio" src="https://uploadkon.ir/uploads/eaf818_25may-i-stand-unshaken-banda-sonora-subtitulada-red-dead-redemption.mp3"></audio>
-    <button onclick="togglePlay()">▶️ Play / ⏸ Pause</button>
-    <div class="progress-container">
-      <span id="current">0:00</span>
-      <input type="range" id="progress" class="progress-bar" value="0" max="100" step="1" onchange="seekAudio()" />
-      <span id="duration">0:00</span>
+<body class="min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white shadow-2xl rounded-3xl max-w-2xl w-full p-6 text-gray-800">
+    <h1 class="text-3xl font-bold mb-6 text-center text-blue-600">🤖 BerlinGPT فارسی</h1>
+    <div class="space-y-4">
+      <textarea id="userInput" placeholder="مثلاً: چرا آسمون آبیه؟" class="w-full border border-gray-300 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-lg"></textarea>
+      <button onclick="sendMessage()" class="w-full bg-blue-600 text-white p-3 rounded-xl hover:bg-blue-700 transition">ارسال</button>
+      <div id="responseBox" class="bg-gray-100 p-4 rounded-xl text-lg whitespace-pre-wrap min-h-[100px]">اینجا پاسخ رو می‌بینی...</div>
     </div>
-  </div>
+  </div>  <script>
+    async function sendMessage() {
+      const input = document.getElementById('userInput').value;
+      const responseBox = document.getElementById('responseBox');
+      responseBox.textContent = "⏳ در حال پردازش...";
 
-  <div class="links-row">
-    <a href="http://t.me/ejmok" target="_blank" class="link-box">
-      <div class="link-text">Telegram</div>
-    </a>
-    <a href="http://t.me/Jafok" target="_blank" class="link-box">
-      <div class="link-text">MTI</div>
-      <div class="subtext">Brother</div>
-    </a>
-    <a href="http://t.me/Berlin_opBot" target="_blank" class="link-box">
-      <div class="link-text">Bot</div>
-    </a>
-  </div>
+      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer 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",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          "model": "mistralai/mistral-7b-instruct",
+          "messages": [
+            { "role": "system", "content": "تو یک دستیار فارسی‌زبان هستی. پاسخ‌هایت مودبانه، دقیق و مختصر هستند." },
+            { "role": "user", "content": input }
+          ]
+        })
+      });
 
-  <script>
-    const audio = document.getElementById('audio');
-    const progress = document.getElementById('progress');
-    const current = document.getElementById('current');
-    const duration = document.getElementById('duration');
-
-    function togglePlay() {
-      if (audio.paused) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
+      const data = await res.json();
+      responseBox.textContent = data.choices?.[0]?.message?.content || "❌ خطا در دریافت پاسخ";
     }
-
-    audio.addEventListener('loadedmetadata', () => {
-      progress.max = Math.floor(audio.duration);
-      duration.textContent = formatTime(audio.duration);
-    });
-
-    audio.addEventListener('timeupdate', () => {
-      progress.value = Math.floor(audio.currentTime);
-      current.textContent = formatTime(audio.currentTime);
-    });
-
-    function seekAudio() {
-      audio.currentTime = progress.value;
-    }
-
-    function formatTime(sec) {
-      const minutes = Math.floor(sec / 60);
-      const seconds = Math.floor(sec % 60).toString().padStart(2, '0');
-      return `${minutes}:${seconds}`;
-    }
-  </script>
-</body>
+  </script></body>
 </html>
