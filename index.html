@@ -25,24 +25,29 @@
 async function sendMessage() {
   let chat = document.getElementById("chat");
   let input = document.getElementById("input");
-  let question = input.value;
+  let question = input.value.trim();
   
+  if (!question) return;
+
   chat.innerHTML += `<div class="message user"><b>شما:</b> ${question}</div>`;
   input.value = "";
 
   chat.innerHTML += `<div class="message bot"><b>ربات:</b> در حال فکر کردن...</div>`;
 
-  // درخواست بدون کلید به مدل پابلیک HuggingFace
-  let response = await fetch("https://api-inference.huggingface.co/models/google/flan-t5-base", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ inputs: question })
-  });
+  try {
+    let response = await fetch("https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ inputs: question })
+    });
 
-  let data = await response.json();
-  let answer = data[0]?.generated_text || "جواب پیدا نشد.";
+    let data = await response.json();
+    let answer = data[0]?.generated_text || "متاسفم، جواب پیدا نشد.";
 
-  chat.innerHTML = chat.innerHTML.replace(/در حال فکر کردن.../, answer);
+    chat.innerHTML = chat.innerHTML.replace(/در حال فکر کردن.../, answer);
+  } catch (error) {
+    chat.innerHTML = chat.innerHTML.replace(/در حال فکر کردن.../, "خطا در اتصال به مدل.");
+  }
 }
 </script>
 
