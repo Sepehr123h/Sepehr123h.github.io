@@ -10,22 +10,25 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 bot = telebot.TeleBot(BOT_TOKEN)
 
 SETTINGS_FILE = 'settings.json'
+settings = {}
+spam_tracker = {}
+warnings = {}
 
 default_settings = {
-    'bad_words': ['لعنت', 'کثافت', 'کسخل', 'گوه', 'حرومزاده', 'سیک', 'کیر', 'کص'],
+    'bad_words': ['سیک', 'کیر', 'کص', 'حرومزاده'],
     'lock_links': True,
     'lock_media': False,
     'lock_sticker': False,
     'lock_gif': False,
+    'lock_forward': True,
     'min_account_days': 0,
     'spam_limit': 5,
-    'admin_log_chat_id': None,
     'clean_join': True,
-    'clean_pin': True
+    'clean_pin': True,
+    'welcome_enabled': True,
+    'welcome_text': "🌸 خوش آمدی {name} به گروه {chat}!\nلطفا قوانین را رعایت کن.",
+    'welcome_button': "📜 قوانین گروه"
 }
-
-settings = {}
-spam_tracker = {}
 
 def load_settings():
     global settings
@@ -53,128 +56,149 @@ def is_admin(chat_id, user_id):
     except:
         return False
 
-link_pattern = re.compile(r'(http|https|t\.me|telegram\.me|www\.)')
+link_pattern = re.compile(r'(http|https|t\.me|telegram\.me|www\.|\.com)')
 
-# پنل مدیریت
-def send_admin_panel(chat_id):
+# پنل مدرن
+def update_panel(chat_id, message_id):
     kb = types.InlineKeyboardMarkup(row_width=2)
     kb.add(
-        types.InlineKeyboardButton("👁 مشاهده کلمات بد", callback_data="view_bad"),
-        types.InlineKeyboardButton("➕ افزودن کلمه بد", callback_data="add_bad"),
-        types.InlineKeyboardButton("➖ حذف کلمه بد", callback_data="remove_bad"),
-        types.InlineKeyboardButton("🔗 قفل لینک", callback_data="toggle_links"),
-        types.InlineKeyboardButton("🖼 قفل مدیا", callback_data="toggle_media"),
+        types.InlineKeyboardButton("📝 کلمات بد", callback_data="badwords"),
+        types.InlineKeyboardButton("🔗 قفل‌ها", callback_data="locks"),
         types.InlineKeyboardButton("⚠ امنیت", callback_data="security"),
-        types.InlineKeyboardButton("🧹 پاکسازی خودکار", callback_data="cleaning"),
+        types.InlineKeyboardButton("🎉 خوش‌آمدگویی", callback_data="welcome"),
         types.InlineKeyboardButton("📚 راهنما", callback_data="help"),
-        types.InlineKeyboardButton("❌ خروج", callback_data="exit")
+        types.InlineKeyboardButton("❌ بستن", callback_data="close")
     )
-    bot.send_message(chat_id, "🔧 پنل مدیریت گروه:", reply_markup=kb)
+    bot.edit_message_text("🔧 پنل مدیریت Berlin Anti Ultra", chat_id, message_id, reply_markup=kb)
 
 @bot.message_handler(commands=['panel'])
 def panel_cmd(message):
     if not is_admin(message.chat.id, message.from_user.id):
-        bot.reply_to(message, "فقط ادمین‌ها اجازه دسترسی به پنل را دارند.")
+        bot.reply_to(message, "🚫 فقط ادمین‌ها اجازه دارند.")
         return
     ensure_group_settings(message.chat.id)
-    send_admin_panel(message.chat.id)
+    kb = types.InlineKeyboardMarkup()
+    kb.add(types.InlineKeyboardButton("📂 باز کردن پنل", callback_data="openpanel"))
+    bot.send_message(message.chat.id, "🔧 برای مدیریت گروه روی دکمه زیر کلیک کنید:", reply_markup=kb)
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_handler(call):
     chat_id = call.message.chat.id
-    user_id = call.from_user.id
+    msg_id = call.message.message_id
     ensure_group_settings(chat_id)
     group_settings = settings[str(chat_id)]
 
-    if not is_admin(chat_id, user_id):
-        bot.answer_callback_query(call.id, "شما ادمین نیستید!")
-        return
+    if call.data == "openpanel":
+        update_panel(chat_id, msg_id)
 
-    if call.data == "view_bad":
-        words = group_settings['bad_words']
-        bot.send_message(chat_id, "📝 کلمات بد:\n" + "\n".join(words))
-        send_admin_panel(chat_id)
+    elif call.data == "badwords":
+        kb = types.InlineKeyboardMarkup()
+        kb.add(types.InlineKeyboardButton("➕ افزودن", callback_data="addbad"),
+               types.InlineKeyboardButton("➖ حذف", callback_data="removebad"),
+               types.InlineKeyboardButton("🔙 برگشت", callback_data="openpanel"))
+        words = "\n".join(group_settings['bad_words'])
+        bot.edit_message_text(f"📝 کلمات بد:\n{words}", chat_id, msg_id, reply_markup=kb)
 
-    elif call.data == "add_bad":
-        msg = bot.send_message(chat_id, "کلمه بد جدید را بفرستید:")
-        bot.register_next_step_handler(msg, add_bad_word)
+    elif call.data == "addbad":
+        msg = bot.send_message(chat_id, "🔤 کلمه بد جدید را ارسال کنید:")
+        bot.register_next_step_handler(msg, lambda m: add_bad(m, msg_id))
 
-    elif call.data == "remove_bad":
+    elif call.data == "removebad":
         kb = types.InlineKeyboardMarkup()
         for w in group_settings['bad_words']:
             kb.add(types.InlineKeyboardButton(w, callback_data=f"del_{w}"))
-        kb.add(types.InlineKeyboardButton("انصراف", callback_data="cancel"))
-        bot.send_message(chat_id, "یک کلمه برای حذف انتخاب کنید:", reply_markup=kb)
+        kb.add(types.InlineKeyboardButton("🔙 برگشت", callback_data="badwords"))
+        bot.edit_message_text("❌ انتخاب کلمه برای حذف:", chat_id, msg_id, reply_markup=kb)
 
     elif call.data.startswith("del_"):
         word = call.data.replace("del_", "")
         if word in group_settings['bad_words']:
             group_settings['bad_words'].remove(word)
             save_settings()
-            bot.answer_callback_query(call.id, f"{word} حذف شد")
-        send_admin_panel(chat_id)
+        bot.answer_callback_query(call.id, f"{word} حذف شد")
+        update_panel(chat_id, msg_id)
 
-    elif call.data == "toggle_links":
-        group_settings['lock_links'] = not group_settings['lock_links']
-        save_settings()
-        status = "روشن" if group_settings['lock_links'] else "خاموش"
-        bot.answer_callback_query(call.id, f"قفل لینک {status}")
-        send_admin_panel(chat_id)
+    elif call.data == "locks":
+        locks_text = (f"🔗 قفل لینک: {'✅' if group_settings['lock_links'] else '❌'}\n"
+                      f"🖼 قفل مدیا: {'✅' if group_settings['lock_media'] else '❌'}\n"
+                      f"📎 قفل فوروارد: {'✅' if group_settings['lock_forward'] else '❌'}")
+        kb = types.InlineKeyboardMarkup()
+        kb.add(types.InlineKeyboardButton("🔄 تغییر لینک", callback_data="toggle_links"),
+               types.InlineKeyboardButton("🔄 تغییر مدیا", callback_data="toggle_media"),
+               types.InlineKeyboardButton("🔄 تغییر فوروارد", callback_data="toggle_forward"),
+               types.InlineKeyboardButton("🔙 برگشت", callback_data="openpanel"))
+        bot.edit_message_text(locks_text, chat_id, msg_id, reply_markup=kb)
 
-    elif call.data == "toggle_media":
-        group_settings['lock_media'] = not group_settings['lock_media']
+    elif call.data.startswith("toggle_"):
+        lock_name = call.data.replace("toggle_", "lock_")
+        group_settings[lock_name] = not group_settings[lock_name]
         save_settings()
-        status = "روشن" if group_settings['lock_media'] else "خاموش"
-        bot.answer_callback_query(call.id, f"قفل مدیا {status}")
-        send_admin_panel(chat_id)
+        bot.answer_callback_query(call.id, "✅ تغییر انجام شد")
+        update_panel(chat_id, msg_id)
 
     elif call.data == "security":
-        bot.send_message(chat_id, "⚠ تنظیمات امنیتی:\nحداقل سن اکانت: "
-                         f"{group_settings['min_account_days']} روز\nضد اسپم: "
-                         f"{group_settings['spam_limit']} پیام/10ثانیه")
-        send_admin_panel(chat_id)
+        sec_text = f"⚠ حداقل سن اکانت: {group_settings['min_account_days']} روز\n🛡 ضد اسپم: {group_settings['spam_limit']} پیام/10ث"
+        kb = types.InlineKeyboardMarkup()
+        kb.add(types.InlineKeyboardButton("🔙 برگشت", callback_data="openpanel"))
+        bot.edit_message_text(sec_text, chat_id, msg_id, reply_markup=kb)
 
-    elif call.data == "cleaning":
-        bot.send_message(chat_id, f"🧹 پاکسازی:\nJoin/Left: {'✅' if group_settings['clean_join'] else '❌'}\nPin: {'✅' if group_settings['clean_pin'] else '❌'}")
-        send_admin_panel(chat_id)
+    elif call.data == "welcome":
+        wel_text = f"🎉 خوش‌آمدگویی: {'✅' if group_settings['welcome_enabled'] else '❌'}\n\n{group_settings['welcome_text']}"
+        kb = types.InlineKeyboardMarkup()
+        kb.add(types.InlineKeyboardButton("🔄 تغییر متن", callback_data="change_welcome"),
+               types.InlineKeyboardButton("🔄 تغییر وضعیت", callback_data="toggle_welcome"),
+               types.InlineKeyboardButton("🔙 برگشت", callback_data="openpanel"))
+        bot.edit_message_text(wel_text, chat_id, msg_id, reply_markup=kb)
+
+    elif call.data == "toggle_welcome":
+        group_settings['welcome_enabled'] = not group_settings['welcome_enabled']
+        save_settings()
+        bot.answer_callback_query(call.id, "✅ تغییر انجام شد")
+        update_panel(chat_id, msg_id)
 
     elif call.data == "help":
         help_text = (
-            "📚 راهنمای دستورات:\n"
-            "/panel - پنل مدیریت\n"
+            "📚 راهنمای Berlin Anti Ultra:\n"
+            "/panel - باز کردن پنل\n"
             "➕ افزودن/حذف کلمات بد\n"
-            "🔗 قفل لینک، 🖼 قفل مدیا\n"
-            "⚠ امنیت: محدودیت سن اکانت و ضد اسپم\n"
-            "🧹 پاکسازی پیام‌های سیستمی\n"
+            "🔗 قفل لینک، مدیا، فوروارد\n"
+            "⚠ امنیت: ضد اسپم، محدودیت سن\n"
+            "🎉 خوش‌آمدگویی سفارشی\n"
+            "/warn @user - اخطار به کاربر\n"
+            "/unmute @user - آزاد کردن کاربر"
         )
-        bot.send_message(chat_id, help_text)
-        send_admin_panel(chat_id)
+        kb = types.InlineKeyboardMarkup()
+        kb.add(types.InlineKeyboardButton("🔙 برگشت", callback_data="openpanel"))
+        bot.edit_message_text(help_text, chat_id, msg_id, reply_markup=kb)
 
-    elif call.data == "exit":
-        bot.delete_message(chat_id, call.message.message_id)
+    elif call.data == "close":
+        bot.delete_message(chat_id, msg_id)
 
-def add_bad_word(message):
+def add_bad(message, panel_id):
     chat_id = message.chat.id
     word = message.text.strip()
-    ensure_group_settings(chat_id)
     group_settings = settings[str(chat_id)]
     if word not in group_settings['bad_words']:
         group_settings['bad_words'].append(word)
         save_settings()
-    bot.send_message(chat_id, f"{word} اضافه شد ✅")
-    send_admin_panel(chat_id)
+    bot.send_message(chat_id, f"✅ کلمه {word} اضافه شد")
+    update_panel(chat_id, panel_id)
 
-# پاسخ‌های خودکار
-auto_responses = {
-    'برلین': ["جانم عشقم", "چی شده", "چته", "ها", "بگو", "برو پیویش"],
-    'berlin': ["Yes?", "I’m here", "Tell me", "Go ahead"],
-    'سپهر': ["جانم عشقم", "ها", "بگو"]
-}
-response_index = {}
+# خوش‌آمدگویی
+@bot.message_handler(content_types=['new_chat_members'])
+def welcome(message):
+    chat_id = message.chat.id
+    ensure_group_settings(chat_id)
+    group_settings = settings[str(chat_id)]
+    if group_settings['welcome_enabled']:
+        for user in message.new_chat_members:
+            kb = types.InlineKeyboardMarkup()
+            kb.add(types.InlineKeyboardButton(group_settings['welcome_button'], url="https://t.me"))
+            bot.send_message(chat_id, group_settings['welcome_text'].format(name=user.first_name, chat=message.chat.title), reply_markup=kb)
 
-# مدیریت پیام‌ها
-@bot.message_handler(content_types=['text', 'photo', 'video', 'document', 'audio', 'sticker'])
-def handle_messages(message):
+# فیلتر پیام‌ها
+@bot.message_handler(func=lambda m: True, content_types=['text', 'photo', 'video', 'document', 'audio', 'sticker'])
+def filter_messages(message):
     chat_id = message.chat.id
     user_id = message.from_user.id
     text = (message.text or "").lower()
@@ -183,11 +207,11 @@ def handle_messages(message):
 
     # ضد اسپم
     now = time.time()
-    user_msgs = spam_tracker.get(user_id, [])
-    user_msgs = [t for t in user_msgs if now - t < 10]
-    user_msgs.append(now)
-    spam_tracker[user_id] = user_msgs
-    if len(user_msgs) > group_settings['spam_limit']:
+    msgs = spam_tracker.get(user_id, [])
+    msgs = [t for t in msgs if now - t < 10]
+    msgs.append(now)
+    spam_tracker[user_id] = msgs
+    if len(msgs) > group_settings['spam_limit']:
         bot.delete_message(chat_id, message.message_id)
         return
 
@@ -195,28 +219,22 @@ def handle_messages(message):
     for bad in group_settings['bad_words']:
         if bad in text:
             bot.delete_message(chat_id, message.message_id)
-            bot.send_message(chat_id, "🚫 پیام حاوی کلمه نامناسب حذف شد. لطفا رعایت کنید 🌹")
             return
 
     # قفل لینک
     if group_settings['lock_links'] and link_pattern.search(text):
         bot.delete_message(chat_id, message.message_id)
-        bot.send_message(chat_id, "🚫 ارسال لینک ممنوع است")
         return
 
     # قفل مدیا
     if group_settings['lock_media'] and message.content_type in ['photo', 'video', 'document', 'audio']:
         bot.delete_message(chat_id, message.message_id)
-        bot.send_message(chat_id, "🚫 ارسال مدیا ممنوع است")
         return
 
-    # پاسخ خودکار
-    for key, responses in auto_responses.items():
-        if key in text:
-            idx = response_index.get((chat_id, key), 0)
-            bot.send_message(chat_id, responses[idx])
-            response_index[(chat_id, key)] = (idx + 1) % len(responses)
-            return
+    # قفل فوروارد
+    if group_settings['lock_forward'] and message.forward_from:
+        bot.delete_message(chat_id, message.message_id)
+        return
 
-print("🤖 Berlin Anti Pro آماده کار است...")
+print("🔥 Berlin Anti Ultra فعال شد...")
 bot.infinity_polling()
