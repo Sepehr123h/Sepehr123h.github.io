@@ -58,7 +58,7 @@ def is_admin(chat_id, user_id):
 
 link_pattern = re.compile(r'(http|https|t\.me|telegram\.me|www\.|\.com)')
 
-# پنل مدرن
+# ---------------- پنل ----------------
 def update_panel(chat_id, message_id):
     kb = types.InlineKeyboardMarkup(row_width=2)
     kb.add(
@@ -69,7 +69,7 @@ def update_panel(chat_id, message_id):
         types.InlineKeyboardButton("📚 راهنما", callback_data="help"),
         types.InlineKeyboardButton("❌ بستن", callback_data="close")
     )
-    bot.edit_message_text("🔧 پنل مدیریت Berlin Anti Ultra", chat_id, message_id, reply_markup=kb)
+    bot.edit_message_text("🔧 پنل مدیریت Berlin Anti Ultra++", chat_id, message_id, reply_markup=kb)
 
 @bot.message_handler(commands=['panel'])
 def panel_cmd(message):
@@ -158,14 +158,17 @@ def callback_handler(call):
 
     elif call.data == "help":
         help_text = (
-            "📚 راهنمای Berlin Anti Ultra:\n"
-            "/panel - باز کردن پنل\n"
-            "➕ افزودن/حذف کلمات بد\n"
-            "🔗 قفل لینک، مدیا، فوروارد\n"
-            "⚠ امنیت: ضد اسپم، محدودیت سن\n"
-            "🎉 خوش‌آمدگویی سفارشی\n"
-            "/warn @user - اخطار به کاربر\n"
-            "/unmute @user - آزاد کردن کاربر"
+            "📚 راهنمای Berlin Anti Ultra++:\n\n"
+            "دستورات ریپلای:\n"
+            "🔹 بن → اخراج کاربر\n"
+            "🔹 سکوت / میوت → میوت کاربر\n"
+            "🔹 آزاد / آن‌میوت → آزاد کردن کاربر\n\n"
+            "دستورات پنل:\n"
+            "🔹 /panel → باز کردن پنل\n"
+            "🔹 افزودن / حذف کلمات بد\n"
+            "🔹 قفل‌ها: لینک، مدیا، فوروارد\n"
+            "🔹 خوش‌آمدگویی سفارشی\n"
+            "🔹 امنیت: ضد اسپم، حداقل سن"
         )
         kb = types.InlineKeyboardMarkup()
         kb.add(types.InlineKeyboardButton("🔙 برگشت", callback_data="openpanel"))
@@ -184,19 +187,35 @@ def add_bad(message, panel_id):
     bot.send_message(chat_id, f"✅ کلمه {word} اضافه شد")
     update_panel(chat_id, panel_id)
 
-# خوش‌آمدگویی
-@bot.message_handler(content_types=['new_chat_members'])
-def welcome(message):
+# ---------------- ریپلای دستورات ----------------
+@bot.message_handler(func=lambda m: m.reply_to_message and m.text)
+def reply_commands(message):
     chat_id = message.chat.id
-    ensure_group_settings(chat_id)
-    group_settings = settings[str(chat_id)]
-    if group_settings['welcome_enabled']:
-        for user in message.new_chat_members:
-            kb = types.InlineKeyboardMarkup()
-            kb.add(types.InlineKeyboardButton(group_settings['welcome_button'], url="https://t.me"))
-            bot.send_message(chat_id, group_settings['welcome_text'].format(name=user.first_name, chat=message.chat.title), reply_markup=kb)
+    user_id = message.from_user.id
 
-# فیلتر پیام‌ها
+    if not is_admin(chat_id, user_id):
+        return
+
+    cmd = message.text.strip().lower()
+    target_id = message.reply_to_message.from_user.id
+
+    if "بن" in cmd:
+        bot.kick_chat_member(chat_id, target_id)
+        bot.reply_to(message, "🚫 کاربر بن شد.")
+
+    elif "سکوت" in cmd or "میوت" in cmd:
+        bot.restrict_chat_member(chat_id, target_id, can_send_messages=False)
+        bot.reply_to(message, "🔇 کاربر سکوت شد.")
+
+    elif "آزاد" in cmd or "آن‌میوت" in cmd:
+        bot.restrict_chat_member(chat_id, target_id,
+                                 can_send_messages=True,
+                                 can_send_media_messages=True,
+                                 can_send_other_messages=True,
+                                 can_add_web_page_previews=True)
+        bot.reply_to(message, "🔊 سکوت کاربر برداشته شد.")
+
+# ---------------- فیلتر پیام‌ها ----------------
 @bot.message_handler(func=lambda m: True, content_types=['text', 'photo', 'video', 'document', 'audio', 'sticker'])
 def filter_messages(message):
     chat_id = message.chat.id
@@ -236,5 +255,5 @@ def filter_messages(message):
         bot.delete_message(chat_id, message.message_id)
         return
 
-print("🔥 Berlin Anti Ultra فعال شد...")
+print("🔥 Berlin Anti Ultra++ فعال شد...")
 bot.infinity_polling()
