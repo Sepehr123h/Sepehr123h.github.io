@@ -5,6 +5,8 @@ import re
 import json
 import time
 from datetime import datetime, timedelta
+from flask import Flask, Response
+import threading
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 bot = telebot.TeleBot(BOT_TOKEN)
@@ -255,5 +257,39 @@ def filter_messages(message):
         bot.delete_message(chat_id, message.message_id)
         return
 
-print("🔥 Berlin Anti Ultra++ فعال شد...")
-bot.infinity_polling()
+# ======= اینجا اضافه شده =======
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    html = """
+    <html>
+      <head><title>Sepehr123h.github.io</title></head>
+      <body style="font-family:tahoma; direction: rtl; text-align: center; margin-top: 50px;">
+        <h1>Sepehr123h.github.io</h1>
+        <p>نویسنده سایت: برلین</p>
+      </body>
+    </html>
+    """
+    return Response(html, mimetype='text/html')
+
+KEEP_ALIVE_CHAT_ID = -1001234567890  # اینجا آیدی گروه یا چت عددی رو بذار
+
+def keep_alive():
+    while True:
+        try:
+            bot.send_message(KEEP_ALIVE_CHAT_ID, "ربات فعاله 🔥")
+        except Exception as e:
+            print("خطا در ارسال پیام خودکار:", e)
+        time.sleep(240)  # هر 4 دقیقه
+
+threading.Thread(target=keep_alive, daemon=True).start()
+
+def run_bot():
+    print("ربات فعال شد...")
+    bot.infinity_polling()
+
+threading.Thread(target=run_bot).start()
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)
