@@ -1,55 +1,561 @@
 <!DOCTYPE html>
-<html>
+<html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>My Free ChatGPT</title>
-  <style>
-    body { font-family: sans-serif; background: #f2f2f2; text-align: center; padding: 20px; }
-    #chat { width: 90%; max-width: 400px; margin: auto; background: white; padding: 10px; border-radius: 10px; }
-    textarea { width: 100%; height: 50px; border-radius: 5px; padding: 5px; }
-    button { margin-top: 5px; padding: 10px; border: none; background: blue; color: white; border-radius: 5px; }
-    .message { text-align: left; margin: 5px 0; }
-    .user { color: blue; }
-    .bot { color: green; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تتریس کلاسیک</title>
+    <style>
+        @font-face {
+            font-family: 'Vazirmatn';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.0/fonts/webfonts/Vazirmatn-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        :root {
+            --bg-color: #000;
+            --text-color: #fff;
+            --border-color: #555;
+            --button-bg: #333;
+            --button-hover-bg: #555;
+            --grid-color: #222;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            flex-direction: column;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        #game-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 900px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            #game-container {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            #controls-touch {
+                display: flex;
+            }
+        }
+
+        #game-board-container {
+            position: relative;
+            background-color: var(--bg-color);
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #tetris-board {
+            display: grid;
+            background-color: var(--grid-color);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-cell {
+            width: 25px;
+            height: 25px;
+            background-color: transparent;
+            border: 1px solid var(--grid-color);
+            box-sizing: border-box;
+        }
+
+        .filled {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+            border-radius: 2px;
+        }
+
+        .filled.I { background-color: #00FFFF; }
+        .filled.J { background-color: #0000FF; }
+        .filled.L { background-color: #FFA500; }
+        .filled.O { background-color: #FFFF00; }
+        .filled.S { background-color: #00FF00; }
+        .filled.T { background-color: #800080; }
+        .filled.Z { background-color: #FF0000; }
+        .filled.ghost { background-color: rgba(255, 255, 255, 0.2); border: 1px dashed rgba(255, 255, 255, 0.5); }
+
+        #sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            background-color: #111;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .stats-block, .next-piece-container, .hold-piece-container {
+            text-align: right;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #222;
+            border: 1px solid #444;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .stats-block h3, .next-piece-container h3, .hold-piece-container h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+            text-align: center;
+        }
+
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        #next-piece-display, #hold-piece-display {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            border: 1px solid #444;
+            box-sizing: content-box;
+        }
+
+        .preview-cell {
+            width: 25px;
+            height: 25px;
+            background-color: transparent;
+            box-sizing: border-box;
+            border: 1px solid #222;
+        }
+        
+        .preview-cell.filled {
+             border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+            border-radius: 2px;
+        }
+
+        #controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        #controls-desktop {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        #controls-touch {
+            display: none;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+            background-color: #111;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .control-button {
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-button:hover {
+            background-color: var(--button-hover-bg);
+        }
+        .control-button:active {
+            transform: scale(0.95);
+        }
+        
+        .toggle-button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        #pause-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px #000;
+            border-radius: 10px;
+        }
+
+        #game-over-modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .modal-content {
+            background-color: #1c1c1c;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
 
-<h2>ChatGPT رایگان من</h2>
-<div id="chat"></div>
+<div id="game-container">
+    <div id="sidebar">
+        <div class="stats-block">
+            <h3>امتیاز و آمار</h3>
+            <div class="stats-item"><span>امتیاز:</span> <span id="score">0</span></div>
+            <div class="stats-item"><span>بهترین رکورد:</span> <span id="high-score">0</span></div>
+            <div class="stats-item"><span>سطح:</span> <span id="level">0</span></div>
+            <div class="stats-item"><span>خطوط پاک شده:</span> <span id="lines">0</span></div>
+        </div>
+        <div class="hold-piece-container">
+            <h3>نگه دار</h3>
+            <div id="hold-piece-display" class="preview-grid"></div>
+        </div>
+        <div class="next-piece-container">
+            <h3>قطعه‌های بعدی</h3>
+            <div id="next-piece-display"></div>
+        </div>
+        <div id="controls-desktop">
+            <button id="pause-button" class="control-button">مکث</button>
+            <button id="restart-button" class="control-button">شروع مجدد</button>
+            <button id="toggle-srs" class="control-button">حالت SRS/کلاسیک</button>
+        </div>
+    </div>
+    
+    <div id="game-board-container">
+        <canvas id="tetris-board"></canvas>
+        <div id="pause-overlay">مکث</div>
+    </div>
+</div>
 
-<textarea id="input" placeholder="سوالت رو بنویس..."></textarea><br>
-<button onclick="sendMessage()">ارسال</button>
+<div id="controls-touch">
+    <button class="control-button" id="touch-rotate">چرخش</button>
+    <button class="control-button" id="touch-left">←</button>
+    <button class="control-button" id="touch-right">→</button>
+    <button class="control-button" id="touch-soft-drop">↓</button>
+    <button class="control-button" id="touch-hard-drop">سقوط سریع</button>
+</div>
+
+<div id="game-over-modal">
+    <div class="modal-content">
+        <h1>بازی تمام شد!</h1>
+        <p>امتیاز شما: <span id="final-score">0</span></p>
+        <p>بهترین رکورد: <span id="modal-high-score">0</span></p>
+        <button id="modal-restart-button" class="control-button">شروع مجدد</button>
+    </div>
+</div>
 
 <script>
-async function sendMessage() {
-  let chat = document.getElementById("chat");
-  let input = document.getElementById("input");
-  let question = input.value.trim();
-  
-  if (!question) return;
+    document.addEventListener('DOMContentLoaded', () => {
 
-  chat.innerHTML += `<div class="message user"><b>شما:</b> ${question}</div>`;
-  input.value = "";
+        // =============================================================
+        // پارامترهای قابل تنظیم
+        // =============================================================
+        const BOARD_WIDTH = 10;
+        const BOARD_HEIGHT = 20;
+        const CELL_SIZE = 30; // اندازه هر سلول بر حسب پیکسل
+        const INITIAL_SPEED = 1000; // سرعت اولیه سقوط بر حسب میلی‌ثانیه
+        const LEVEL_UP_LINES = 10; // تعداد خطوط لازم برای افزایش سطح
+        let isSRSMode = localStorage.getItem('srsMode') === 'true' || false; // حالت چرخش پیش‌فرض
 
-  chat.innerHTML += `<div class="message bot"><b>ربات:</b> در حال فکر کردن...</div>`;
+        // =============================================================
+        // المان‌های DOM
+        // =============================================================
+        const canvas = document.getElementById('tetris-board');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const highScoreElement = document.getElementById('high-score');
+        const levelElement = document.getElementById('level');
+        const linesElement = document.getElementById('lines');
+        const nextPieceDisplay = document.getElementById('next-piece-display');
+        const holdPieceDisplay = document.getElementById('hold-piece-display');
+        const pauseOverlay = document.getElementById('pause-overlay');
+        const pauseButton = document.getElementById('pause-button');
+        const restartButton = document.getElementById('restart-button');
+        const toggleSRSButton = document.getElementById('toggle-srs');
+        const gameOverModal = document.getElementById('game-over-modal');
+        const finalScoreElement = document.getElementById('final-score');
+        const modalHighScoreElement = document.getElementById('modal-high-score');
+        const modalRestartButton = document.getElementById('modal-restart-button');
+        const touchControls = {
+            left: document.getElementById('touch-left'),
+            right: document.getElementById('touch-right'),
+            rotate: document.getElementById('touch-rotate'),
+            softDrop: document.getElementById('touch-soft-drop'),
+            hardDrop: document.getElementById('touch-hard-drop')
+        };
+        const gameBoardContainer = document.getElementById('game-board-container');
 
-  try {
-    let response = await fetch("https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ inputs: question })
-    });
+        // =============================================================
+        // متغیرهای بازی
+        // =============================================================
+        let board = createBoard(BOARD_WIDTH, BOARD_HEIGHT);
+        let score = 0;
+        let highScore = parseInt(localStorage.getItem('highScore')) || 0;
+        let level = 0;
+        let lines = 0;
+        let currentPiece = null;
+        let nextQueue = [];
+        let holdPiece = null;
+        let canHold = true;
+        let isPaused = false;
+        let gameOver = false;
+        let dropCounter = 0;
+        let dropInterval = INITIAL_SPEED;
+        let lastTime = 0;
+        let lockDelayTimeout = null;
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let lastSwipeTime = 0;
 
-    let data = await response.json();
-    let answer = data[0]?.generated_text || "متاسفم، جواب پیدا نشد.";
+        // تعریف قطعه‌ها
+        const pieceTypes = 'IJLOSTZ';
+        const pieces = {
+            'I': [[0,0,0,0], [1,1,1,1], [0,0,0,0], [0,0,0,0]],
+            'J': [[1,0,0], [1,1,1], [0,0,0]],
+            'L': [[0,0,1], [1,1,1], [0,0,0]],
+            'O': [[1,1], [1,1]],
+            'S': [[0,1,1], [1,1,0], [0,0,0]],
+            'T': [[0,1,0], [1,1,1], [0,0,0]],
+            'Z': [[1,1,0], [0,1,1], [0,0,0]]
+        };
+        const pieceColors = {
+            'I': '#00FFFF', 'J': '#0000FF', 'L': '#FFA500', 'O': '#FFFF00',
+            'S': '#00FF00', 'T': '#800080', 'Z': '#FF0000'
+        };
 
-    chat.innerHTML = chat.innerHTML.replace(/در حال فکر کردن.../, answer);
-  } catch (error) {
-    chat.innerHTML = chat.innerHTML.replace(/در حال فکر کردن.../, "خطا در اتصال به مدل.");
-  }
-}
-</script>
+        // سیستم چرخش SRS - Super Rotation System
+        const srsKickData = {
+            'I': {
+                '0>1': [[0,0],[-2,0],[ 1,0],[-2,-1],[ 1,2]],
+                '1>0': [[0,0],[ 2,0],[-1,0],[ 2,1],[-1,-2]],
+                '1>2': [[0,0],[-1,0],[ 2,0],[-1,2],[ 2,-1]],
+                '2>1': [[0,0],[ 1,0],[-2,0],[ 1,-2],[-2,1]],
+                '2>3': [[0,0],[ 2,0],[-1,0],[ 2,1],[-1,-2]],
+                '3>2': [[0,0],[-2,0],[ 1,0],[-2,-1],[ 1,2]],
+                '3>0': [[0,0],[ 1,0],[-2,0],[ 1,-2],[-2,1]],
+                '0>3': [[0,0],[-1,0],[ 2,0],[-1,2],[ 2,-1]]
+            },
+            'JLOSTZ': {
+                '0>1': [[0,0],[-1,0],[-1,1],[ 0,-2],[-1,-2]],
+                '1>0': [[0,0],[ 1,0],[ 1,-1],[ 0,2],[ 1,2]],
+                '1>2': [[0,0],[ 1,0],[ 1,-1],[ 0,2],[ 1,2]],
+                '2>1': [[0,0],[-1,0],[-1,1],[ 0,-2],[-1,-2]],
+                '2>3': [[0,0],[ 1,0],[ 1,1],[ 0,-2],[ 1,-2]],
+                '3>2': [[0,0],[-1,0],[-1,-1],[ 0,2],[-1,2]],
+                '3>0': [[0,0],[-1,0],[-1,-1],[ 0,2],[-1,2]],
+                '0>3': [[0,0],[ 1,0],[ 1,1],[ 0,-2],[ 1,-2]]
+            }
+        };
 
-</body>
-</html>
+        // =============================================================
+        // توابع اصلی بازی
+        // =============================================================
+
+        // تابع ساخت ماتریس تخته بازی
+        function createBoard(w, h) {
+            return Array.from({ length: h }, () => new Array(w).fill(null));
+        }
+
+        // تابع ایجاد قطعه جدید با استفاده از سیستم 7-bag
+        function createPiece() {
+            if (nextQueue.length === 0) {
+                let bag = [...pieceTypes];
+                shuffleArray(bag);
+                nextQueue = nextQueue.concat(bag);
+            }
+            const pieceName = nextQueue.shift();
+            return {
+                name: pieceName,
+                matrix: pieces[pieceName],
+                pos: { x: Math.floor(BOARD_WIDTH / 2) - Math.floor(pieces[pieceName][0].length / 2), y: 0 },
+                color: pieceColors[pieceName],
+                rotation: 0
+            };
+        }
+
+        // تابع به هم زدن آرایه (مخصوص 7-bag)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // تابع چرخش ماتریس
+        function rotateMatrix(matrix, dir) {
+            for (let y = 0; y < matrix.length; ++y) {
+                for (let x = 0; x < y; ++x) {
+                    [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
+                }
+            }
+            if (dir > 0) {
+                matrix.forEach(row => row.reverse());
+            } else {
+                matrix.reverse();
+            }
+            return matrix;
+        }
+
+        // تابع بررسی برخورد
+        function collide(piece, board) {
+            const m = piece.matrix;
+            const o = piece.pos;
+            for (let y = 0; y < m.length; ++y) {
+                for (let x = 0; x < m[y].length; ++x) {
+                    if (m[y][x] !== 0 &&
+                        (board[y + o.y] && board[y + o.y][x + o.x]) !== null) {
+                        return true;
+                    }
+                    if (m[y][x] !== 0 && (y + o.y >= BOARD_HEIGHT || x + o.x < 0 || x + o.x >= BOARD_WIDTH)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        // تابع چرخش قطعه
+        function rotatePiece(dir) {
+            const originalMatrix = currentPiece.matrix;
+            const originalPos = { x: currentPiece.pos.x, y: currentPiece.pos.y };
+            const originalRotation = currentPiece.rotation;
+
+            currentPiece.matrix = rotateMatrix(currentPiece.matrix, dir);
+            currentPiece.rotation = (currentPiece.rotation + dir + 4) % 4;
+
+            if (isSRSMode) {
+                // پیاده‌سازی Super Rotation System (SRS)
+                const kickName = currentPiece.name === 'I' ? 'I' : 'JLOSTZ';
+                const rotationString = `${originalRotation}>${currentPiece.rotation}`;
+                const kickOffsets = srsKickData[kickName][rotationString];
+
+                for (let i = 0; i < kickOffsets.length; i++) {
+                    currentPiece.pos.x = originalPos.x + kickOffsets[i][0];
+                    currentPiece.pos.y = originalPos.y - kickOffsets[i][1];
+                    if (!collide(currentPiece, board)) {
+                        return; // چرخش موفق
+                    }
+                }
+            } else {
+                // پیاده‌سازی چرخش ساده کلاسیک با Wall-kick
+                let offset = 1;
+                while (collide(currentPiece, board)) {
+                    currentPiece.pos.x += offset;
+                    offset = -(offset + (offset > 0 ? 1 : -1));
+                    if (offset > currentPiece.matrix[0].length) {
+                        currentPiece.matrix = originalMatrix;
+                        currentPiece.pos = originalPos;
+                        currentPiece.rotation = originalRotation;
+                        return; // چرخش ناموفق
+                    }
+                }
+            }
+        }
+        
+        // تابع ترکیب قطعه با تخته
+        function merge(piece, board) {
+            piece.matrix.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) {
+                        board[y + piece.pos.y][x + piece.pos.x] = piece.name;
+                    }
+                });
+            });
+        }
+
+        // تابع اسکن و پاک کردن خطوط
+        function clearLines() {
+            let linesCleared = 0;
+            outer: for (let y = board.length - 1; y >= 0; --y) {
+                for (let x = 0; x < board[y].length; ++x) {
+                    if (board[y][x] === null) {
+                        continue outer;
+                    }
+                }
+                const row = board.splice(y, 1)[0].fill(null);
+                board.unshift(row);
+                y++;
+                linesCleared++;
+            }
+            return linesCleared;
+        }
+
+        // تابع به‌روزرسانی امتیاز
+        function updateScore(linesCleared) {
+            let points = 0;
+            switch (linesCleared) {
+                case 1: points = 40; break;
+                case 2: points = 100; bre
